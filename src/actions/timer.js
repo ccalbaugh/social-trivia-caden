@@ -7,10 +7,10 @@ export function updateTimer(setTime) {
     };
 } 
 
-export function startTimer(isTimerStarted) {
+export function startTimer(isTimerRunning) {
     return {
         type: types.START_TIMER,
-        isTimerStarted
+        isTimerRunning
     };
 } 
 

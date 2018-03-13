@@ -16,11 +16,11 @@ it('creates an action to update the timer', () => {
 
 it('creates an action to start the timer', () => {
 
-    const mockIsTimerStarted = true;
+    const mockIsTimerRunning = true;
 
-    const expectedAction = { type: types.START_TIMER, isTimerStarted: mockIsTimerStarted };
+    const expectedAction = { type: types.START_TIMER, isTimerRunning: mockIsTimerRunning };
 
-    expect(actions.startTimer(mockIsTimerStarted)).to.equal(expectedAction);
+    expect(actions.startTimer(mockIsTimerRunning)).to.equal(expectedAction);
 
 });
 
