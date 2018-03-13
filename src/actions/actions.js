@@ -5,4 +5,11 @@ export function submitAnswer(answer) {
         type: types.SUBMIT_ANSWER,
         answer
     };
+}
+
+export function startTimer(isTimerStarted) {
+    return {
+        type: types.START_TIMER,
+        isTimerStarted
+    };
 } 
