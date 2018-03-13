@@ -7,6 +7,13 @@ export function submitAnswer(answer) {
     };
 }
 
+export function updateTimer(setTime) {
+    return {
+        type: types.UPDATE_TIMER,
+        setTime
+    };
+} 
+
 export function startTimer(isTimerStarted) {
     return {
         type: types.START_TIMER,
