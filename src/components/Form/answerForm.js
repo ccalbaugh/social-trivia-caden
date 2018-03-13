@@ -10,31 +10,31 @@ const FormDisplay = ({
 }) => (
     <section>
         <Form>
-        <div>
+        {/* <div className='answer-input-container'>
         { touched.answer && errors.answer && <p>{errors.answer}</p> }
         <Field name="answer" placeholder="input answer"/>
         </div>
-        <button disabled={isSubmitting}>Submit</button>
+        <button disabled={isSubmitting}>Submit</button> */}
         </Form>     
     </section>
 )
 
 const AnswerForm = withFormik({
-  mapPropsToValues({ answer }) {
-    return {
-      answer: answer || ''
-    }
-  },
-  validationSchema: Yup.object().shape({
-    answer: Yup.string().required('Answer is required.')
-  }),
+//   mapPropsToValues({ answer }) {
+//     return {
+//       answer: answer || ''
+//     }
+//   },
+//   validationSchema: Yup.object().shape({
+//     answer: Yup.string().required('Answer is required.')
+//   }),
   handleSubmit(values, { resetForm, setSubmitting }) {
-    setTimeout(() => {
-        resetForm()
-        setSubmitting(false)
-      }, 2000)
+    // setTimeout(() => {
+    //     resetForm()
+    //     setSubmitting(false)
+    //   }, 2000)
   },
-  displayName: 'Answer Form'
+  //displayName: 'Answer Form'
 })(FormDisplay)
 
 export default AnswerForm
