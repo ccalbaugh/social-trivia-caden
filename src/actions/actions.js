@@ -13,3 +13,10 @@ export function startTimer(isTimerStarted) {
         isTimerStarted
     };
 } 
+
+export function resetTimer(setTime) {
+    return {
+        type: types.RESET_TIMER,
+        setTime
+    };
+} 
