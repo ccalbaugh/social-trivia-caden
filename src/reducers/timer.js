@@ -13,14 +13,24 @@ function resetTimer(state, action) {
     return {
         ...state,
         isTimerRunning: false,
-        currentTime: action.setTime
+        currentTime: action.defaultTime
+    };
+}
+
+function updateTimer(state, action) {
+    return {
+        ...state,
+        isTimerRunning: false,
+        currentTime: action.setTime,
+        defaultTime: action.setTime
     };
 }
 
 export default function(state = {}, action) {
     const actionsHandler = {
         [types.START_TIMER]: startTimer,
-        [types.RESET_TIMER]: resetTimer
+        [types.RESET_TIMER]: resetTimer,
+        [types.UPDATE_TIMER]: updateTimer
     };
 
     const reducer = actionsHandler[action.type];
