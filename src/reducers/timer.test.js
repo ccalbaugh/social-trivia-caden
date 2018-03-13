@@ -39,4 +39,12 @@ describe('Given `timerReducer`', () => {
 
     });
 
+    it('should handle DECREMENT_TIMER', () => {
+
+        const expectedState = { currentTime: mockDefaultTime - 1 };
+
+        expect(timerReducer(undefined, { type: types.DECREMENT_TIMER, timeLeft: mockDefaultTime })).to.equal(expectedState);
+
+    });
+
 });
