@@ -2,6 +2,7 @@ import { expect } from 'code';
 import * as types from '../actions/actionTypes';
 import timerReducer from './timer';
 
+const mockDefaultTime = 60;
 
 describe('Given `timerReducer`', () => {
 
@@ -18,6 +19,14 @@ describe('Given `timerReducer`', () => {
         const expectedState = { isTimerRunning: true };
 
         expect(timerReducer(undefined, { type: types.START_TIMER, isTimerRunning: true })).to.equal(expectedState);
+
+    });
+
+    it('should handle RESET_TIMER', () => {
+
+        const expectedState = { currentTime: mockDefaultTime, isTimerRunning: false };
+
+        expect(timerReducer(undefined, { type: types.RESET_TIMER, setTime: mockDefaultTime })).to.equal(expectedState);
 
     });
 
