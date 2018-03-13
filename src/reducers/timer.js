@@ -1,5 +1,7 @@
 import * as types from '../actions/actionTypes';
 
+const defaultTime = 60;
+
 function startTimer(state, action) {
     return {
         ...state,
@@ -7,9 +9,18 @@ function startTimer(state, action) {
     };
 }
 
+function resetTimer(state, action) {
+    return {
+        ...state,
+        isTimerRunning: false,
+        currentTime: action.setTime
+    };
+}
+
 export default function(state = {}, action) {
     const actionsHandler = {
-        [types.START_TIMER]: startTimer
+        [types.START_TIMER]: startTimer,
+        [types.RESET_TIMER]: resetTimer
     };
 
     const reducer = actionsHandler[action.type];
