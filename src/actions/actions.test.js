@@ -14,6 +14,16 @@ it('creates an action to submit an answer', () => {
 
 });
 
+it('creates an action to update the timer', () => {
+
+    const mockSetTime = 10;
+
+    const expectedAction = { type: types.UPDATE_TIMER, setTime: mockSetTime };
+
+    expect(actions.updateTimer(mockSetTime)).to.equal(expectedAction);
+
+});
+
 it('creates an action to start the timer', () => {
 
     const mockIsTimerStarted = true;
