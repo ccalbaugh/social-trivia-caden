@@ -17,11 +17,13 @@ describe('Given `AnswerForm`' ,() => {
 
     }
     
-    it('it should exist as a `section` tag', () => {
+    it('it should exist as a `Formik` tag', () => {
 
         const component = renderComponent()
         
-        expect(component.type()).to.equal('section')
+        expect(component.find('Formik').exists()).to.be.true()
 
     })
+
+
 })
