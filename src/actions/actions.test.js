@@ -13,3 +13,13 @@ it('creates an action to submit an answer', () => {
     expect(actions.submitAnswer(mockAnswer)).to.equal(expectedAction);
 
 });
+
+it('creates an action to start the timer', () => {
+
+    const mockIsTimerStarted = true;
+
+    const expectedAction = { type: types.START_TIMER, isTimerStarted: mockIsTimerStarted };
+
+    expect(actions.startTimer(mockIsTimerStarted)).to.equal(expectedAction);
+
+});
