@@ -23,3 +23,13 @@ it('creates an action to start the timer', () => {
     expect(actions.startTimer(mockIsTimerStarted)).to.equal(expectedAction);
 
 });
+
+it('creates an action to reset the timer', () => {
+
+    const mockSetTime = 10;
+
+    const expectedAction = { type: types.RESET_TIMER, setTime: mockSetTime };
+
+    expect(actions.resetTimer(mockSetTime)).to.equal(expectedAction);
+
+});
