@@ -14,10 +14,10 @@ export function startTimer(isTimerRunning) {
     };
 } 
 
-export function resetTimer(setTime) {
+export function resetTimer(defaultTime) {
     return {
         type: types.RESET_TIMER,
-        setTime
+        defaultTime
     };
 } 
 
