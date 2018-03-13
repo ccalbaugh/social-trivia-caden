@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 function submitAnswer(state, action) {
     return {
         ...state,
-        answers: action.answer
+        [action.id]: action.answer
     };
 }
 

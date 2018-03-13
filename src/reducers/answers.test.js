@@ -3,6 +3,7 @@ import * as types from '../actions/actionTypes';
 import answersReducer from './answers';
 
 const mockAnswer = 10;
+const mockId = 1;
 
 describe('Given `answersReducer`', () => {
 
@@ -16,9 +17,9 @@ describe('Given `answersReducer`', () => {
 
     it('should handle SUBMIT_ANSWER', () => {
 
-        const expectedState = { answers: 10 };
+        const expectedState = {  1:  10  };
 
-        expect(answersReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer })).to.equal(expectedState);
+        expect(answersReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId })).to.equal(expectedState);
 
     });
 
