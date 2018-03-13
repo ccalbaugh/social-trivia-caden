@@ -1,7 +1,16 @@
 import * as types from '../actions/actionTypes'
 
+function submitAnswer(state, action) {
+    return {
+        ...state,
+        answers: action.answer
+    };
+}
+
 export default function(state = {}, action) {
-    const actionsHandler = {};
+    const actionsHandler = {
+        [types.SUBMIT_ANSWER]: submitAnswer
+    };
 
     const reducer = actionsHandler[action.type];
 
