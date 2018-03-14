@@ -9,7 +9,8 @@ describe('Given `Timer`' ,() => {
     let component,
         sandbox,
         controlTimerSpy,
-        resetTimerSpy
+        resetTimerSpy,
+        updateTimerSpy
 
 
     const currentTimeText = '60';
@@ -36,7 +37,12 @@ describe('Given `Timer`' ,() => {
         sandbox = sinon.createSandbox()
         controlTimerSpy = sandbox.spy()
         resetTimerSpy = sandbox.spy()
+        updateTimerSpy = sandbox.spy()
         component = renderComponent(initialProps)
+    })
+
+    afterEach(() => {
+        sandbox.restore()
     })
     
     it('it should exist as a `section` tag', () => {
@@ -45,9 +51,28 @@ describe('Given `Timer`' ,() => {
 
     })
 
-    it('should contain a `.current-time` which contains a currentTime', () => {
+    it('should contain a `.timer` input which contains a currentTime', () => {
 
-        expect(component.find('.current-time').props().value).to.equal(currentTimeText)
+        expect(component.find('.timer').props().value).to.equal(currentTimeText)
+
+    })
+
+    describe('Given `.timer`', () => {
+
+        describe('When it is updated', () => {
+
+            beforeEach(() => {
+                component = renderComponent({ updateTimer: updateTimerSpy })
+                component.find('.timer').simulate('change', { target: { value: '40' } })
+            })
+
+            it('should dispatch `updateTimer`', () => {
+
+                sinon.assert.calledOnce(updateTimerSpy)
+
+            })
+
+        })
 
     })
 
