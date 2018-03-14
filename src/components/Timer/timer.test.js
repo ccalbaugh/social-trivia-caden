@@ -13,10 +13,11 @@ describe('Given `Timer`' ,() => {
         updateTimerSpy
 
 
-    const currentTimeText = '60';
+    const currentTime = 60
+    const mockDefaultTime = 40
 
     const initialProps = {
-        currentTime: currentTimeText,
+        currentTime,
         controlTimer: controlTimerSpy,
         resetTimer: resetTimerSpy,
         isTimerRunning: false
@@ -53,7 +54,7 @@ describe('Given `Timer`' ,() => {
 
     it('should contain a `.timer` input which contains a currentTime', () => {
 
-        expect(component.find('.timer').props().value).to.equal(currentTimeText)
+        expect(component.find('.timer').props().value).to.equal(currentTime)
 
     })
 
@@ -141,6 +142,31 @@ describe('Given `Timer`' ,() => {
     it('should contain a `.reset-timer-button`', () => {
 
         expect(component.find('.reset-timer-button').type()).to.equal('button')
+
+    })
+
+    describe('Given `.reset-timer-button`', () => {
+
+        describe('When it is clicked', () => {
+
+            beforeEach(() => {
+                component = renderComponent({ defaultTime: currentTime, resetTimer: resetTimerSpy })
+                component.find('.reset-timer-button').simulate('click')
+            })
+
+            it('should dispatch `resetTimer`', () => {
+
+                sinon.assert.calledOnce(resetTimerSpy)
+
+            })
+
+            it('should reset the `currentTime` to the `defaultTime`', () => {
+
+                expect(component.state().currentTime).to.equal(currentTime)
+
+            })
+
+        })
 
     })
 })
