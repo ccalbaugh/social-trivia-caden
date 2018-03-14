@@ -47,7 +47,7 @@ describe('Given `Timer`' ,() => {
 
     it('should contain a `.current-time` which contains a currentTime', () => {
 
-        expect(component.find('.current-time').text()).to.equal(currentTimeText)
+        expect(component.find('.current-time').props().value).to.equal(currentTimeText)
 
     })
 
