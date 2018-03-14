@@ -13,23 +13,28 @@ function handleControlTimer(isTimerRunning) {
 }
 
 function handleTimerUpdate(e) { 
-    const currentTime = parseInt(e.target.value, 10)
+    const currentTime = parseInt(e.target.value, 10) || 0
     this.props.updateTimer(currentTime)
 }
 
 export class Timer extends Component {
 
     state = {
-        currentTime: this.props.currentTime
+        currentTime: this.props.currentTime 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.currentTime !== this.props.currentTime &&
+        this.setState({ currentTime: nextProps.currentTime })
     }
 
     render() {
         const { currentTime, isTimerRunning, defaultTime } = this.props
         return (
-            <section className="timer">
-                <input className="current-time"
+            <section className="timer-container">
+                <input className="timer"
                        value={this.state.currentTime}
-                       onChange={handleTimerUpdate.bind(this)}       
+                       onChange={(e) => handleTimerUpdate.call(this, e)}       
                 />
                 <button className="control-timer-button"
                         onClick={() => handleControlTimer.call(this, !isTimerRunning)}
@@ -54,9 +59,9 @@ Timer.defaultProps = {
 
 function mapStateToProps(state) {
     return {
-        currentTime: state.currentTime,
-        isTimerRunning: state.isTimerRunning,
-        defaultTime: state.defaultTime
+        currentTime: state.timer.currentTime,
+        isTimerRunning: state.timer.isTimerRunning,
+        defaultTime: state.timer.defaultTime
     };
 }
 
