@@ -8,7 +8,7 @@ class Timer extends Component {
             <section>
                 <span className="current-time">{currentTime}</span>
                 <button className="start-timer-button" disabled={isTimerRunning}>Start</button>
-                <button className="pause-timer-button">Start</button>
+                <button className="pause-timer-button" disabled={!isTimerRunning}>Start</button>
                 <button className="reset-timer-button">Start</button>                                                
             </section>
         )
