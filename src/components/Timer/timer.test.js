@@ -2,14 +2,13 @@ import { expect } from 'code'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import Timer from './Timer'
+import { Timer } from './Timer'
 
 describe('Given `Timer`' ,() => {
 
     let component,
         sandbox,
-        startTimerSpy,
-        pauseTimerSpy,
+        controlTimerSpy,
         resetTimerSpy
 
 
@@ -17,9 +16,9 @@ describe('Given `Timer`' ,() => {
 
     const initialProps = {
         currentTime: currentTimeText,
-        startTimer: startTimerSpy,
-        pauseTimer: pauseTimerSpy,
-        resetTimer: resetTimerSpy
+        controlTimer: controlTimerSpy,
+        resetTimer: resetTimerSpy,
+        isTimerRunning: false
     }
     
     function requiredProps(overrides= {}) {
@@ -35,8 +34,7 @@ describe('Given `Timer`' ,() => {
 
     beforeEach(() => {
         sandbox = sinon.createSandbox()
-        startTimerSpy = sandbox.spy()
-        pauseTimerSpy = sandbox.spy()
+        controlTimerSpy = sandbox.spy()
         resetTimerSpy = sandbox.spy()
         component = renderComponent(initialProps)
     })
@@ -49,7 +47,7 @@ describe('Given `Timer`' ,() => {
 
     it('should contain a `.current-time` which contains a currentTime', () => {
 
-        expect(component.find('.current-time').text()).to.equal(mockCurrentTimeText)
+        expect(component.find('.current-time').text()).to.equal(currentTimeText)
 
     })
 
@@ -77,9 +75,13 @@ describe('Given `Timer`' ,() => {
 
             it('should call `startTimer`', () => {
 
+                component = renderComponent({ controlTimer: controlTimerSpy })
+
                 component.find('.start-timer-button').simulate('click')
 
-                sinon.assert.calledOnce(startTimerSpy)
+                console.log(component.props())
+
+                sinon.assert.calledOnce(controlTimerSpy)
 
             })
 
