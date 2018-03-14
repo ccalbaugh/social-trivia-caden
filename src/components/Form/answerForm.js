@@ -6,35 +6,36 @@ const FormDisplay = ({
   values,
   errors,
   touched,
-  isSubmitting
+  isSubmitting,
+  isValid
 }) => (
-    <section>
+    <section>       
         <Form>
-        {/* <div className='answer-input-container'>
-        { touched.answer && errors.answer && <p>{errors.answer}</p> }
-        <Field name="answer" placeholder="input answer"/>
+        <div className='answer-input-container'>
+        { !isValid && <p className='answer-input-errors'>{errors.answer}</p> }
+        <Field className='answer-input' name="answer" placeholder="input answer" value={values.answer}/> 
         </div>
-        <button disabled={isSubmitting}>Submit</button> */}
+         <button type="submit" className='answer-submit-btn' disabled={isSubmitting}>Submit</button>
         </Form>     
     </section>
 )
 
 const AnswerForm = withFormik({
-//   mapPropsToValues({ answer }) {
-//     return {
-//       answer: answer || ''
-//     }
-//   },
-//   validationSchema: Yup.object().shape({
-//     answer: Yup.string().required('Answer is required.')
-//   }),
-  handleSubmit(values, { resetForm, setSubmitting }) {
-    // setTimeout(() => {
-    //     resetForm()
-    //     setSubmitting(false)
-    //   }, 2000)
+  mapPropsToValues({ answer }) {
+    return {
+      answer: answer || ''
+    }
   },
-  //displayName: 'Answer Form'
+  validationSchema: Yup.object().shape({
+    answer: Yup.string().required('Answer is required.')
+  }),
+  handleSubmit(values, { resetForm, setSubmitting }) {
+    setTimeout(() => {
+        resetForm()
+        setSubmitting(false)
+      }, 2000)
+  },
+  displayName: 'Answer Form'
 })(FormDisplay)
 
 export default AnswerForm

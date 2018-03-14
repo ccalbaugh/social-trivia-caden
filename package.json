@@ -24,10 +24,5 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "react-test-renderer": "^16.2.0",
     "sinon": "^4.4.4"
-  },
-   "jest": {
-    "collectCoverageFrom": [
-      "**/components/**.js"
-    ]
   }
 }

@@ -5,7 +5,7 @@ import React from 'react'
 import AnswerForm from './AnswerForm'
 
 describe('Given `AnswerForm`' ,() => {
-    let sandbox 
+    let sandbox
 
     function requiredProps(overrides= {}) {
         return {
@@ -29,22 +29,22 @@ describe('Given `AnswerForm`' ,() => {
         sandbox.restore()
     })
 
-    it('it should contain a `Formik`', () => {
+    it('it should contain a `Formik` form', () => {
 
         const component = renderComponent()
         
-        expect(component.find('Formik').exists()).to.be.true()
+        expect(component.find('Formik').length).to.equal(1) 
 
     })
 
-    describe('Given `Formik`',() => {
+    describe('Given `Formik` form',() => {
 
         it('it should contain a `FormDisplay`', () => {
 
             const component = renderComponent()
             
-            expect(component.find('Formik').dive().find('FormDisplay').exists()).to.be.true()
-    
+            expect(component.dive().find('FormDisplay').exists()).to.be.true()
+
         })
 
         describe('Given `FormDisplay`', () => {
@@ -52,38 +52,60 @@ describe('Given `AnswerForm`' ,() => {
             it('it should contain a `section` tag', () => {
 
                 const component = renderComponent()
-                
-                expect(component.find('Formik').dive().find('FormDisplay').dive().find('section').exists()).to.be.true()
-        
+                const section = component.dive().find('FormDisplay').dive().find('section')
+               
+                expect(section.length).to.equal(1) 
+                   
             })
 
             it('it should contain a `Form`', () => {
 
                 const component = renderComponent()
-                
-                expect(component.find('Formik').dive().find('FormDisplay').dive().find('Form').exists()).to.be.true()
-        
+                const form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
+
+                expect(form.length).to.equal(1) 
+
             })
 
-            // describe('Given `Form`', () => {
+            describe('Given `Form`', () => {
+                let component, form 
 
-            //     it('it should contain a `div` tag with a specific class name', () => {
+                beforeEach(() => {
 
-            //         const component = renderComponent({handleSubmit: sandbox.spy()})
-            //         console.log('TEST',component.find('Formik').dive().find('FormDisplay').dive().find('Form').dive().find('form').find('.answer-input-container'))
-            //         //expect(component.find('Formik').dive().find('FormDisplay').dive().find('Form').find('.answer-input-container').length).to.equal(1)
-            
-            //     })
+                    component = renderComponent()
 
-            //     // it('it should contain a `Field` and a `button`', () => {
-    
-            //     //     const component = renderComponent()
+                    form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
+
+                })
+
+                it('it should contain a `div` tag with a specific class name', () => {
+
+                    expect(form.find('.answer-input-container').length).to.equal(1)  
+
+                })
+
+                it('it should contain a `Field` and a `button`', () => {
                     
-            //     //     expect(component.find('Formik').dive().find('FormDisplay').dive().find('Form').find('Field').exists()).to.be.true()
-            //     //     expect(component.find('Formik').dive().find('FormDisplay').dive().find('Form').find('button').exists()).to.be.true()
-            
-            //     // })
-            // })
+                    expect(form.find('.answer-input').length).to.equal(1)
+                    expect(form.find('.answer-submit-btn').length).to.equal(1)
+                
+                })
+
+                describe('When the form encounters errors', () => {
+
+                     it('it should contain a `p` tag for error message', () => {
+
+                        const component = renderComponent({
+                            isVaild: false
+                        })
+
+                        const form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
+
+                        expect(form.find('.answer-input-errors').length).to.equal(1) 
+                        
+                    })
+                })
+            })
         })        
     })
 })
