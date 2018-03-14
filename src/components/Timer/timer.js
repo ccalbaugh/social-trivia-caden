@@ -17,6 +17,10 @@ function handleTimerUpdate(e) {
     this.props.updateTimer(currentTime)
 }
 
+function handleTimerReset() {
+    this.props.resetTimer(this.props.defaultTime)
+}
+
 export class Timer extends Component {
 
     state = {
@@ -34,14 +38,18 @@ export class Timer extends Component {
             <section className="timer-container">
                 <input className="timer"
                        value={this.state.currentTime}
-                       onChange={(e) => handleTimerUpdate.call(this, e)}       
+                       onChange={handleTimerUpdate.bind(this)}       
                 />
                 <button className="control-timer-button"
                         onClick={() => handleControlTimer.call(this, !isTimerRunning)}
                 >
                     { isTimerRunning ? 'Pause' : 'Start' }
                 </button>
-                <button className="reset-timer-button">Reset</button>             
+                <button className="reset-timer-button"
+                        onClick={handleTimerReset.bind(this)}
+                >
+                    Reset
+                </button>             
             </section>
         )
     }
