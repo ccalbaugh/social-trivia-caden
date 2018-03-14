@@ -77,6 +77,34 @@ describe('Given `Timer`' ,() => {
 
     })
 
+    describe('Given `.pause-timer-button', () => {
+
+        describe('when the timer is running', () => {
+            
+            it('should be enabled', () => {
+
+                component = renderComponent({ isTimerRunning: true })               
+
+                expect(component.find('.pause-timer-button').props().disabled).to.be.false()
+
+            })
+
+        })
+
+        describe('when the timer is stopped', () => {
+            
+            it('should be disabled', () => {
+
+                component = renderComponent({ isTimerRunning: false })
+
+                expect(component.find('.pause-timer-button').props().disabled).to.be.true()
+
+            })
+
+        })
+
+    })
+
     it('should contain a `.reset-timer-button`', () => {
 
         expect(component.find('.reset-timer-button').type()).to.equal('button')
