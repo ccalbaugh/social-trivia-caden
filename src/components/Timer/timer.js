@@ -23,7 +23,7 @@ export class Timer extends Component {
                         onClick={controlTimerClick.bind(this, isTimerRunning)}
                 >Start</button>
                 <button className="pause-timer-button" disabled={!isTimerRunning}>Pause</button>
-                <button className="reset-timer-button">Reset</button>                                                
+                <button className="reset-timer-button">Reset</button>             
             </section>
         )
     }
