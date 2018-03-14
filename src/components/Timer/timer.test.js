@@ -24,4 +24,12 @@ describe('Given `Timer`' ,() => {
         expect(component.type()).to.equal('section')
 
     })
+
+    it('should contain a `.current-time`', () => {
+
+        const component = renderComponent()
+
+        expect(component.find('.current-time').type()).to.equal('span')
+
+    })
 })
