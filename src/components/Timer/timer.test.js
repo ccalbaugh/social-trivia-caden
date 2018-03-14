@@ -1,17 +1,29 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
 import React from 'react'
 import Timer from './Timer'
 
 describe('Given `Timer`' ,() => {
 
-    let component
+    let component,
+        sandbox,
+        startTimerSpy,
+        pauseTimerSpy,
+        resetTimerSpy
 
-    const mockCurrentTimeText = '60';
+
+    const currentTimeText = '60';
+
+    const initialProps = {
+        currentTime: currentTimeText,
+        startTimer: startTimerSpy,
+        pauseTimer: pauseTimerSpy,
+        resetTimer: resetTimerSpy
+    }
     
     function requiredProps(overrides= {}) {
         return {
-            currentTime: mockCurrentTimeText,
             ...overrides
         }
     }
@@ -22,7 +34,11 @@ describe('Given `Timer`' ,() => {
     }
 
     beforeEach(() => {
-        component = renderComponent()
+        sandbox = sinon.createSandbox()
+        startTimerSpy = sandbox.spy()
+        pauseTimerSpy = sandbox.spy()
+        resetTimerSpy = sandbox.spy()
+        component = renderComponent(initialProps)
     })
     
     it('it should exist as a `section` tag', () => {
@@ -45,18 +61,6 @@ describe('Given `Timer`' ,() => {
 
     describe('Given `.start-timer-button', () => {
 
-        describe('when the timer is running', () => {
-            
-            it('should be disabled', () => {
-
-                component = renderComponent({ isTimerRunning: true })               
-
-                expect(component.find('.start-timer-button').props().disabled).to.be.true()
-
-            })
-
-        })
-
         describe('when the timer is stopped', () => {
             
             it('should be enabled', () => {
@@ -65,6 +69,30 @@ describe('Given `Timer`' ,() => {
 
                 expect(component.find('.start-timer-button').props().disabled).to.be.false()
 
+            })
+
+        })
+
+        describe('when `.start-timer-button` is clicked', () => {
+
+            it('should call `startTimer`', () => {
+
+                component.find('.start-timer-button').simulate('click')
+
+                sinon.assert.calledOnce(startTimerSpy)
+
+            })
+
+            describe('when the timer is running', () => {
+            
+                it('should be disabled', () => {
+    
+                    component = renderComponent({ isTimerRunning: true })               
+    
+                    expect(component.find('.start-timer-button').props().disabled).to.be.true()
+    
+                })
+    
             })
 
         })
