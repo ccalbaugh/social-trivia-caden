@@ -1,6 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import SocialTriviaApp from './components/SocialTriviaApp';
 import answers from './reducers/answers';
