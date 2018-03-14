@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const defaultTime = 60;
 
-function startTimer(state, action) {
+function controlTimer(state, action) {
     return {
         ...state,
         isTimerRunning: action.isTimerRunning
@@ -35,7 +35,7 @@ function decrementTimer(state, action) {
 
 export default function(state = {}, action) {
     const actionsHandler = {
-        [types.START_TIMER]: startTimer,
+        [types.CONTROL_TIMER]: controlTimer,
         [types.RESET_TIMER]: resetTimer,
         [types.UPDATE_TIMER]: updateTimer,
         [types.DECREMENT_TIMER]: decrementTimer

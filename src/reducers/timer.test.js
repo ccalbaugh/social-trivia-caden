@@ -15,11 +15,11 @@ describe('Given `timerReducer`', () => {
 
     });
 
-    it('should handle START_TIMER', () => {
+    it('should handle CONTROL_TIMER', () => {
 
         const expectedState = { isTimerRunning: true };
 
-        expect(timerReducer(undefined, { type: types.START_TIMER, isTimerRunning: true })).to.equal(expectedState);
+        expect(timerReducer(undefined, { type: types.CONTROL_TIMER, isTimerRunning: true })).to.equal(expectedState);
 
     });
 
