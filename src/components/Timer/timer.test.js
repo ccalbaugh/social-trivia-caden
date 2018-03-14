@@ -51,83 +51,61 @@ describe('Given `Timer`' ,() => {
 
     })
 
-    it('should contain a `.start-timer-button`', () => {
+    it('should contain a `.control-timer-button`', () => {
 
-        expect(component.find('.start-timer-button').type()).to.equal('button')
+        expect(component.find('.control-timer-button').type()).to.equal('button')
 
     })
 
-    describe('Given `.start-timer-button', () => {
+    describe('Given `.control-timer-button', () => {
 
         describe('when the timer is stopped', () => {
             
-            it('should be enabled', () => {
+            it('should contain the text `Start`', () => {
 
-                component = renderComponent({ isTimerRunning: false })
-
-                expect(component.find('.start-timer-button').props().disabled).to.be.false()
+                expect(component.find('.control-timer-button').text()).to.equal('Start')
 
             })
 
-        })
+            describe('When the button is clicked', () => {
 
-        describe('when `.start-timer-button` is clicked', () => {
+                it('should call controlTimer to update the state', () => {
 
-            it('should call `startTimer`', () => {
+                    component = renderComponent({ controlTimer: controlTimerSpy })
 
-                component = renderComponent({ controlTimer: controlTimerSpy })
-
-                component.find('.start-timer-button').simulate('click')
-
-                console.log(component.props())
-
-                sinon.assert.calledOnce(controlTimerSpy)
-
-            })
-
-            describe('when the timer is running', () => {
-            
-                it('should be disabled', () => {
+                    component.find('.control-timer-button').simulate('click')
     
-                    component = renderComponent({ isTimerRunning: true })               
-    
-                    expect(component.find('.start-timer-button').props().disabled).to.be.true()
-    
+                    sinon.assert.calledOnce(controlTimerSpy)
+                
                 })
+
+            })
+
+        })
+
+        describe('when the timer is started', () => {
+
+            beforeEach(() => {
+                component = renderComponent({ isTimerRunning: true })
+            })
+            
+            it('should contain the text `Pause`', () => {
+
+                expect(component.find('.control-timer-button').text()).to.equal('Pause')
+
+            })
+
+            describe('When the button is clicked', () => {
+
+                it('should call controlTimer to update the state', () => {
+
+                    component = renderComponent({ controlTimer: controlTimerSpy })
+
+                    component.find('.control-timer-button').simulate('click')
     
-            })
-
-        })
-
-    })
-
-    it('should contain a `.pause-timer-button`', () => {
-
-        expect(component.find('.pause-timer-button').type()).to.equal('button')
-
-    })
-
-    describe('Given `.pause-timer-button', () => {
-
-        describe('when the timer is running', () => {
-            
-            it('should be enabled', () => {
-
-                component = renderComponent({ isTimerRunning: true })               
-
-                expect(component.find('.pause-timer-button').props().disabled).to.be.false()
-
-            })
-
-        })
-
-        describe('when the timer is stopped', () => {
-            
-            it('should be disabled', () => {
-
-                component = renderComponent({ isTimerRunning: false })
-
-                expect(component.find('.pause-timer-button').props().disabled).to.be.true()
+                    sinon.assert.calledOnce(controlTimerSpy)
+                
+                })
 
             })
 
