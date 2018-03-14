@@ -1,7 +1,5 @@
 import * as types from '../actions/actionTypes';
 
-const defaultTime = 60;
-
 function controlTimer(state, action) {
     return {
         ...state,
