@@ -4,23 +4,13 @@ import sinon from 'sinon';
 import * as actions from './timer';
 import * as types from './actionTypes';
 
-it('creates an action to update the timer', () => {
-
-    const mockSetTime = 10;
-
-    const expectedAction = { type: types.UPDATE_TIMER, setTime: mockSetTime };
-
-    expect(actions.updateTimer(mockSetTime)).to.equal(expectedAction);
-
-});
-
-it('creates an action to start the timer', () => {
+it('creates an action to control the timer', () => {
 
     const mockIsTimerRunning = true;
 
-    const expectedAction = { type: types.START_TIMER, isTimerRunning: mockIsTimerRunning };
+    const expectedAction = { type: types.CONTROL_TIMER, isTimerRunning: mockIsTimerRunning };
 
-    expect(actions.startTimer(mockIsTimerRunning)).to.equal(expectedAction);
+    expect(actions.controlTimer(mockIsTimerRunning)).to.equal(expectedAction);
 
 });
 
@@ -31,6 +21,16 @@ it('creates an action to reset the timer', () => {
     const expectedAction = { type: types.RESET_TIMER, defaultTime: mockDefaultTime };
 
     expect(actions.resetTimer(mockDefaultTime)).to.equal(expectedAction);
+
+});
+
+it('creates an action to update the timer', () => {
+
+    const mockSetTime = 10;
+
+    const expectedAction = { type: types.UPDATE_TIMER, setTime: mockSetTime };
+
+    expect(actions.updateTimer(mockSetTime)).to.equal(expectedAction);
 
 });
 
