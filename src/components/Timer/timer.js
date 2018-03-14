@@ -31,17 +31,10 @@ export class Timer extends Component {
                        value={this.state.currentTime}
                        onChange={handleTimerUpdate.bind(this)}       
                 />
-                <button className="start-timer-button" 
-                        disabled={isTimerRunning}
-                        onClick={() => handleControlTimer.call(this, isTimerRunning)}
+                <button className="control-timer-button"
+                        onClick={() => handleControlTimer.call(this, !isTimerRunning)}
                 >
-                    Start
-                </button>
-                <button className="pause-timer-button" 
-                        disabled={!isTimerRunning}
-                        onClick={() => handleControlTimer.call(this, isTimerRunning)}
-                >
-                    Pause
+                    { isTimerRunning ? 'Pause' : 'Start' }
                 </button>
                 <button className="reset-timer-button">Reset</button>             
             </section>
