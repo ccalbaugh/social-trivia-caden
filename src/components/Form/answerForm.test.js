@@ -2,7 +2,7 @@ import { expect } from 'code'
 import { shallow } from 'enzyme'
 import sinon from 'sinon'
 import React from 'react'
-import AnswerForm from './AnswerForm'
+import { AnswerForm } from './AnswerForm'
 
 describe('Given `AnswerForm`' ,() => {
     let sandbox
@@ -29,6 +29,14 @@ describe('Given `AnswerForm`' ,() => {
         sandbox.restore()
     })
 
+    it('it should contain a `div` tag', () => {
+
+        const component = renderComponent()
+       
+        expect(component.find('.form').type()).to.equal('div') 
+           
+    })
+
     it('it should contain a `Formik` form', () => {
 
         const component = renderComponent()
@@ -39,73 +47,34 @@ describe('Given `AnswerForm`' ,() => {
 
     describe('Given `Formik` form',() => {
 
-        it('it should contain a `FormDisplay`', () => {
+        it('it should contain a `form`', () => {
 
             const component = renderComponent()
-            
-            expect(component.dive().find('FormDisplay').exists()).to.be.true()
-
+            const form = component.find('Formik').dive().find('form')
+          
+            expect(form.length).to.equal(1) 
+    
         })
 
-        describe('Given `FormDisplay`', () => {
+        it('it should contain a `input` and a `button` inside the form', () => {
 
-            it('it should contain a `section` tag', () => {
+            const component = renderComponent()
+            const input = component.find('Formik').dive().find('.answer-input')
+            const button = component.find('Formik').dive().find('.answer-submit-btn')
 
-                const component = renderComponent()
-                const section = component.dive().find('FormDisplay').dive().find('section')
-               
-                expect(section.length).to.equal(1) 
-                   
-            })
-
-            it('it should contain a `Form`', () => {
-
-                const component = renderComponent()
-                const form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
-
-                expect(form.length).to.equal(1) 
-
-            })
-
-            describe('Given `Form`', () => {
-                let component, form 
-
-                beforeEach(() => {
-
-                    component = renderComponent()
-
-                    form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
-
-                })
-
-                it('it should contain a `div` tag with a specific class name', () => {
-
-                    expect(form.find('.answer-input-container').length).to.equal(1)  
-
-                })
-
-                it('it should contain a `Field` and a `button`', () => {
+            expect(input.length).to.equal(1)
+            expect(button.length).to.equal(1)
                     
-                    expect(form.find('.answer-input').length).to.equal(1)
-                    expect(form.find('.answer-submit-btn').length).to.equal(1)
-                
-                })
+        })           
+        
+        it('it should start with initial values', () => {
+            
+            const component = renderComponent()
+            const formikForm = component.find('Formik')
 
-                describe('When the form encounters errors', () => {
-
-                     it('it should contain a `p` tag for error message', () => {
-
-                        const component = renderComponent({
-                            isVaild: false
-                        })
-
-                        const form = component.dive().find('FormDisplay').dive().find('section').find('Form').find('Form')
-
-                        expect(form.find('.answer-input-errors').length).to.equal(1) 
-                        
-                    })
-                })
-            })
-        })        
+            expect(formikForm.props().initialValues.answer).to.equal('')
+            expect(formikForm.props().initialValues.id).to.equal(0)
+    
+        })
     })
 })

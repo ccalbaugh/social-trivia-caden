@@ -1,41 +1,69 @@
-import React from 'react'
-import { withFormik, Form, Field } from 'formik'
-import Yup from 'yup'
+import React, { Component } from 'react'
+import { Formik } from 'formik'
+import { connect } from "react-redux"
+import { submitAnswer } from '../../actions/answers'
+import PropTypes from 'prop-types'
 
-const FormDisplay = ({
-  values,
-  errors,
-  touched,
-  isSubmitting,
-  isValid
-}) => (
-    <section>       
-        <Form>
-        <div className='answer-input-container'>
-        { !isValid && <p className='answer-input-errors'>{errors.answer}</p> }
-        <Field className='answer-input' name="answer" placeholder="input answer" value={values.answer}/> 
-        </div>
-         <button type="submit" className='answer-submit-btn' disabled={isSubmitting}>Submit</button>
-        </Form>     
-    </section>
-)
+export class AnswerForm extends Component {
+  render() {
+    const { submitAnswer, id=0 } = this.props;
+    return (
+      <div className="form">
+        <Formik
+          initialValues={{
+            answer: "",
+            id
+          }}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(() => {
+              submitAnswer(values)
+              setSubmitting(false)
+              resetForm()
+            }, 1000)
+          }}
+          render={({
+            values,
+            dirty,
+            isSubmitting,
+            handleSubmit,
+            handleChange,
+            handleBlur
+           }) => (
+            <form id={id} onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="answer"
+                className='answer-input'
+                placeholder="input answer"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.answer}
+              />
+              <button
+                type="submit"
+                className='answer-submit-btn'
+                disabled={isSubmitting || !dirty}
+              >
+                Submit
+              </button>
+            </form>
+          )}
+        />
+      </div>
+    )
+  }
+}
 
-const AnswerForm = withFormik({
-  mapPropsToValues({ answer }) {
-    return {
-      answer: answer || ''
-    }
-  },
-  validationSchema: Yup.object().shape({
-    answer: Yup.string().required('Answer is required.')
-  }),
-  handleSubmit(values, { resetForm, setSubmitting }) {
-    setTimeout(() => {
-        resetForm()
-        setSubmitting(false)
-      }, 2000)
-  },
-  displayName: 'Answer Form'
-})(FormDisplay)
+AnswerForm.propTypes = {
+  answer: PropTypes.string,
+  id: PropTypes.number
+}
 
-export default AnswerForm
+function mapStateToProps(state) {
+  return {
+      answer: state.answers.answer,
+      id: state.answers.id
+  };
+}
+
+export default connect(mapStateToProps, { submitAnswer })(AnswerForm);
