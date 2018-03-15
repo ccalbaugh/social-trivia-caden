@@ -4,6 +4,8 @@ import React from 'react'
 import Teams from './Teams'
 
 describe('Given `Teams`' ,() => {
+
+    let component
     
     function requiredProps(overrides= {}) {
         return {
@@ -16,12 +18,20 @@ describe('Given `Teams`' ,() => {
         return shallow(<Teams {...props}/>)
 
     }
+
+    beforeEach(() => {
+        component = renderComponent()
+    })
     
     it('it should exist as a `section` tag', () => {
-
-        const component = renderComponent()
         
         expect(component.type()).to.equal('section')
+
+    })
+
+    it('shoud contain a `ul` with a proper class name', () => {
+
+        expect(component.find('.team-list').type()).to.equal('ul')
 
     })
 })
