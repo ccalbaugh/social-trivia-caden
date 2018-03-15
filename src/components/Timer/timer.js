@@ -47,6 +47,7 @@ export class Timer extends Component {
     }
 
     render() {
+        const { isTimerRunning } = this.props
         return (
             <section className="timer-container">
                 <input className="timer"
