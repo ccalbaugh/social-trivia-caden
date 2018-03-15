@@ -8,23 +8,23 @@ describe('Given `Timer`' ,() => {
 
     let component,
         sandbox,
+        sandboxProps,
         controlTimerSpy,
         resetTimerSpy,
-        updateTimerSpy
-
+        updateTimerSpy,
+        decrementTimerSpy
 
     const currentTime = 60
     const mockDefaultTime = 40
-
-    const initialProps = {
-        currentTime,
-        controlTimer: controlTimerSpy,
-        resetTimer: resetTimerSpy,
-        isTimerRunning: false
-    }
     
     function requiredProps(overrides= {}) {
         return {
+            currentTime,
+            controlTimer: controlTimerSpy,
+            resetTimer: resetTimerSpy,
+            updateTimer: updateTimerSpy,
+            decrementTimer: decrementTimerSpy,
+            isTimerRunning: false,
             ...overrides
         }
     }
@@ -35,11 +35,12 @@ describe('Given `Timer`' ,() => {
     }
 
     beforeEach(() => {
-        sandbox = sinon.createSandbox()
+        sandbox = sinon.createSandbox(),
         controlTimerSpy = sandbox.spy()
         resetTimerSpy = sandbox.spy()
-        updateTimerSpy = sandbox.spy()
-        component = renderComponent(initialProps)
+        updateTimerSpy = sandbox.spy(),
+        decrementTimerSpy = sandbox.spy()
+        component = renderComponent()
     })
 
     afterEach(() => {
@@ -54,6 +55,8 @@ describe('Given `Timer`' ,() => {
 
     it('should contain a `.timer` input which contains a currentTime', () => {
 
+        console.log("SANDBOX", sandboxProps)
+
         expect(component.find('.timer').props().value).to.equal(currentTime)
 
     })
@@ -63,7 +66,6 @@ describe('Given `Timer`' ,() => {
         describe('When it is updated', () => {
 
             beforeEach(() => {
-                component = renderComponent({ updateTimer: updateTimerSpy })
                 component.find('.timer').simulate('change', { target: { value: '40' } })
             })
 
@@ -95,14 +97,31 @@ describe('Given `Timer`' ,() => {
 
             describe('When the button is clicked', () => {
 
-                it('should call controlTimer to update the state', () => {
+                let clock
 
-                    component = renderComponent({ controlTimer: controlTimerSpy })
-
+                beforeEach(() => {
+                    clock = sinon.useFakeTimers({ shouldAdvanceTime: true })
                     component.find('.control-timer-button').simulate('click')
+                })
+
+                afterEach(() => {
+                    clock.restore()
+                })
+
+                it('should call controlTimer to update the state', () => {
     
                     sinon.assert.calledOnce(controlTimerSpy)
                 
+                })
+
+                it('should create a timer to dispatch `decrementTimer` every second', () => {
+
+                    console.log(component.state())
+
+                    clock.next();
+
+                    expect(component.state().currentTime).to.equal(59)
+
                 })
 
             })
@@ -124,8 +143,6 @@ describe('Given `Timer`' ,() => {
             describe('When the button is clicked', () => {
 
                 it('should call controlTimer to update the state', () => {
-
-                    component = renderComponent({ controlTimer: controlTimerSpy })
 
                     component.find('.control-timer-button').simulate('click')
     
@@ -150,7 +167,6 @@ describe('Given `Timer`' ,() => {
         describe('When it is clicked', () => {
 
             beforeEach(() => {
-                component = renderComponent({ defaultTime: currentTime, resetTimer: resetTimerSpy })
                 component.find('.reset-timer-button').simulate('click')
             })
 
