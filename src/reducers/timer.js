@@ -31,7 +31,10 @@ function decrementTimer(state, action) {
     };
 }
 
-export default function(state = {}, action) {
+export default function(
+    state = { 
+        isTimerRunning: false
+    }, action) {
     const actionsHandler = {
         [types.CONTROL_TIMER]: controlTimer,
         [types.RESET_TIMER]: resetTimer,
