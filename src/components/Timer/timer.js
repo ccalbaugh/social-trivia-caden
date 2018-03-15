@@ -47,7 +47,6 @@ export class Timer extends Component {
     }
 
     render() {
-        const { currentTime, isTimerRunning, defaultTime } = this.props
         return (
             <section className="timer-container">
                 <input className="timer"
@@ -63,7 +62,7 @@ export class Timer extends Component {
                         onClick={handleTimerReset.bind(this)}
                 >
                     Reset
-                </button>             
+                </button>    
             </section>
         )
     }
