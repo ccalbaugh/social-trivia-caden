@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswer, id=0 } = this.props;
+    const { submitAnswer, id } = this.props;
     return (
       <div className="form">
         <Formik
@@ -15,11 +15,10 @@ export class AnswerForm extends Component {
             id
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              submitAnswer(values)
-              setSubmitting(false)
-              resetForm()
-            }, 1000)
+            const { answer, id } = values
+            submitAnswer(answer, id)
+            setSubmitting(false)
+            resetForm()
           }}
           render={({
             values,
@@ -56,7 +55,7 @@ export class AnswerForm extends Component {
 
 AnswerForm.propTypes = {
   answer: PropTypes.string,
-  id: PropTypes.number
+  id: PropTypes.string
 }
 
 function mapStateToProps(state) {

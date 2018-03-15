@@ -73,8 +73,28 @@ describe('Given `AnswerForm`' ,() => {
             const formikForm = component.find('Formik')
 
             expect(formikForm.props().initialValues.answer).to.equal('')
-            expect(formikForm.props().initialValues.id).to.equal(0)
+            expect(formikForm.props().initialValues.id).to.equal(undefined)
     
         })
+    })
+
+    describe('When submit `button` is clicked', () => {
+            let submitAction, component, form, onSubmitSpy, submitButton
+    
+            beforeEach(() => {
+                onSubmitSpy = sandbox.spy()
+                submitAction = sandbox.spy() 
+                component = renderComponent({submitAnswer:submitAction})
+                submitButton = component.find('Formik').dive().find('.answer-submit-btn')
+                component.find('Formik').dive().find('form').simulate('submit', {
+                    preventDefault: () => {}
+                })
+            })
+    
+            it('should call submitAnswer actions', () => {         
+
+               sinon.assert.calledOnce(submitAction)
+
+            })    
     })
 })
