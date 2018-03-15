@@ -5,7 +5,7 @@ class Teams extends Component {
     render() {
         return (
             <section>
-                Placeholder
+                <ul className="team-list"></ul>
             </section>
         )
     }
