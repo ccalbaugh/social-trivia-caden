@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 import answersReducer from './answers';
 
 const mockAnswer = 10;
-const mockId = 12345;
+const mockId = 'Admin';
 
 describe('Given `answersReducer`', () => {
 
@@ -23,4 +23,12 @@ describe('Given `answersReducer`', () => {
 
     });
 
+    
+    it('should return iniital state if no id is provided', () => {
+
+        const expectedState = {};
+
+        expect(answersReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: undefined })).to.equal(expectedState);
+
+    });
 });

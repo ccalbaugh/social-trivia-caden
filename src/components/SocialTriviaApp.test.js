@@ -24,4 +24,11 @@ describe('Given `SocialTriviaApp`' ,() => {
         expect(component.type()).to.equal('main')
 
     })
+
+    it('should contain a connected `AnswerForm` component', () => {
+
+        const component = renderComponent()
+
+        expect(component.find('Connect(AnswerForm)').exists()).to.be.true()
+    })
 })
