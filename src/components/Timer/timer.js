@@ -8,8 +8,19 @@ import {
     decrementTimer 
 } from '../../actions/timer'
 
+const TIMER_TICK = 1000
+
 function handleControlTimer(isTimerRunning) {
+
     this.props.controlTimer(isTimerRunning)
+
+    if (isTimerRunning) {
+        const intervalId = setInterval(() => this.props.decrementTimer(this.props.currentTime), TIMER_TICK)
+        this.setState({ intervalId })
+    } else if (this.state.intervalId) {
+        clearInterval(this.state.intervalId)
+        this.setState({ intervalId: undefined })
+    }
 }
 
 function handleTimerUpdate(e) { 
@@ -19,12 +30,15 @@ function handleTimerUpdate(e) {
 
 function handleTimerReset() {
     this.props.resetTimer(this.props.defaultTime)
+    this.state.intervalId && 
+        clearInterval(this.state.intervalId) & 
+        this.setState({ intervalId: undefined })
 }
 
 export class Timer extends Component {
 
     state = {
-        currentTime: this.props.currentTime 
+        currentTime: this.props.currentTime || 0
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,7 +55,7 @@ export class Timer extends Component {
                        onChange={handleTimerUpdate.bind(this)}       
                 />
                 <button className="control-timer-button"
-                        onClick={() => handleControlTimer.call(this, !isTimerRunning)}
+                        onClick={handleControlTimer.bind(this, !isTimerRunning)}
                 >
                     { isTimerRunning ? 'Pause' : 'Start' }
                 </button>
@@ -59,10 +73,6 @@ Timer.propTypes = {
     currentTime: PropTypes.number,
     isTimerRunning: PropTypes.boolean,
     defaultTime: PropTypes.number
-}
-
-Timer.defaultProps = {
-    currentTime: 60
 }
 
 function mapStateToProps(state) {
