@@ -1,7 +1,7 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
-import Timer from './Timer'
+import { Timer } from './Timer'
 
 describe('Given `Timer`' ,() => {
     
