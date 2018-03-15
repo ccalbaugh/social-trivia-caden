@@ -1,10 +1,12 @@
 import * as types from '../actions/actionTypes';
 
 function submitAnswer(state, action) {
-    return {
+    return action.id ? 
+    {
         ...state,
         [action.id]: action.answer
-    };
+    } 
+    : state
 }
 
 export default function(state = {}, action) {
