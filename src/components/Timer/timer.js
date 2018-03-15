@@ -71,7 +71,7 @@ export class Timer extends Component {
 
 Timer.propTypes = {
     currentTime: PropTypes.number,
-    isTimerRunning: PropTypes.boolean,
+    isTimerRunning: PropTypes.bool,
     defaultTime: PropTypes.number
 }
 
