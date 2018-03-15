@@ -55,8 +55,6 @@ describe('Given `Timer`' ,() => {
 
     it('should contain a `.timer` input which contains a currentTime', () => {
 
-        console.log("SANDBOX", sandboxProps)
-
         expect(component.find('.timer').props().value).to.equal(currentTime)
 
     })
@@ -114,13 +112,11 @@ describe('Given `Timer`' ,() => {
                 
                 })
 
-                it('should create a timer to dispatch `decrementTimer` every second', () => {
+                it('should create a timer to dispatch `decrementTimer` every second', () => {            
 
-                    console.log(component.state())
+                    clock.next();           
 
-                    clock.next();
-
-                    expect(component.state().currentTime).to.equal(59)
+                    sinon.assert.calledOnce(decrementTimerSpy)
 
                 })
 
