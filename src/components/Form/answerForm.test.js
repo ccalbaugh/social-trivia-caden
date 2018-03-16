@@ -37,6 +37,14 @@ describe('Given `AnswerForm`' ,() => {
            
     })
 
+    it('it should contain a `span` with a proper class name', () => {
+
+        const component = renderComponent()
+       
+        expect(component.find('.team-name').type()).to.equal('span') 
+           
+    })
+
     it('it should contain a `Formik` form', () => {
 
         const component = renderComponent()
@@ -76,25 +84,5 @@ describe('Given `AnswerForm`' ,() => {
             expect(formikForm.props().initialValues.id).to.equal(undefined)
     
         })
-    })
-
-    describe('When submit `button` is clicked', () => {
-            let submitAction, component, form, onSubmitSpy, submitButton
-    
-            beforeEach(() => {
-                onSubmitSpy = sandbox.spy()
-                submitAction = sandbox.spy() 
-                component = renderComponent({submitAnswer:submitAction})
-                submitButton = component.find('Formik').dive().find('.answer-submit-btn')
-                component.find('Formik').dive().find('form').simulate('submit', {
-                    preventDefault: () => {}
-                })
-            })
-    
-            it('should call submitAnswer actions', () => {         
-
-               sinon.assert.calledOnce(submitAction)
-
-            })    
     })
 })
