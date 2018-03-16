@@ -37,6 +37,12 @@ describe('Given `Teams`' ,() => {
 
     })
 
+    it('should contain a local state with all the teams available', () => {
+
+        expect(component.state().teams.length).to.equal(numberOfTeams)
+
+    })
+
     describe('Given `ul`', () => {
 
         it('should render a `li` with a proper class name for every team in state', () => {
