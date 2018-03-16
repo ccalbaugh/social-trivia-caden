@@ -16,17 +16,14 @@ export class AnswerForm extends Component {
             id
           }}
           validate={(values) => {
-            console.log("HIT VALIDATE")
             let errors = {};
             if (!parseInt(values.answer, 10)) {
               errors.answer = "Please enter a Number";
             }
-            console.log("ERRORS: ", errors)
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
-            console.log("HIT ONSUBMIT")
             submitAnswer(answer, id)
             setSubmitting(false)
             resetForm()
