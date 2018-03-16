@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from "react-redux"
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
-export class HostBar extends Component {
+class HostBar extends Component {
 
     state = {
         teams: [
@@ -14,7 +13,7 @@ export class HostBar extends Component {
     render() {
         return (
             <section>
-                 <AnswerForm id={this.state.teams.id}/>
+                 <AnswerForm id={this.state.teams[0].id}/>
                  <Timer/>
             </section>
         )

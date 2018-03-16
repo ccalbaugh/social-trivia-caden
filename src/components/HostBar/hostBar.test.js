@@ -1,8 +1,7 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
-import { HostBar } from './HostBar'
-import { Timer } from '../Timer/timer'
+import HostBar from './HostBar'
 
 describe('Given `HostBar`' ,() => {
     
@@ -26,11 +25,13 @@ describe('Given `HostBar`' ,() => {
 
     })
 
-    it('should contain a connected `AnswerForm` component', () => {
+    it('should contain a connected `AnswerForm` component with an id set as admin', () => {
 
         const component = renderComponent()
+        const answerForm = component.find('Connect(AnswerForm)')
 
-        expect(component.find('Connect(AnswerForm)').exists()).to.be.true()
+        expect(answerForm.exists()).to.be.true()
+        expect(answerForm.first().props().id).to.equal(component.state().teams[0].id)
     })
 
     it('should contain a connected `Timer` component', () => {
