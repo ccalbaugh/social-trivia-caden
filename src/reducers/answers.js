@@ -1,12 +1,14 @@
 import * as types from '../actions/actionTypes';
 
 function submitAnswer(state, action) {
-    return action.id ? 
-    {
+    return action.id ? {
         ...state,
-        [action.id]: action.answer
-    } 
-    : state
+        [action.id]: {
+            answer: action.answer,
+            timeStamp: action.timeStamp
+        }
+    } : 
+    state
 }
 
 export default function(state = {}, action) {
