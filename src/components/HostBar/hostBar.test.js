@@ -1,7 +1,7 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
-import HostBar from './HostBar'
+import { HostBar } from './HostBar'
 
 describe('Given `HostBar`' ,() => {
     
@@ -39,5 +39,13 @@ describe('Given `HostBar`' ,() => {
         const component = renderComponent()
 
         expect(component.find('Connect(Timer)').exists()).to.be.true()
+    })
+
+    it('should contain a `button` with a specific class name', () => {
+
+        const component = renderComponent()
+
+        expect(component.find('.update-teams-button').type()).to.equal('button')
+
     })
 })
