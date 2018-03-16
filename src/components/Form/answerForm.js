@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Formik } from 'formik'
 import { connect } from "react-redux"
-import { submitAnswer } from '../../actions/answers'
+import { submitAnswer } from '../../actions/teams'
 import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
@@ -51,7 +51,7 @@ export class AnswerForm extends Component {
               <button
                 type="submit"
                 className='answer-submit-btn'
-                disabled={isSubmitting || !dirty || errors.answer || currentTime <= 0}
+                disabled={isSubmitting || !dirty || errors.answer || (currentTime <= 0 & id !== 'Admin')}
               >
                 Submit
               </button>
