@@ -4,6 +4,7 @@ import answersReducer from './answers';
 
 const mockAnswer = 10;
 const mockId = 'Admin';
+const mockTimeStamp = Date.now();
 
 describe('Given `answersReducer`', () => {
 
@@ -17,9 +18,9 @@ describe('Given `answersReducer`', () => {
 
     it('should handle SUBMIT_ANSWER', () => {
 
-        const expectedState = {  [mockId]:  mockAnswer  };
+        const expectedState = {  [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp }  };
 
-        expect(answersReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId })).to.equal(expectedState);
+        expect(answersReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp })).to.equal(expectedState);
 
     });
 
