@@ -15,8 +15,10 @@ function handleControlTimer(isTimerRunning) {
     this.props.controlTimer(isTimerRunning)
 
     if (isTimerRunning) {
-        const intervalId = setInterval(() => this.props.decrementTimer(this.props.currentTime), TIMER_TICK)
-        this.setState({ intervalId })
+        if (this.props.currentTime > 0) {
+            const intervalId = setInterval(() => this.props.decrementTimer(this.props.currentTime), TIMER_TICK)
+            this.setState({ intervalId })
+        }
     } else if (this.state.intervalId) {
         clearInterval(this.state.intervalId)
         this.setState({ intervalId: undefined })
@@ -24,7 +26,13 @@ function handleControlTimer(isTimerRunning) {
 }
 
 function handleTimerUpdate(e) { 
-    const currentTime = parseInt(e.target.value, 10) || 0
+    const value = e.target.value
+    const currentTime = 
+        parseInt(value, 10) || 
+        parseInt(value, 10) >= 0 ? 
+            parseInt(value, 10) : 
+            0
+     
     this.props.updateTimer(currentTime)
 }
 
@@ -44,18 +52,24 @@ export class Timer extends Component {
     componentWillReceiveProps(nextProps) {
         nextProps.currentTime !== this.props.currentTime &&
         this.setState({ currentTime: nextProps.currentTime })
+
+        nextProps.currentTime <=0 && 
+        this.state.intervalId && 
+        clearInterval(this.state.intervalId)
     }
 
     render() {
-        const { isTimerRunning } = this.props
+        const { isTimerRunning} = this.props
+        const { currentTime } = this.state
         return (
             <section className="timer-container">
                 <input className="timer"
-                       value={this.state.currentTime}
-                       onChange={handleTimerUpdate.bind(this)}       
+                       value={currentTime}
+                       onChange={handleTimerUpdate.bind(this)} 
                 />
                 <button className="control-timer-button"
                         onClick={handleControlTimer.bind(this, !isTimerRunning)}
+                        disabled={currentTime <= 0}
                 >
                     { isTimerRunning ? 'Pause' : 'Start' }
                 </button>

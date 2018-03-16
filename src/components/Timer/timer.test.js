@@ -93,6 +93,22 @@ describe('Given `Timer`' ,() => {
 
             })
 
+            it('should be disabled if the timer value is 0', () => {
+
+                component = renderComponent({ currentTime: 0 })
+
+                expect(component.find('.control-timer-button').props().disabled).to.equal(true)
+
+            })
+
+            it('should not be disabled if the timer value is > 0', () => {
+
+                component = renderComponent()
+                
+                expect(component.find('.control-timer-button').props().disabled).to.equal(false)
+
+            })
+
             describe('When the button is clicked', () => {
 
                 let clock
@@ -124,7 +140,7 @@ describe('Given `Timer`' ,() => {
 
         })
 
-        describe('when the timer is started', () => {
+        describe('when the timer is started with a timer value > 0', () => {
 
             beforeEach(() => {
                 component = renderComponent({ isTimerRunning: true })
@@ -147,9 +163,7 @@ describe('Given `Timer`' ,() => {
                 })
 
             })
-
         })
-
     })
 
     it('should contain a `.reset-timer-button`', () => {
