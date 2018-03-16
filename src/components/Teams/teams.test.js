@@ -53,15 +53,21 @@ describe('Given `Teams`' ,() => {
 
         describe('Given `li`', () => {
 
+            let teamList;
+
+            beforeEach(() => {
+                teamList = component.find('.team-list-item')
+            })
+
             it('should have a key set to each team id', () => {
 
-                expect(component.find('.team-list-item').first().key()).to.equal(component.state().teams[0].id)
+                expect(teamList.first().key()).to.equal(component.state().teams[0].id)
 
             })
 
             it('should contain a `AnswerForm` with an id set to each team id', () => {
 
-                expect(component.find('AnswerForm').first().props().id).to.equal(component.state().teams[0].id)
+                expect(teamList.first().find('Connect(AnswerForm)').first().props().id).to.equal(component.state().teams[0].id)
 
             })
 
