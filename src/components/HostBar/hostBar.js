@@ -4,7 +4,7 @@ import { updateTeam } from '../../actions/teams'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
-class HostBar extends Component {
+export class HostBar extends Component {
 
     state = {
         teams: [
@@ -17,6 +17,7 @@ class HostBar extends Component {
             <section>
                  <AnswerForm id={this.state.teams[0].id}/>
                  <Timer/>
+                 <button className="update-teams-button">Update Teams</button>
             </section>
         )
     }
