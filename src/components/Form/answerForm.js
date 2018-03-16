@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswer, id, name } = this.props;
+    const { submitAnswer, id, name, currentTime } = this.props;
     return (
       <div className="form">
         <span className="team-name">{name}</span>
@@ -51,7 +51,7 @@ export class AnswerForm extends Component {
               <button
                 type="submit"
                 className='answer-submit-btn'
-                disabled={isSubmitting || !dirty || errors.answer}
+                disabled={isSubmitting || !dirty || errors.answer || currentTime <= 0}
               >
                 Submit
               </button>
@@ -66,12 +66,14 @@ export class AnswerForm extends Component {
 
 AnswerForm.propTypes = {
   answer: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  currentTime: PropTypes.number
 }
 
 function mapStateToProps(state) {
   return {
-      answer: state.teams.answer
+      answer: state.teams.answer,
+      currentTime: state.timer.currentTime
   };
 }
 
