@@ -2,6 +2,7 @@ import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
 import SocialTriviaApp from './SocialTriviaApp'
+import HostBar from '../components/HostBar/hostBar'
 
 describe('Given `SocialTriviaApp`' ,() => {
     
@@ -23,6 +24,13 @@ describe('Given `SocialTriviaApp`' ,() => {
         
         expect(component.type()).to.equal('main')
 
+    })
+
+    it('should contain a `HostBar` component', () => {
+
+        const component = renderComponent()
+
+        expect(component.find('HostBar').exists()).to.be.true()
     })
 
     it('should contain a `Teams` component', () => {
