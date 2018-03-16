@@ -3,3 +3,4 @@ export const CONTROL_TIMER = 'CONTROL_TIMER';
 export const RESET_TIMER = 'RESET_TIMER';
 export const UPDATE_TIMER = 'UPDATE_TIMER';
 export const DECREMENT_TIMER = 'DECREMENT_TIMER';
+export const UPDATE_TEAM = 'UPDATE_TEAM';

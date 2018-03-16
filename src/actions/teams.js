@@ -8,3 +8,11 @@ export function submitAnswer(answer, id, timeStamp) {
         timeStamp
     };
 }
+
+export function updateTeam(score, id) {
+    return {
+        type: types.UPDATE_TEAM,
+        score,
+        id
+    };
+}
