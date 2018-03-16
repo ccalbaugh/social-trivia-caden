@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateTeam } from '../../actions/teams'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
@@ -20,4 +22,11 @@ class HostBar extends Component {
     }
 }
 
-export default HostBar;
+function mapStateToProps(state) {
+    return {
+        teams: state.teams,
+        timer: state.timer
+    }
+}
+
+export default connect(mapStateToProps, { updateTeam })(HostBar);
