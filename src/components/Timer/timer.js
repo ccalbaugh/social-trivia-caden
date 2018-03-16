@@ -33,7 +33,7 @@ function handleTimerUpdate(e) {
             parseInt(value, 10) : 
             0
      
-    currentTime > 0 && this.props.updateTimer(currentTime)
+    this.props.updateTimer(currentTime)
 }
 
 function handleTimerReset() {
