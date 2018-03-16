@@ -25,10 +25,10 @@ describe('Given `SocialTriviaApp`' ,() => {
 
     })
 
-    it('should contain a connected `AnswerForm` component', () => {
+    it('should contain a `Teams` component', () => {
 
         const component = renderComponent()
 
-        expect(component.find('Connect(AnswerForm)').exists()).to.be.true()
+        expect(component.find('Teams').exists()).to.be.true()
     })
 })
