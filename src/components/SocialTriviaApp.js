@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import Form from './Form/answerForm'
+import HostBar from './HostBar/hostBar'
 
 class SocialTriviaApp extends Component {
 
     render() {
         return (
             <main>
-                <Form/>
+                <HostBar/>
+                <hr/>
             </main>
         )
     }
