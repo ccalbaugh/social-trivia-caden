@@ -24,7 +24,8 @@ export class AnswerForm extends Component {
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
-            submitAnswer(answer, id)
+            const now = Date.now()
+            submitAnswer(answer, id, now)
             setSubmitting(false)
             resetForm()
           }}
@@ -70,7 +71,7 @@ AnswerForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-      answer: state.answers.answer
+      answer: state.teams.answer
   };
 }
 
