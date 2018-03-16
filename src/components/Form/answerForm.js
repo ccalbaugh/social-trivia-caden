@@ -6,22 +6,34 @@ import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswer, id } = this.props;
+    const { submitAnswer, id, name } = this.props;
     return (
       <div className="form">
+        <span className="team-name">{name}</span>
         <Formik
           initialValues={{
             answer: "",
             id
           }}
+          validate={(values) => {
+            console.log("HIT VALIDATE")
+            let errors = {};
+            if (!parseInt(values.answer, 10)) {
+              errors.answer = "Please enter a Number";
+            }
+            console.log("ERRORS: ", errors)
+            return errors;
+          }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
+            console.log("HIT ONSUBMIT")
             submitAnswer(answer, id)
             setSubmitting(false)
             resetForm()
           }}
           render={({
             values,
+            errors,
             dirty,
             isSubmitting,
             handleSubmit,
@@ -41,10 +53,11 @@ export class AnswerForm extends Component {
               <button
                 type="submit"
                 className='answer-submit-btn'
-                disabled={isSubmitting || !dirty}
+                disabled={isSubmitting || !dirty || errors.answer}
               >
                 Submit
               </button>
+              {errors.answer && dirty && <span>{errors.answer}</span>}              
             </form>
           )}
         />
@@ -60,8 +73,7 @@ AnswerForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-      answer: state.answers.answer,
-      id: state.answers.id
+      answer: state.answers.answer
   };
 }
 
