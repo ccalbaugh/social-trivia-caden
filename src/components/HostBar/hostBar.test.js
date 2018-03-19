@@ -72,11 +72,11 @@ describe('Given `HostBar`' ,() => {
     
                 it('should call `updateTeam`', () => {
 
-                    component = renderComponent({ updateTeam: updateTeamSpy, teams: {'admin': { answer: 1 }} })
+                    component = renderComponent({ updateTeam: updateTeamSpy, teams: { 'admin': { answer: 1 }, 'team-1': { answer: 1 } } })
                 
                     component.find('.update-teams-button').simulate('click')
     
-                    sinon.assert.calledOnce(updateTeamSpy)
+                    sinon.assert.called(updateTeamSpy)
     
                 })
     
