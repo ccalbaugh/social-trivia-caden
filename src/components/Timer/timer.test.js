@@ -35,10 +35,10 @@ describe('Given `Timer`' ,() => {
     }
 
     beforeEach(() => {
-        sandbox = sinon.createSandbox(),
+        sandbox = sinon.createSandbox()
         controlTimerSpy = sandbox.spy()
         resetTimerSpy = sandbox.spy()
-        updateTimerSpy = sandbox.spy(),
+        updateTimerSpy = sandbox.spy()
         decrementTimerSpy = sandbox.spy()
         component = renderComponent()
     })
