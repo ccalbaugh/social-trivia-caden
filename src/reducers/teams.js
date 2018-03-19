@@ -5,9 +5,9 @@ function submitAnswer(state = {}, action) {
     return action.id ? {
         ...state,
         [action.id]: {
+            ...state[action.id],
             answer: action.answer,
             timeStamp: action.timeStamp,
-            score: [action.id].score || 0
         }
     } : 
     state
