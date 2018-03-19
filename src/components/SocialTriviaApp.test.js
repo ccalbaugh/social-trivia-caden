@@ -33,10 +33,10 @@ describe('Given `SocialTriviaApp`' ,() => {
         expect(component.find('Connect(HostBar)').exists()).to.be.true()
     })
 
-    it('should contain a `Teams` component', () => {
+    it('should contain a `Connect(Teams)` component', () => {
 
         const component = renderComponent()
 
-        expect(component.find('Teams').exists()).to.be.true()
+        expect(component.find('Connect(Teams)').exists()).to.be.true()
     })
 })
