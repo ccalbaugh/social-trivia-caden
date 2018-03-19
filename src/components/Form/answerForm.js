@@ -25,7 +25,7 @@ export class AnswerForm extends Component {
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
             const now = Date.now()
-            submitAnswer(answer, id, now)
+            submitAnswer(parseInt(answer, 10), id, now)
             setSubmitting(false)
             resetForm()
           }}
