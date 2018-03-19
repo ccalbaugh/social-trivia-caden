@@ -1,13 +1,16 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
-import SocialTriviaApp from './SocialTriviaApp'
+import { SocialTriviaApp } from './SocialTriviaApp'
 import HostBar from '../components/HostBar/hostBar'
+import sinon from 'sinon'
 
 describe('Given `SocialTriviaApp`' ,() => {
-    
+    let sandbox, fetchAnswersFromDBSpy
+
     function requiredProps(overrides= {}) {
         return {
+            fetchAnswersFromDB: fetchAnswersFromDBSpy,
             ...overrides
         }
     }
@@ -18,6 +21,17 @@ describe('Given `SocialTriviaApp`' ,() => {
 
     }
     
+    beforeEach(() => {
+
+        sandbox = sinon.createSandbox(),
+        fetchAnswersFromDBSpy = sandbox.spy()
+    })
+    
+    afterEach(() => {
+    
+        sandbox.restore()
+    })
+
     it('it should exist as a `main` tag', () => {
 
         const component = renderComponent()

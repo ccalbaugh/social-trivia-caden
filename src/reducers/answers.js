@@ -1,6 +1,10 @@
 import * as types from '../actions/actionTypes';
 
-function submitAnswer(state, action) {
+function fetchAnswersFromDB (state, action) {
+    return  action.answers
+} 
+
+function submitAnswerToDB(state, action) {
     return action.id ? 
     {
         ...state,
@@ -11,7 +15,8 @@ function submitAnswer(state, action) {
 
 export default function(state = {}, action) {
     const actionsHandler = {
-        [types.SUBMIT_ANSWER]: submitAnswer
+        [types.SUBMIT_ANSWER_TO_DB]: submitAnswerToDB,
+        [types.FETCH_ANSWERS_FROM_DB]: fetchAnswersFromDB
     };
 
     const reducer = actionsHandler[action.type];

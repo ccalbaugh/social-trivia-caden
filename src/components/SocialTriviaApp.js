@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import HostBar from './HostBar/hostBar'
 import Teams from './Teams/teams'
-class SocialTriviaApp extends Component {
+import { fetchAnswersFromDB } from '../actions/answers'
+import { connect } from "react-redux"
+
+export class SocialTriviaApp extends Component {
+
+    componentDidMount() {
+        this.props.fetchAnswersFromDB()
+    }
 
     render() {
         return (
@@ -14,4 +21,4 @@ class SocialTriviaApp extends Component {
     }
 }
 
-export default SocialTriviaApp
+export default connect(null, { fetchAnswersFromDB })(SocialTriviaApp);

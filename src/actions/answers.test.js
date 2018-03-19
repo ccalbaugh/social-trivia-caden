@@ -3,15 +3,39 @@ import { expect } from 'code';
 import sinon from 'sinon';
 import * as actions from './answers';
 import * as types from './actionTypes';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { fetchAnswersFromDB } from './answers';
 
-const mockId = 1;
+const createMockStore = configureMockStore([thunk])
+const store = createMockStore({answers:{}})
 
-const mockAnswer = 10;
+it('creates an action to fetch the answers from the database', () => {
 
-it('creates an action to submit an answer', () => {
+    let sandbox, fetchAnswersFromDBStub, mockId, mockAnswer, mockResponse
 
-    const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId };
+    mockId = 1;
 
-    expect(actions.submitAnswer(mockAnswer, mockId)).to.equal(expectedAction);
+    mockAnswer = { answer: 22, id: 'admin' };
+
+    mockResponse = {
+        answers: { answer: 22, id: 'admin' }
+    }
+
+    beforeEach(() => {
+
+        sandbox = sinon.createSandbox(),
+        fetchAnswersFromDBStub = sandbox.stub().returns(mockResponse)
+    })
+    
+    afterEach(() => {
+    
+        sandbox.restore()
+    })
+
+    const expectedAction = { type: types.FETCH_ANSWERS_FROM_DB, answers: mockResponse.answers };
+ 
+    store.dispatch(fetchAnswersFromDB())
+    //expect(store.getActions()).to.equal(expectedAction)    
 
 });
