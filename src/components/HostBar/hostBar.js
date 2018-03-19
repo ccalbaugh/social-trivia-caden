@@ -32,14 +32,14 @@ function updateTeams() {
             teamsWithNoPoints.forEach((team) => {
                 updateTeam(0, team)
             })
+
         } else {
     
             const sortedAndFilteredTeamsByAnswer = teamKeys.filter((team) => {
-                return team !== 'admin' &&
-                    teams[team].answer <= expectedAnswer
-            }).sort((a, b) => {
-                return b - a
+                return team !== 'admin' && teams[team].answer <= expectedAnswer
             })
+            .sort((a, b) => a - b)
+            .map((teamId) => { return { ...this.props.teams[teamId], id: teamId } })
     
             const teamsWithWinningAnswers = findMultipleWinners(sortedAndFilteredTeamsByAnswer)
     
@@ -60,18 +60,21 @@ function updateTeams() {
                 })
     
             } else {
+
                 teamKeys.forEach((team) => {
                     updateTeam(0, team)
                 })
+
             }
         }
     }
 }
 
 function findMultipleWinners(sortedArr) {
-    let bestAnswer = sortedArr[0]
+    let bestAnswer = sortedArr[0].answer
     return sortedArr.reduce((acc, curr) => {
-        return curr.answer === bestAnswer && acc.push(curr)
+        curr.answer === bestAnswer && acc.push(curr.id)
+        return acc
     }, [])
 }
 
