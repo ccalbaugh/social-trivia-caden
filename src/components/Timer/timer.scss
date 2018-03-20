@@ -1,6 +1,7 @@
 .timer-container {
     position: relative;
 }
+
 .timer-label {
     width: 300px;
     position: absolute;
@@ -12,8 +13,18 @@
     font-weight: 700;
     font-size: 44px;
     color: #54e8b5;
+
+    .medium & {
+        color:#ffc107;
+    }
+
+    .high & {
+        color: #f44336;
+    }
 }
 
 .timer-label.timeup {
     color: #a2a2a2;
 }
+
+

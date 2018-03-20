@@ -1,3 +1,4 @@
+import './timer.css';
 import { PieChart, Pie, Cell } from 'recharts';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -50,6 +51,13 @@ function secToTimeCode(sec){
     return `${pre}${sec}`;
 }
 
+function tensionColor(num) {
+    let level = '#54e8b5';
+    num < 15 ? level = '#ffc107': null;
+    num < 10 ? level = '#f44336': null;
+    return level;
+}
+
 export class Timer extends Component {
 
     state = {
@@ -79,14 +87,7 @@ export class Timer extends Component {
         return (
             <section className="timer-container">
                 <div>
-                    {currentTime === 0 && isTimerRunning &&
-                    <div className={'timer-label timeup'}>{secToTimeCode(currentTime)}</div>
-                    }
-
-                    {currentTime > 0 &&
-                    <div className={'timer-label'}>{secToTimeCode(currentTime)}</div>
-                    }
-
+                    <div className={'timer-label'} style={{color: tensionColor(currentTime)}}>{secToTimeCode(currentTime)}</div>
                     <PieChart width={300} height={300}>
                         <Pie
                             data={timerData}
@@ -98,7 +99,14 @@ export class Timer extends Component {
                             outerRadius={100}
                             isAnimationActive={false}
                         >
-                            {timerData.map((entry, index) => <Cell key={index} fill={colors[index % colors.length]} stroke={colors[index % colors.length]}/>)}
+                            <Cell
+                                  fill={tensionColor(currentTime)}
+                                  stroke={tensionColor(currentTime)}
+                            />
+                            <Cell
+                                  fill='#a2a2a2'
+                                  stroke='#a2a2a2'
+                            />
                         </Pie>
                     </PieChart>
                 </div>
