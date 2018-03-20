@@ -1,3 +1,4 @@
+import { PieChart, Pie, Cell } from 'recharts';
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -43,6 +44,12 @@ function handleTimerReset() {
         this.setState({ intervalId: undefined })
 }
 
+function secToTimeCode(sec){
+    let pre;
+    sec < 10 ? pre = '00:0': pre = '00:';
+    return `${pre}${sec}`;
+}
+
 export class Timer extends Component {
 
     state = {
@@ -59,12 +66,46 @@ export class Timer extends Component {
     }
 
     render() {
-        const { isTimerRunning} = this.props
+        const { isTimerRunning, defaultTime} = this.props
         const { currentTime } = this.state
+
+        const colors = ['#54e8b5', '#a2a2a2'];
+        const trackWidth = 8;
+        const timerData = [
+            {name: 'Time Used', value: currentTime},
+            {name: 'Time Remaining', value: defaultTime-currentTime}
+        ]
+
         return (
             <section className="timer-container">
+                <div>
+                    {currentTime === 0 && isTimerRunning &&
+                    <div className={'timer-label timeup'}>{secToTimeCode(currentTime)}</div>
+                    }
+
+                    {currentTime > 0 &&
+                    <div className={'timer-label'}>{secToTimeCode(currentTime)}</div>
+                    }
+
+                    <PieChart width={300} height={300}>
+                        <Pie
+                            data={timerData}
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={100-trackWidth}
+                            outerRadius={100}
+                            isAnimationActive={false}
+                        >
+                            {timerData.map((entry, index) => <Cell key={index} fill={colors[index % colors.length]} stroke={colors[index % colors.length]}/>)}
+                        </Pie>
+                    </PieChart>
+                </div>
+
                 <input className="timer"
                        value={currentTime}
+                       maxLength={2}
                        onChange={handleTimerUpdate.bind(this)} 
                 />
                 <button className="control-timer-button"
@@ -88,7 +129,10 @@ Timer.propTypes = {
     isTimerRunning: PropTypes.bool,
     defaultTime: PropTypes.number
 }
-
+Timer.defaultProps = {
+    currentTime: 30,
+    defaultTime: 30
+}
 function mapStateToProps(state) {
     return {
         currentTime: state.timer.currentTime,
