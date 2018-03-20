@@ -60,6 +60,8 @@ describe('Given `HostBar`' ,() => {
 
             it('should be disabled', () => {
 
+                component = renderComponent({ teams: {} })
+
                 expect(component.find('.update-teams-button').props().disabled).to.be.true()
 
             })
