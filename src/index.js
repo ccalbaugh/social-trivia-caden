@@ -4,11 +4,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import SocialTriviaApp from './components/SocialTriviaApp';
-import answers from './reducers/answers';
+import teams from './reducers/teams';
 import timer from './reducers/timer';
 
 const rootReducer = combineReducers({
-    answers,
+    teams,
     timer
 })
 
