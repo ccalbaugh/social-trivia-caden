@@ -53,8 +53,8 @@ function secToTimeCode(sec){
 
 function tensionColor(num) {
     let level = '#54e8b5';
-    num < 15 ? level = '#ffc107': null;
-    num < 10 ? level = '#f44336': null;
+    num < 16 ? level = '#ffc107': null;
+    num < 11 ? level = '#f44336': null;
     return level;
 }
 
