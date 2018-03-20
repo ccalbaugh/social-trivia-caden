@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Formik } from 'formik'
 import { connect } from "react-redux"
-import { submitAnswerToDB } from '../../actions/answers'
+import { submitAnswerToDB } from '../../actions/teams'
 import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
@@ -50,7 +50,7 @@ export class AnswerForm extends Component {
               <button
                 type="submit"
                 className='answer-submit-btn'
-                disabled={isSubmitting || !dirty || errors.answer}
+                disabled={isSubmitting || !dirty || errors.answer || (currentTime <= 0 & id !== 'Admin')}
               >
                 Submit
               </button>
@@ -65,12 +65,14 @@ export class AnswerForm extends Component {
 
 AnswerForm.propTypes = {
   answer: PropTypes.string,
-  id: PropTypes.string
+  id: PropTypes.string,
+  currentTime: PropTypes.number
 }
 
 function mapStateToProps(state) {
   return {
-      answer: state.answers.answer
+      answer: state.teams.answer,
+      currentTime: state.timer.currentTime
   };
 }
 

@@ -1,7 +1,7 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
 import React from 'react'
-import Teams from './Teams'
+import { Teams } from './Teams'
 
 const numberOfTeams = 6
 
@@ -16,8 +16,8 @@ describe('Given `Teams`' ,() => {
     }
 
     function renderComponent(props=requiredProps()) {
-
-        return shallow(<Teams {...props}/>)
+        const newProps = requiredProps(props)
+        return shallow(<Teams {...newProps}/>)
 
     }
 
@@ -68,6 +68,12 @@ describe('Given `Teams`' ,() => {
             it('should contain a `AnswerForm` with an id set to each team id', () => {
 
                 expect(teamList.first().find('Connect(AnswerForm)').first().props().id).to.equal(component.state().teams[0].id)
+
+            })
+
+            it('should contain a `span` with a proper class name', () => {
+
+                expect(teamList.first().find('.team-score').type()).to.equal('span')
 
             })
 
