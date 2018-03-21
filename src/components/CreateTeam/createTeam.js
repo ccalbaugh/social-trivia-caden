@@ -1,23 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createTeamInDB } from '../../actions/teams';
+import Team from '../Team/team';
+import {
+    Redirect,
+    withRouter
+} from "react-router-dom";
 
 function handleChange(e) {
     const currentInput = e.target.value
     this.setState({ currentInput })
 }
 
-function handleSubmit() {
-    this.props.createTeamInDB(this.state.currentInput)
+function handleSubmit(e) {
+    e.preventDefault()
+    const teamId = this.state.currentInput
+
+    if (teamId) {
+        this.setState(
+            { currentInput: '', teamId }, 
+            () => { this.props.createTeamInDB(teamId) }
+        )
+        
+    }
 }
 
 export class CreateTeam extends Component {
 
     state = {
-        currentInput: ''
+        currentInput: '',
+        redirectToReferrer: false,
+        teamId: ''
+    }
+
+    componentWillReceiveProps(nextProps) {
+        nextProps.teams &&
+        nextProps.teams[this.state.teamId] &&
+        this.setState({ redirectToReferrer: true })
     }
 
     render() {
+        console.log("STTTTTAAAATTEEEE: ", this.state)
+
+        const { redirectToReferrer, currentInput, teamId } = this.state
+        const path = `/team/${teamId}`
+
+        if (redirectToReferrer) {
+            return <Redirect to={path} />
+        }
+
         return (
             <form className="create-team"
                   
@@ -25,11 +56,11 @@ export class CreateTeam extends Component {
             >
                 <input type="text" 
                        className="create-team-input" 
-                       value={this.state.currentInput} 
+                       value={currentInput} 
                        onChange={handleChange.bind(this)} 
                 />
                 <button className="creat-team-button"
-                        disabled={!this.state.currentInput}
+                        disabled={!currentInput}
                 >
                     Create Team
                 </button>
@@ -38,4 +69,10 @@ export class CreateTeam extends Component {
     }
 }
 
-export default connect(null, { createTeamInDB })(CreateTeam);
+function mapStateToProps(state) {
+    return {
+        teams: state.teams
+    }
+}
+
+export default withRouter(connect(mapStateToProps, { createTeamInDB })(CreateTeam));
