@@ -9,7 +9,9 @@ const mockScore = 10;
 const initialScore = 0
 const initialState = {
     [mockId]: {
-        score: 0
+        score: 0,
+        answer: undefined,
+        timeStamp: undefined
     }
 }
 const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
@@ -26,9 +28,9 @@ describe('Given `teamsReducer`', () => {
 
     it('should handle SUBMIT_ANSWER', () => {
 
-        const expectedState = {  [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp }  };
+        const expectedState = {  [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp, score: 0 }  };
 
-        expect(teamsReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp })).to.equal(expectedState);
+        expect(teamsReducer(initialState, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp })).to.equal(expectedState);
 
     });
 
