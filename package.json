@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.11.0",
+    "firebase-tools": "^3.17.7",
     "formik": "^0.11.11",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.6.1",
