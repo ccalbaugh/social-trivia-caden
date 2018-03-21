@@ -6,6 +6,7 @@ import logger from 'redux-logger';
 import SocialTriviaApp from './components/SocialTriviaApp';
 import teams from './reducers/teams';
 import timer from './reducers/timer';
+import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
     teams,
@@ -15,7 +16,7 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(logger)
+    applyMiddleware(logger, thunk)
 );
 
 render(
