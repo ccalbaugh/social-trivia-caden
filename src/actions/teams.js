@@ -1,6 +1,12 @@
 import * as types from './actionTypes';
 import { database } from '../data/firebase'
 
+export function createTeam(team) {
+    return {
+        type: types.CREATE_TEAM,
+        team
+    };
+}
 
 export function fetchTeams(teams) {
     return {
