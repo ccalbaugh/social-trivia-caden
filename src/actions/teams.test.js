@@ -4,18 +4,17 @@ import sinon from 'sinon';
 import * as actions from './teams';
 import * as types from './actionTypes';
 
-const mockId = 1;
 const mockAnswer = 10;
 const mockTimeStamp = Date.now();
 const mockScore = 10;
-const mockTeam = 'team-1'
+const mockId = 'team-1'
 const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
 
 it('creates an action to create a team', () => {
 
-    const expectedAction = { type: types.CREATE_TEAM, team: mockTeam};
+    const expectedAction = { type: types.CREATE_TEAM, id: mockId};
 
-    expect(actions.createTeam(mockTeam)).to.equal(expectedAction);
+    expect(actions.createTeam(mockId)).to.equal(expectedAction);
 
 });
 

@@ -1,10 +1,10 @@
 import * as types from './actionTypes';
 import { database } from '../data/firebase'
 
-export function createTeam(team) {
+export function createTeam(id) {
     return {
         type: types.CREATE_TEAM,
-        team
+        id
     };
 }
 
