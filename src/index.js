@@ -7,6 +7,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SocialTriviaApp from './components/SocialTriviaApp';
 import HostBar from './components/HostBar/hostBar';
 import Teams from './components/Teams/teams';
+import Team from './components/Team/team';
+import CreateTeam from './components/CreateTeam/createTeam';
 import teams from './reducers/teams';
 import timer from './reducers/timer';
 import thunk from 'redux-thunk'
@@ -26,10 +28,10 @@ render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route path="/login" component={<p>"Please Login"</p>} />
-                <Route path="/host" component={HostBar} />                
-                <Route path="/teams" component={Teams} />
-                <Route path="/" component={SocialTriviaApp} />
+                <Route exact path="/" component={CreateTeam} />                
+                <Route path="/host" component={HostBar} />
+                <Route path="/team/:id" component={Team} />                
+                <Route exact path="/teams" component={Teams} />
             </Switch>
         </BrowserRouter>
     </Provider>, 
