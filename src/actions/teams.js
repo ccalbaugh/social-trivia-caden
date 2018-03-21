@@ -17,12 +17,13 @@ export function fetchTeamsFromDB() {
     }
 }
 
-export function submitAnswer(answer, id, timeStamp) {
+export function submitAnswer(answer, id, timeStamp, score) {
     return {
         type: types.SUBMIT_ANSWER,
         answer,
         id,
-        timeStamp
+        timeStamp,
+        score
     };
 }
 
@@ -39,6 +40,13 @@ export function updateTeam(score, id) {
         score,
         id
     };
+}
+
+export function submitTeamScoreToDB(currentScore, id, addToScore) {
+    return dispatch => {
+        const score = currentScore + addToScore
+        database.child(id).update({ score: score })
+    }
 }
 
  

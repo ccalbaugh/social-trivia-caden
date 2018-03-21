@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateTeam } from '../../actions/teams'
+import { updateTeam, submitTeamScoreToDB } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
 function updateTeams() {
 
-    const { teams, updateTeam } = this.props
+    const { teams, updateTeam, submitTeamScoreToDB } = this.props
 
     if (teams) {
         const teamKeys = Object.keys(teams)
@@ -28,9 +28,9 @@ function updateTeams() {
                     })
                 })
         
-                teamsWithPerfectAnswers.forEach((team) => { updateTeam(1, team) })
+                teamsWithPerfectAnswers.forEach((team) => { updateTeam(1, team), submitTeamScoreToDB(teams[team].score, team, 1) })
         
-                teamsWithNoPoints.forEach((team) => { updateTeam(0, team) })
+                teamsWithNoPoints.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
     
             } else {           
         
@@ -50,13 +50,13 @@ function updateTeams() {
                         })
                     })
         
-                    teamsWithNoPoints.forEach((team) => { updateTeam(0, team) })
+                    teamsWithNoPoints.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
         
-                    teamsWithWinningAnswers.forEach((team) => { updateTeam(1, team) })
+                    teamsWithWinningAnswers.forEach((team) => { updateTeam(1, team), submitTeamScoreToDB(teams[team].score, team, 1) })
         
                 } else {                                       
     
-                    teamKeys.forEach((team) => { updateTeam(0, team) })
+                    teamKeys.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
     
                 }
             }
@@ -108,4 +108,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { updateTeam, resetTimer })(HostBar);
+export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB })(HostBar);
