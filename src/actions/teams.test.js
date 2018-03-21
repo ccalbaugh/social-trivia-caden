@@ -8,6 +8,7 @@ const mockId = 1;
 const mockAnswer = 10;
 const mockTimeStamp = Date.now();
 const mockScore = 10;
+const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
 
 it('creates an action to submit an answer', () => {
 
@@ -22,5 +23,13 @@ it('creates an action to update the score for a team', () => {
     const expectedAction = { type: types.UPDATE_TEAM, score: mockScore, id: mockId };
 
     expect(actions.updateTeam(mockScore, mockId)).to.equal(expectedAction);
+
+});
+
+it('creates an action to fetch the teams', () => {
+
+    const expectedAction = { type: types.FETCH_TEAMS, teams: mockTeams };
+
+    expect(actions.fetchTeams(mockTeams)).to.equal(expectedAction);
 
 });

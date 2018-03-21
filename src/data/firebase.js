@@ -6,4 +6,4 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const database = firebase.database().ref('answers/')
+export const database = firebase.database().ref('teams/')

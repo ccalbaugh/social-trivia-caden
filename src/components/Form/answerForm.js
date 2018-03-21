@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswerToDB, id, name } = this.props;
+    const { submitAnswerToDB, id, name, currentTime } = this.props;
     return (
       <div className="form">
         <span className="team-name">{name}</span>
@@ -24,7 +24,8 @@ export class AnswerForm extends Component {
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
-            submitAnswerToDB(answer, id)
+            const now = Date.now()
+            submitAnswerToDB(parseInt(answer, 10), id, now)
             setSubmitting(false)
             resetForm()
           }}
