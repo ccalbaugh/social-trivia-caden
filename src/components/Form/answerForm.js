@@ -9,7 +9,7 @@ export class AnswerForm extends Component {
     const { submitAnswerToDB, id, name, currentTime } = this.props;
     return (
       <div className="form">
-        <span className="team-name">{name}</span>
+        <span className="team-name">Team Name: {name}</span>
         <Formik
           initialValues={{
             answer: "",
