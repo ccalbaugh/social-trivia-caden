@@ -10,7 +10,7 @@ export function createTeam(id) {
 
 export function createTeamInDB(id) {
     return dispatch => {
-        database.child(id).set({ answer: 0, timeStamp: 0, score: 0 })
+        database.child(id).set({ answer: 0, timestamp: 0, score: 0 })
         dispatch(createTeam(id)) 
     }
 }
