@@ -10,6 +10,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
+    "recharts": "^1.0.0-beta.10",
     "redux": "^3.7.2"
   },
   "scripts": {
@@ -25,8 +26,5 @@
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "sinon": "^4.4.4"
-  },
-  "peerDependencies": {
-    "recharts": "^1.0.0-beta.10"
   }
 }
