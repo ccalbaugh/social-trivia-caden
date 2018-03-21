@@ -17,7 +17,8 @@ function submitAnswer(state, action) {
     return action.id ? {
         ...state,
         answer: action.answer,
-        timeStamp: action.timeStamp
+        timeStamp: action.timeStamp,
+        score: state.score
     } : state
 }
 

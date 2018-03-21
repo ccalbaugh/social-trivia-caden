@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import * as actions from './teams';
 import * as types from './actionTypes';
 
+const mockId = 'team-1';
 const mockAnswer = 10;
 const mockTimeStamp = Date.now();
 const mockScore = 10;
-const mockId = 'team-1'
-const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
+const mockTeam =  { [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp, score: mockScore  }  }
 
 it('creates an action to create a team', () => {
 
@@ -20,9 +20,9 @@ it('creates an action to create a team', () => {
 
 it('creates an action to submit an answer', () => {
 
-    const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp };
+    const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp, score: 0 };
 
-    expect(actions.submitAnswer(mockAnswer, mockId, mockTimeStamp)).to.equal(expectedAction);
+    expect(actions.submitAnswer(mockAnswer, mockId, mockTimeStamp, 0)).to.equal(expectedAction);
 
 });
 
@@ -36,8 +36,8 @@ it('creates an action to update the score for a team', () => {
 
 it('creates an action to fetch the teams', () => {
 
-    const expectedAction = { type: types.FETCH_TEAMS, teams: mockTeams };
+    const expectedAction = { type: types.FETCH_TEAMS, teams: mockTeam };
 
-    expect(actions.fetchTeams(mockTeams)).to.equal(expectedAction);
+    expect(actions.fetchTeams(mockTeam)).to.equal(expectedAction);
 
 });
