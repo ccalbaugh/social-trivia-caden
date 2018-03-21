@@ -42,11 +42,31 @@ describe('Given `CreateTeam`', () => {
 
     })
 
+    describe('When a user types in the input', () => {
+
+        it('should update the `currentInput` in state', () => {
+
+            expect(component.state().currentInput).to.equal('')
+
+            component.find('input').simulate('change', {
+                target: {
+                    value: 'e'
+                }
+            })
+
+        })
+
+    })
+
     describe('When the form is submitted', () => {
 
         it('should call createTeamInDB', () => {
 
-            component.find('form').simulate('submit')
+            component.setState({ currentInput: 'team-1' })
+
+            component.find('form').simulate('submit', {
+                preventDefault: () => {}
+            })
 
             sinon.assert.calledOnce(createTeamInDBMock)
 
