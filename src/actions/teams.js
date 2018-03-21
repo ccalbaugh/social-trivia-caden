@@ -8,6 +8,13 @@ export function createTeam(id) {
     };
 }
 
+export function createTeamInDB(id) {
+    return dispatch => {
+        database.child(id).set({ answer: 0, timeStamp: 0, score: 0 })
+        dispatch(createTeam(id)) 
+    }
+}
+
 export function fetchTeams(teams) {
     return {
         type: types.FETCH_TEAMS,
