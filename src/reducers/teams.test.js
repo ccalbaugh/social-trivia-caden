@@ -26,7 +26,7 @@ describe('Given `teamsReducer`', () => {
 
     it('should handle SUBMIT_ANSWER', () => {
 
-        const expectedState = {  [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp }  };
+        const expectedState = {  [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp, score: 0 }  };
 
         expect(teamsReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp })).to.equal(expectedState);
 
