@@ -1,30 +1,36 @@
 import * as types from '../actions/actionTypes';
+import { combineReducers } from 'redux'
 
 function fetchTeams (state, action) {
     return  action.teams
 } 
 
-function submitAnswer(state, action) {
+function submitAnswer(
+    state = {
+        answer: undefined,
+        timeStamp: undefined,
+        score: 0
+    }, action) {
     return action.id ? {
         ...state,
-        [action.id]: {
-            ...state[action.id],
-            answer: action.answer,
-            timeStamp: action.timeStamp
-        }
-    } : 
-    state
+        answer: action.answer,
+        timeStamp: action.timeStamp,
+        score: state.score
+    } : state
 }
 
-function updateTeam(state, action) {
+function updateTeam(
+    state = {
+        answer: undefined,
+        timeStamp: undefined,
+        score: 0
+    }, action) {
     return {
         ...state,
-        [action.id]: {
-            answer: null,
-            timeStamp: null,
-            score: ((state[action.id].score || 0) + action.score)
-        }
-    };
+        answer: null,
+        timeStamp: null,
+        score: (state.score + action.score)
+    }
 }
 
 export default function(state = {}, action) {
@@ -37,5 +43,11 @@ export default function(state = {}, action) {
 
     const reducer = actionsHandler[action.type];
 
-    return reducer ? reducer(state, action) : state;
-}
+    
+    return reducer ? (
+        action.id ? { 
+            ...state, 
+            [action.id]: reducer(state[action.id], action) 
+        } : reducer(state, action)
+    ) : state  
+} 
