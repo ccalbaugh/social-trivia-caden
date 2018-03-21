@@ -12,6 +12,7 @@ const initialState = {
         score: 0
     }
 }
+const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
 
 describe('Given `teamsReducer`', () => {
 
@@ -45,6 +46,12 @@ describe('Given `teamsReducer`', () => {
         const expectedState = {};
 
         expect(teamsReducer(undefined, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: undefined })).to.equal(expectedState);
+
+    });
+
+    it('should handle FETCH_TEAMS', () => {
+
+        expect(teamsReducer(initialState, { type: types.FETCH_TEAMS, teams: mockTeams })).to.equal(mockTeams);
 
     });
 });

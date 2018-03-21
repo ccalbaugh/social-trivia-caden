@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import HostBar from './HostBar/hostBar'
 import Teams from './Teams/teams'
-class SocialTriviaApp extends Component {
+
+export class SocialTriviaApp extends Component {
 
     render() {
         return (
@@ -14,4 +15,4 @@ class SocialTriviaApp extends Component {
     }
 }
 
-export default SocialTriviaApp
+export default SocialTriviaApp;

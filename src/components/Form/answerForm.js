@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Formik } from 'formik'
 import { connect } from "react-redux"
-import { submitAnswer } from '../../actions/teams'
+import { submitAnswerToDB } from '../../actions/teams'
 import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswer, id, name, currentTime } = this.props;
+    const { submitAnswerToDB, id, name, currentTime } = this.props;
     return (
       <div className="form">
         <span className="team-name">{name}</span>
@@ -25,7 +25,7 @@ export class AnswerForm extends Component {
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
             const now = Date.now()
-            submitAnswer(parseInt(answer, 10), id, now)
+            submitAnswerToDB(parseInt(answer, 10), id, now)
             setSubmitting(false)
             resetForm()
           }}
@@ -77,4 +77,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { submitAnswer })(AnswerForm);
+export default connect(mapStateToProps, { submitAnswerToDB })(AnswerForm);
