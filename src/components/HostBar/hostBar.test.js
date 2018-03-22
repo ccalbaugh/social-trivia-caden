@@ -46,7 +46,7 @@ describe('Given `HostBar`' ,() => {
         const answerForm = component.find('Connect(AnswerForm)')
 
         expect(answerForm.exists()).to.be.true()
-        expect(answerForm.first().props().id).to.equal(component.state().teams[0].id)
+        expect(answerForm.first().props().id).to.equal('admin')
     })
 
     it('should contain a connected `Timer` component', () => {
