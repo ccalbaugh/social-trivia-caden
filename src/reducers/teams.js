@@ -9,7 +9,7 @@ function createTeam(state, action) {
 }
 
 function fetchTeams (state, action) {
-    return  action.teams
+    return action.teams
 } 
 
 function submitAnswer(state, action) {
