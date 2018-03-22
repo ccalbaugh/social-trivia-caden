@@ -28,8 +28,8 @@ render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={CreateTeam} />                
-                <Route path="/host" component={HostBar} />
+                <Route exact path="/" component={CreateTeam} />
+                <Route exact path="/admin" component={HostBar} />       
                 <Route path="/team/:id" component={Team} />                
                 <Route exact path="/teams" component={Teams} />
             </Switch>
