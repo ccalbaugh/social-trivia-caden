@@ -25,6 +25,7 @@ describe('Given `Timer`' ,() => {
             updateTimer: updateTimerSpy,
             decrementTimer: decrementTimerSpy,
             isTimerRunning: false,
+            parentId: 'admin',
             ...overrides
         }
     }
@@ -53,146 +54,165 @@ describe('Given `Timer`' ,() => {
 
     })
 
-    it('should contain a `.timer` input which contains a currentTime', () => {
+    describe('When it is the `admin` timer', () => {
 
-        expect(component.find('.timer').props().value).to.equal(currentTime)
+        it('should contain a `.admin-timer-controls` container', () => {
 
-    })
+            expect(component.find('.admin-timer-controls').type()).to.equal('div')
 
-    describe('Given `.timer`', () => {
+        })
 
+        it('should contain a `.timer` input which contains a currentTime', () => {
+
+            expect(component.find('.timer').props().value).to.equal(currentTime)
+    
+        })
+    
         describe('When it is updated', () => {
-
+    
             beforeEach(() => {
                 component.find('.timer').simulate('change', { target: { value: '40' } })
             })
-
+    
             it('should dispatch `updateTimer`', () => {
-
+    
                 sinon.assert.calledOnce(updateTimerSpy)
-
+    
             })
-
+    
         })
-
-    })
-
-    it('should contain a `.control-timer-button`', () => {
-
-        expect(component.find('.control-timer-button').type()).to.equal('button')
-
-    })
-
-    describe('Given `.control-timer-button', () => {
-
-        describe('when the timer is stopped', () => {
-            
-            it('should contain the text `Start`', () => {
-
-                expect(component.find('.control-timer-button').text()).to.equal('Start')
-
-            })
-
-            it('should be disabled if the timer value is 0', () => {
-
-                component = renderComponent({ currentTime: 0 })
-
-                expect(component.find('.control-timer-button').props().disabled).to.equal(true)
-
-            })
-
-            it('should not be disabled if the timer value is > 0', () => {
-
-                component = renderComponent()
+    
+        it('should contain a `.control-timer-button`', () => {
+    
+            expect(component.find('.control-timer-button').type()).to.equal('button')
+    
+        })
+    
+        describe('Given `.control-timer-button', () => {
+    
+            describe('when the timer is stopped', () => {
                 
-                expect(component.find('.control-timer-button').props().disabled).to.equal(false)
-
+                it('should contain the text `Start`', () => {
+    
+                    expect(component.find('.control-timer-button').text()).to.equal('Start')
+    
+                })
+    
+                it('should be disabled if the timer value is 0', () => {
+    
+                    component = renderComponent({ currentTime: 0 })
+    
+                    expect(component.find('.control-timer-button').props().disabled).to.equal(true)
+    
+                })
+    
+                it('should not be disabled if the timer value is > 0', () => {
+    
+                    component = renderComponent()
+                    
+                    expect(component.find('.control-timer-button').props().disabled).to.equal(false)
+    
+                })
+    
+                describe('When the button is clicked', () => {
+    
+                    let clock
+    
+                    beforeEach(() => {
+                        clock = sinon.useFakeTimers({ shouldAdvanceTime: true })
+                        component.find('.control-timer-button').simulate('click')
+                    })
+    
+                    afterEach(() => {
+                        clock.restore()
+                    })
+    
+                    it('should call controlTimer to update the state', () => {
+        
+                        sinon.assert.calledOnce(controlTimerSpy)
+                    
+                    })
+    
+                    it('should create a timer to dispatch `decrementTimer` every second', () => {            
+    
+                        clock.next();           
+    
+                        sinon.assert.calledOnce(decrementTimerSpy)
+    
+                    })
+    
+                })
+    
             })
-
-            describe('When the button is clicked', () => {
-
-                let clock
-
+    
+            describe('when the timer is started with a timer value > 0', () => {
+    
                 beforeEach(() => {
-                    clock = sinon.useFakeTimers({ shouldAdvanceTime: true })
-                    component.find('.control-timer-button').simulate('click')
+                    component = renderComponent({ isTimerRunning: true })
                 })
-
-                afterEach(() => {
-                    clock.restore()
-                })
-
-                it('should call controlTimer to update the state', () => {
-    
-                    sinon.assert.calledOnce(controlTimerSpy)
                 
-                })
-
-                it('should create a timer to dispatch `decrementTimer` every second', () => {            
-
-                    clock.next();           
-
-                    sinon.assert.calledOnce(decrementTimerSpy)
-
-                })
-
-            })
-
-        })
-
-        describe('when the timer is started with a timer value > 0', () => {
-
-            beforeEach(() => {
-                component = renderComponent({ isTimerRunning: true })
-            })
-            
-            it('should contain the text `Pause`', () => {
-
-                expect(component.find('.control-timer-button').text()).to.equal('Pause')
-
-            })
-
-            describe('When the button is clicked', () => {
-
-                it('should call controlTimer to update the state', () => {
-
-                    component.find('.control-timer-button').simulate('click')
+                it('should contain the text `Pause`', () => {
     
-                    sinon.assert.calledOnce(controlTimerSpy)
-                
+                    expect(component.find('.control-timer-button').text()).to.equal('Pause')
+    
                 })
-
+    
+                describe('When the button is clicked', () => {
+    
+                    it('should call controlTimer to update the state', () => {
+    
+                        component.find('.control-timer-button').simulate('click')
+        
+                        sinon.assert.calledOnce(controlTimerSpy)
+                    
+                    })
+    
+                })
             })
         })
+    
+        it('should contain a `.reset-timer-button`', () => {
+    
+            expect(component.find('.reset-timer-button').type()).to.equal('button')
+    
+        })
+    
+        describe('Given `.reset-timer-button`', () => {
+    
+            describe('When it is clicked', () => {
+    
+                beforeEach(() => {
+                    component.find('.reset-timer-button').simulate('click')
+                })
+    
+                it('should dispatch `resetTimer`', () => {
+    
+                    sinon.assert.calledOnce(resetTimerSpy)
+    
+                })
+    
+                it('should reset the `currentTime` to the `defaultTime`', () => {
+    
+                    expect(component.state().currentTime).to.equal(currentTime)
+    
+                })
+    
+            })
+    
+        })
+
     })
 
-    it('should contain a `.reset-timer-button`', () => {
+    describe('When it is not the `admin` timer', () => {
 
-        expect(component.find('.reset-timer-button').type()).to.equal('button')
+        it('should not contain a `.admin-timer-controls` container', () => {
 
-    })
+            component = renderComponent({ parentId: 'teams' })
 
-    describe('Given `.reset-timer-button`', () => {
-
-        describe('When it is clicked', () => {
-
-            beforeEach(() => {
-                component.find('.reset-timer-button').simulate('click')
-            })
-
-            it('should dispatch `resetTimer`', () => {
-
-                sinon.assert.calledOnce(resetTimerSpy)
-
-            })
-
-            it('should reset the `currentTime` to the `defaultTime`', () => {
-
-                expect(component.state().currentTime).to.equal(currentTime)
-
-            })
+            expect(component.find('.admin-timer-controls').exists()).to.be.false()
 
         })
 
     })
+    
 })
