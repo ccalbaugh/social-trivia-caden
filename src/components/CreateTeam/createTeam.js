@@ -42,7 +42,7 @@ export class CreateTeam extends Component {
         const { redirectToReferrer, currentInput, teamId } = this.state
         const path = teamId.toLowerCase() === 'admin' ? 
             '/admin' : 
-                'teams' ?
+            teamId.toLowerCase() === 'teams' ?
                     '/teams' :
                         `/team/${teamId}`
 
