@@ -10,6 +10,14 @@ const mockTimeStamp = Date.now();
 const mockScore = 10;
 const mockTeam =  { [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp, score: mockScore  }  }
 
+it('creates an action to create a team', () => {
+
+    const expectedAction = { type: types.CREATE_TEAM, id: mockId};
+
+    expect(actions.createTeam(mockId)).to.equal(expectedAction);
+
+});
+
 it('creates an action to submit an answer', () => {
 
     const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timeStamp: mockTimeStamp, score: 0 };

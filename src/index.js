@@ -3,7 +3,11 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-import SocialTriviaApp from './components/SocialTriviaApp';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import HostBar from './components/HostBar/hostBar';
+import Teams from './components/Teams/teams';
+import Team from './components/Team/team';
+import CreateTeam from './components/CreateTeam/createTeam';
 import teams from './reducers/teams';
 import timer from './reducers/timer';
 import thunk from 'redux-thunk'
@@ -21,7 +25,14 @@ const store = createStore(
 
 render(
     <Provider store={store}>
-        <SocialTriviaApp />
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={CreateTeam} />
+                <Route exact path="/admin" component={HostBar} />       
+                <Route path="/team/:id" component={Team} />                
+                <Route exact path="/teams" component={Teams} />
+            </Switch>
+        </BrowserRouter>
     </Provider>, 
     document.getElementById('root')
 );

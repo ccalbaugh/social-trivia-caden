@@ -9,12 +9,14 @@ describe('Given `HostBar`' ,() => {
     let component,
         sandbox,
         updateTeamSpy,
-        submitTeamSpy
+        submitTeamSpy,
+        fetchTeamsFromDBSpy
     
     function requiredProps(overrides= {}) {
         return {
             updateTeam: updateTeamSpy,
             submitTeamScoreToDB: submitTeamSpy,
+            fetchTeamsFromDB: fetchTeamsFromDBSpy,
             ...overrides
         }
     }
@@ -29,6 +31,7 @@ describe('Given `HostBar`' ,() => {
         sandbox = sinon.createSandbox()
         updateTeamSpy = sandbox.spy()
         submitTeamSpy = sandbox.spy()
+        fetchTeamsFromDBSpy = sandbox.spy()
         component = renderComponent()
     })
     
