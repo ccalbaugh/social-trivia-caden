@@ -4,6 +4,14 @@ import sinon from 'sinon';
 import * as actions from './timer';
 import * as types from './actionTypes';
 
+it('creates an action to create the timer', () => {
+
+    const expectedAction = { type: types.CREATE_TIMER, isTimerRunning: false, defaultTime: 60, currentTime: 60 };
+
+    expect(actions.createTimer()).to.equal(expectedAction);
+
+});
+
 it('creates an action to control the timer', () => {
 
     const mockIsTimerRunning = true;
