@@ -109,22 +109,29 @@ export class Timer extends Component {
                     </PieChart>
                 </div>
 
-                <input className="timer"
-                       value={currentTime}
-                       maxLength={2}
-                       onChange={handleTimerUpdate.bind(this)} 
-                />
-                <button className="control-timer-button"
-                        onClick={handleControlTimer.bind(this, !isTimerRunning)}
-                        disabled={currentTime <= 0}
-                >
-                    { isTimerRunning ? 'Pause' : 'Start' }
-                </button>
-                <button className="reset-timer-button"
-                        onClick={handleTimerReset.bind(this)}
-                >
-                    Reset
-                </button>             
+                {
+                    this.props.parentId.toLowerCase() === 'admin' &&
+                    <div className="admin-timer-controls">
+                        <input className="timer"
+                               value={currentTime}
+                               maxLength={2}
+                               onChange={handleTimerUpdate.bind(this)} 
+                        />
+                        <button className="control-timer-button"
+                                onClick={handleControlTimer.bind(this, !isTimerRunning)}
+                                disabled={currentTime <= 0}
+                        >
+                            { isTimerRunning ? 'Pause' : 'Start' }
+                        </button>
+                        <button className="reset-timer-button"
+                                onClick={handleTimerReset.bind(this)}
+                        >
+                            Reset
+                        </button>  
+                    </div>
+                }
+
+                           
             </section>
         )
     }

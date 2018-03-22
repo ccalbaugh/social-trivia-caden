@@ -94,7 +94,7 @@ export class HostBar extends Component {
         return (
             <section>
                  <AnswerForm id={this.state.teams[0].id}/>
-                 <Timer/>
+                 <Timer parentId='admin' />
                  <button className="update-teams-button"
                          onClick={updateTeams.bind(this)}
                          disabled={isDisabled}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Timer from '../Timer/timer'
 import AnswerForm from '../Form/answerForm'
 
 export class Teams extends Component {
@@ -35,6 +36,7 @@ export class Teams extends Component {
     render() {
         return (
             <section>
+                <Timer parentId="teams" />
                 <ul className="team-list">
                     {
                         this.state.teams.map((team) => {
