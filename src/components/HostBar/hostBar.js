@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateTeam, submitTeamScoreToDB } from '../../actions/teams'
+import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
@@ -82,6 +82,10 @@ export class HostBar extends Component {
         ]
     }
 
+    componentDidMount() {
+        this.props.fetchTeamsFromDB()
+    }
+
     render() {
         const { teams } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
@@ -108,4 +112,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB })(HostBar);
+export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB })(HostBar);
