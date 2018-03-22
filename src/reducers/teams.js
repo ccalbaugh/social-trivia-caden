@@ -1,5 +1,4 @@
 import * as types from '../actions/actionTypes';
-import { combineReducers } from 'redux'
 
 function createTeam(state, action) {
     return {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createTeamInDB } from '../../actions/teams';
-import Team from '../Team/team';
 import {
     Redirect,
     withRouter

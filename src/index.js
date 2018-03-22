@@ -4,7 +4,6 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SocialTriviaApp from './components/SocialTriviaApp';
 import HostBar from './components/HostBar/hostBar';
 import Teams from './components/Teams/teams';
 import Team from './components/Team/team';
