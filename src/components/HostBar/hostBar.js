@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
 import AnswerForm from '../Form/answerForm'
@@ -100,6 +101,7 @@ export class HostBar extends Component {
                 >
                     Update Teams
                 </button>
+                <Link to="/teams" target="_blank" >Open Game View</Link>
             </section>
         )
     }
