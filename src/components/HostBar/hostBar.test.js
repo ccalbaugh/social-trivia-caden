@@ -54,10 +54,16 @@ describe('Given `HostBar`' ,() => {
         expect(component.find('Connect(Timer)').exists()).to.be.true()
     })
 
-    it('should contain a `button` with a specific class name', () => {
+    it('should contain a `button` to update teams', () => {
 
         expect(component.find('.update-teams-button').type()).to.equal('button')
-
+    
+    })
+    
+    it('should contain a `Link` to open the teams view', () => {
+    
+        expect(component.find('Link').exists()).to.be.true()
+    
     })
 
     describe('Given `button`', () => {
