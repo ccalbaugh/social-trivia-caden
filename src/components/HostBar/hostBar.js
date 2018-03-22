@@ -28,9 +28,9 @@ function updateTeams() {
                     })
                 })
         
-                teamsWithPerfectAnswers.forEach((team) => { updateTeam(1, team), submitTeamScoreToDB(teams[team].score, team, 1) })
+                teamsWithPerfectAnswers.forEach((team) => { updateTeam(1, team); submitTeamScoreToDB(teams[team].score, team, 1) })
         
-                teamsWithNoPoints.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
+                teamsWithNoPoints.forEach((team) => { updateTeam(0, team); submitTeamScoreToDB(teams[team].score, team, 0) })
     
             } else {           
         
@@ -50,13 +50,13 @@ function updateTeams() {
                         })
                     })
         
-                    teamsWithNoPoints.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
+                    teamsWithNoPoints.forEach((team) => { updateTeam(0, team); submitTeamScoreToDB(teams[team].score, team, 0) })
         
-                    teamsWithWinningAnswers.forEach((team) => { updateTeam(1, team), submitTeamScoreToDB(teams[team].score, team, 1) })
+                    teamsWithWinningAnswers.forEach((team) => { updateTeam(1, team); submitTeamScoreToDB(teams[team].score, team, 1) })
         
                 } else {                                       
     
-                    teamKeys.forEach((team) => { updateTeam(0, team), submitTeamScoreToDB(teams[team].score, team, 0) })
+                    teamKeys.forEach((team) => { updateTeam(0, team); submitTeamScoreToDB(teams[team].score, team, 0) })
     
                 }
             }
