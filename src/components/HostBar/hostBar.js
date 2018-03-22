@@ -77,24 +77,19 @@ function findMultipleWinners(sortedArr) {
 
 export class HostBar extends Component {
 
-    state = {
-        teams: [
-            { name: 'Admin', id: 'admin'}
-        ]
-    }
-
     componentDidMount() {
         this.props.fetchTeamsFromDB()
     }
 
     render() {
+        const id = 'admin'
         const { teams } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
         const isDisabled = teamAnswers && !teamAnswers.length
         return (
             <section>
-                 <AnswerForm id={this.state.teams[0].id}/>
-                 <Timer parentId='admin' />
+                 <AnswerForm id={id}/>
+                 <Timer parentId={id} />
                  <button className="update-teams-button"
                          onClick={updateTeams.bind(this)}
                          disabled={isDisabled}
