@@ -17,7 +17,10 @@ export class AnswerForm extends Component {
           }}
           validate={(values) => {
             let errors = {};
-            if (!parseInt(values.answer, 10)) {
+            let regEx = /^[0-9]*$/g
+            let isValidAnswer = regEx.test(values.answer)
+           
+            if (!isValidAnswer || !parseInt(values.answer, 10)) {
               errors.answer = "Please enter a Number";
             }
             return errors;
