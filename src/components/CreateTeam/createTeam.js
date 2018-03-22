@@ -21,7 +21,6 @@ function handleSubmit(e) {
             { currentInput: '', teamId }, 
             () => { this.props.createTeamInDB(teamId) }
         )
-        
     }
 }
 
@@ -40,10 +39,13 @@ export class CreateTeam extends Component {
     }
 
     render() {
-        console.log("STTTTTAAAATTEEEE: ", this.state)
 
         const { redirectToReferrer, currentInput, teamId } = this.state
-        const path = `/team/${teamId}`
+        const path = teamId.toLowerCase() === 'admin' ? 
+            '/admin' : 
+                'teams' ?
+                    '/teams' :
+                        `/team/${teamId}`
 
         if (redirectToReferrer) {
             return <Redirect to={path} />
