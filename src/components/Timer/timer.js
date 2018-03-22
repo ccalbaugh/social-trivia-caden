@@ -41,7 +41,7 @@ function handleTimerUpdate(e) {
 function handleTimerReset() {
     this.props.resetTimer(this.props.defaultTime)
     this.state.intervalId && 
-        clearInterval(this.state.intervalId) & 
+        clearInterval(this.state.intervalId) && 
         this.setState({ intervalId: undefined })
 }
 
@@ -53,8 +53,7 @@ function secToTimeCode(sec){
 
 function tensionColor(num) {
     let level = '#54e8b5';
-    num < 16 ? level = '#ffc107': null;
-    num < 11 ? level = '#f44336': null;
+    level = num < 16 && num > 11 ? '#ffc107' : num < 11 ? '#f44336' : level
     return level;
 }
 
@@ -77,7 +76,6 @@ export class Timer extends Component {
         const { isTimerRunning, defaultTime} = this.props
         const { currentTime } = this.state
 
-        const colors = ['#54e8b5', '#a2a2a2'];
         const trackWidth = 8;
         const timerData = [
             {name: 'Time Used', value: currentTime},
