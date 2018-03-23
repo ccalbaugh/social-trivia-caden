@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import React from 'react'
 import { Timer } from './Timer'
 
-describe('Given `Timer`' ,() => {
+describe('Given `Timer`', () => {
 
     let component,
         sandbox,
@@ -12,7 +12,9 @@ describe('Given `Timer`' ,() => {
         controlTimerSpy,
         resetTimerSpy,
         updateTimerSpy,
-        decrementTimerSpy
+        decrementTimerSpy,
+        fetchTimerSpy,
+        createTimerSpy
 
     const currentTime = 60
     const mockDefaultTime = 40
@@ -24,6 +26,8 @@ describe('Given `Timer`' ,() => {
             resetTimer: resetTimerSpy,
             updateTimer: updateTimerSpy,
             decrementTimer: decrementTimerSpy,
+            fetchTimer: fetchTimerSpy,
+            createTimer: createTimerSpy,
             isTimerRunning: false,
             parentId: 'admin',
             ...overrides
@@ -41,6 +45,8 @@ describe('Given `Timer`' ,() => {
         resetTimerSpy = sandbox.spy()
         updateTimerSpy = sandbox.spy()
         decrementTimerSpy = sandbox.spy()
+        createTimerSpy = sandbox.spy()
+        fetchTimerSpy = sandbox.spy()
         component = renderComponent()
     })
 
@@ -49,6 +55,8 @@ describe('Given `Timer`' ,() => {
     })
     
     it('it should exist as a `section` tag', () => {
+
+        console.log("COMPONENT PROPS: ", component.props())
         
         expect(component.type()).to.equal('section')
 
