@@ -55,7 +55,7 @@ function secToTimeCode(sec){
 
 function tensionColor(num) {
     let level = '#54e8b5';
-    level = num < 16 && num > 11 ? '#ffc107' : num < 11 ? '#f44336' : level
+    level = num < 16 && num >= 11 ? '#ffc107' : num < 11 ? '#f44336' : level
     return level;
 }
 
