@@ -33,6 +33,14 @@ export function fetchTeamsFromDB() {
     }
 }
 
+export function fetchIsShowingAnswers() {
+    return dispatch => {
+        isShowingAnswersInDB.on('value', snapshot => {
+            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val().isShowingAnswers })
+        })
+    }
+}
+
 export function submitAnswer(answer, id, timeStamp, score) {
     return {
         type: types.SUBMIT_ANSWER,
@@ -70,13 +78,5 @@ export function toggleShowAnswers(isShowingAnswers) {
     return {
         type: types.TOGGLE_SHOW_ANSWERS,
         isShowingAnswers
-    }
-}
-
-export function fetchIsShowingAnswers() {
-    return dispatch => {
-        isShowingAnswersInDB.on('value', snapshot => {
-            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val().isShowingAnswers })
-        })
     }
 }
