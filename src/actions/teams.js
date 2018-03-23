@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import { database } from '../data/firebase'
 
 const teams = database.ref('teams/')
+const isShowingAnswersInDB = database.ref('isShowingAnswers/')
 
 export function createTeam(id) {
     return {
@@ -64,4 +65,10 @@ export function submitTeamScoreToDB(currentScore, id, addToScore) {
     }
 }
 
- 
+export function toggleShowAnswers(isShowingAnswers) {
+    isShowingAnswersInDB.set({ isShowingAnswers: !isShowingAnswers })
+    return {
+        type: types.TOGGLE_SHOW_ANSWERS,
+        isShowingAnswers
+    }
+}

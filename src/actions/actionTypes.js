@@ -8,3 +8,4 @@ export const CREATE_TEAM = 'CREATE_TEAM';
 export const FETCH_TEAMS = 'FETCH_TEAMS';
 export const FETCH_TIMER = 'FETCH_TIMER';
 export const UPDATE_TEAM = 'UPDATE_TEAM';
+export const TOGGLE_SHOW_ANSWERS = 'TOGGLE_SHOW_ANSWERS';
