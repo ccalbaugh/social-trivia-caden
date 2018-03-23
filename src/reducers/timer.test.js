@@ -9,7 +9,7 @@ describe('Given `timerReducer`', () => {
 
     it('should return the initial state when none is given', () => {
 
-        const expectedState = { isTimerRunning: false };
+        const expectedState = {};
 
         expect(timerReducer(undefined, { type: 'NO_MATCH'})).to.equal(expectedState);
 
@@ -27,7 +27,7 @@ describe('Given `timerReducer`', () => {
 
         const expectedState = { currentTime: mockDefaultTime, isTimerRunning: false };
 
-        expect(timerReducer(undefined, { type: types.RESET_TIMER, defaultTime: mockDefaultTime })).to.equal(expectedState);
+        expect(timerReducer(undefined, { type: types.RESET_TIMER, currentTime: mockDefaultTime })).to.equal(expectedState);
 
     });
 
@@ -41,7 +41,7 @@ describe('Given `timerReducer`', () => {
 
     it('should handle DECREMENT_TIMER', () => {
 
-        const expectedState = { isTimerRunning: false, currentTime: mockDefaultTime - 1 };
+        const expectedState = { currentTime: mockDefaultTime - 1 };
 
         expect(timerReducer(undefined, { type: types.DECREMENT_TIMER, timeLeft: mockDefaultTime })).to.equal(expectedState);
 
