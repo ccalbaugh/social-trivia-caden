@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes';
 
 function createTeam(state, action) {
     return {
-        answer: undefined,
-        timeStamp: undefined,
+        answer: 0,
+        timeStamp: 0,
         score: 0
     }
 }
@@ -23,8 +23,8 @@ function submitAnswer(state, action) {
 function updateTeam(state, action) {
     return {
         ...state,
-        answer: null,
-        timeStamp: null,
+        answer: 0,
+        timeStamp: 0,
         score: (state.score + action.score)
     }
 }
