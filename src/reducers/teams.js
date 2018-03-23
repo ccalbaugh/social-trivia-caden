@@ -29,6 +29,21 @@ function updateTeam(state, action) {
     }
 }
 
+function toggleShowAnswers(state, action) {
+    return !action.isShowingAnswers
+}
+
+export function isShowingAnswers(state = false, action) {
+
+    const actionsHandler = {
+        [types.TOGGLE_SHOW_ANSWERS]: toggleShowAnswers,
+    };
+
+    const reducer = actionsHandler[action.type];
+
+    return reducer ? reducer(state, action) : state
+}
+
 export default function(state = {}, action) {
 
     const actionsHandler = {
