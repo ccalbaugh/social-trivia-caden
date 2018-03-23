@@ -46,10 +46,10 @@ export function decrementTimer(timeLeft) {
 export function fetchTimer() {
     return dispatch => {
         timer.on('value', snapshot => {
-          dispatch({
-              type: types.FETCH_TIMER,
-              timer: snapshot.val()
-          })
+            dispatch({
+                type: types.FETCH_TIMER,
+                timer: snapshot.val()
+            })
         });
-      }
+    }
 }
