@@ -72,3 +72,11 @@ export function toggleShowAnswers(isShowingAnswers) {
         isShowingAnswers
     }
 }
+
+export function fetchIsShowingAnswers() {
+    return dispatch => {
+        isShowingAnswersInDB.on('value', snapshot => {
+            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val().isShowingAnswers })
+        })
+    }
+}
