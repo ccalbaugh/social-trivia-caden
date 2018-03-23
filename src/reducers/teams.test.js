@@ -1,6 +1,6 @@
 import { expect } from 'code';
 import * as types from '../actions/actionTypes';
-import teamsReducer from './teams';
+import teamsReducer, { isShowingAnswers } from './teams';
 
 const mockAnswer = 10;
 const mockId = 'team-1';
@@ -65,3 +65,15 @@ describe('Given `teamsReducer`', () => {
 
     });
 });
+
+describe('Given `isShowingAnswers`', () => {
+
+    it('should handle `TOGGLE_SHOW_ANSWERS`', () => {
+
+        const expectedState = true
+
+        expect(isShowingAnswers(undefined, { type: types.TOGGLE_SHOW_ANSWERS, isShowingAnswers: false })).to.equal(expectedState)
+
+    })
+
+})
