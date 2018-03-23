@@ -36,7 +36,6 @@ export function fetchTeamsFromDB() {
 export function fetchIsShowingAnswers() {
     return dispatch => {
         isShowingAnswersInDB.on('value', snapshot => {
-            console.log("IS SHOWING ANSERS: ", snapshot.val())
             dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val() })
         })
     }
