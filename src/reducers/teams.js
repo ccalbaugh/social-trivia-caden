@@ -41,7 +41,7 @@ export function isShowingAnswers(state = false, action) {
 
     const actionsHandler = {
         [types.TOGGLE_SHOW_ANSWERS]: toggleShowAnswers,
-        [types.FETCH_IS_SHOWING_ANSWERS]: fetchIsShowingAnswers,
+        [types.FETCH_IS_SHOWING_ANSWERS]: fetchIsShowingAnswers
     };
 
     const reducer = actionsHandler[action.type];
