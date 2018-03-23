@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import { database } from '../data/firebase'
 
 const teams = database.ref('teams/')
-const isShowingAnswersInDB = database.ref('isShowingAnswers/')
+const isShowingAnswersInDB = database.ref('isShowingAnswers')
 
 export function createTeam(id) {
     return {
@@ -36,7 +36,8 @@ export function fetchTeamsFromDB() {
 export function fetchIsShowingAnswers() {
     return dispatch => {
         isShowingAnswersInDB.on('value', snapshot => {
-            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val().isShowingAnswers })
+            console.log("IS SHOWING ANSERS: ", snapshot.val())
+            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val() })
         })
     }
 }
@@ -74,7 +75,7 @@ export function submitTeamScoreToDB(currentScore, id, addToScore) {
 }
 
 export function toggleShowAnswers(isShowingAnswers) {
-    isShowingAnswersInDB.set({ isShowingAnswers: !isShowingAnswers })
+    isShowingAnswersInDB.set(!isShowingAnswers)
     return {
         type: types.TOGGLE_SHOW_ANSWERS,
         isShowingAnswers
