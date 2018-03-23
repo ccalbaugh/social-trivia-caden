@@ -4,10 +4,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { 
+    createTimer,
     controlTimer, 
     resetTimer, 
     updateTimer, 
-    decrementTimer 
+    decrementTimer,
+    fetchTimer 
 } from '../../actions/timer'
 
 const TIMER_TICK = 1000
@@ -63,17 +65,27 @@ export class Timer extends Component {
         currentTime: this.props.currentTime || 0
     }
 
-    componentWillReceiveProps(nextProps) {
-        nextProps.currentTime !== this.props.currentTime &&
-        this.setState({ currentTime: nextProps.currentTime })
+    componentDidMount() {
+        if (this.props.parentId.toLowerCase() === 'admin') {
+            this.props.createTimer()  
+        }
 
-        nextProps.currentTime <=0 && 
-        this.state.intervalId && 
-        clearInterval(this.state.intervalId)
+        this.props.fetchTimer()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.timer !== this.props.timer) {
+            nextProps.currentTime !== this.props.currentTime &&
+            this.setState({ currentTime: nextProps.currentTime })
+    
+            nextProps.currentTime <=0 && 
+            this.state.intervalId && 
+            clearInterval(this.state.intervalId)
+        }
     }
 
     render() {
-        const { isTimerRunning, defaultTime} = this.props
+        const { isTimerRunning, defaultTime } = this.props
         const { currentTime } = this.state
 
         const trackWidth = 8;
@@ -109,22 +121,29 @@ export class Timer extends Component {
                     </PieChart>
                 </div>
 
-                <input className="timer"
-                       value={currentTime}
-                       maxLength={2}
-                       onChange={handleTimerUpdate.bind(this)} 
-                />
-                <button className="control-timer-button"
-                        onClick={handleControlTimer.bind(this, !isTimerRunning)}
-                        disabled={currentTime <= 0}
-                >
-                    { isTimerRunning ? 'Pause' : 'Start' }
-                </button>
-                <button className="reset-timer-button"
-                        onClick={handleTimerReset.bind(this)}
-                >
-                    Reset
-                </button>             
+                {
+                    this.props.parentId.toLowerCase() === 'admin' &&
+                    <div className="admin-timer-controls">
+                        <input className="timer"
+                               value={currentTime}
+                               maxLength={2}
+                               onChange={handleTimerUpdate.bind(this)} 
+                        />
+                        <button className="control-timer-button"
+                                onClick={handleControlTimer.bind(this, !isTimerRunning)}
+                                disabled={currentTime <= 0}
+                        >
+                            { isTimerRunning ? 'Pause' : 'Start' }
+                        </button>
+                        <button className="reset-timer-button"
+                                onClick={handleTimerReset.bind(this)}
+                        >
+                            Reset
+                        </button>  
+                    </div>
+                }
+
+                           
             </section>
         )
     }
@@ -135,16 +154,23 @@ Timer.propTypes = {
     isTimerRunning: PropTypes.bool,
     defaultTime: PropTypes.number
 }
-Timer.defaultProps = {
-    currentTime: 30,
-    defaultTime: 30
-}
+
 function mapStateToProps(state) {
     return {
+        timer: state.timer,
         currentTime: state.timer.currentTime,
         isTimerRunning: state.timer.isTimerRunning,
         defaultTime: state.timer.defaultTime
     };
 }
 
-export default connect(mapStateToProps, { controlTimer, resetTimer, updateTimer, decrementTimer })(Timer)
+export default connect(
+    mapStateToProps, { 
+        createTimer, 
+        controlTimer, 
+        resetTimer, 
+        updateTimer, 
+        decrementTimer, 
+        fetchTimer 
+    }
+)(Timer)

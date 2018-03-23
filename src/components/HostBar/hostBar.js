@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
 import AnswerForm from '../Form/answerForm'
@@ -76,30 +77,26 @@ function findMultipleWinners(sortedArr) {
 
 export class HostBar extends Component {
 
-    state = {
-        teams: [
-            { name: 'Admin', id: 'admin'}
-        ]
-    }
-
     componentDidMount() {
         this.props.fetchTeamsFromDB()
     }
 
     render() {
+        const id = 'admin'
         const { teams } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
         const isDisabled = teamAnswers && !teamAnswers.length
         return (
             <section>
-                 <AnswerForm id={this.state.teams[0].id}/>
-                 <Timer/>
+                 <AnswerForm id={id}/>
+                 <Timer parentId={id} />
                  <button className="update-teams-button"
                          onClick={updateTeams.bind(this)}
                          disabled={isDisabled}
                 >
                     Update Teams
                 </button>
+                <Link to="/teams" target="_blank" >Open Game View</Link>
             </section>
         )
     }

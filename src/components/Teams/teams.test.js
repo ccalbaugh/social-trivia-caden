@@ -1,5 +1,6 @@
 import { expect } from 'code'
 import { shallow } from 'enzyme'
+import sinon from 'sinon'
 import React from 'react'
 import { Teams } from './Teams'
 
@@ -7,10 +8,18 @@ const numberOfTeams = 6
 
 describe('Given `Teams`' ,() => {
 
-    let component
+    let component,
+        sandbox,
+        fetchTeamsFromDBSpy
+
+    const mockTeams = [
+        { id: 'team-1', answer: 1, score: 0 },
+        { id: 'team-2', answer: 1, score: 0 },        
+    ]
     
     function requiredProps(overrides= {}) {
         return {
+            fetchTeamsFromDB: fetchTeamsFromDBSpy,
             ...overrides
         }
     }
@@ -22,6 +31,8 @@ describe('Given `Teams`' ,() => {
     }
 
     beforeEach(() => {
+        sandbox = sinon.createSandbox()
+        fetchTeamsFromDBSpy = sandbox.spy()
         component = renderComponent()
     })
     
@@ -37,43 +48,39 @@ describe('Given `Teams`' ,() => {
 
     })
 
-    it('should contain a local state with all the teams available', () => {
-
-        expect(component.state().teams.length).to.equal(numberOfTeams)
-
-    })
-
     describe('Given `ul`', () => {
 
         it('should render a `li` with a proper class name for every team in state', () => {
 
-            expect(component.find('.team-list-item').length).to.equal(component.state().teams.length)
+            component.setState({ teams: mockTeams })            
+
+            expect(component.find('.team-list-item').length).to.equal(mockTeams.length)
 
         })
 
         describe('Given `li`', () => {
 
-            let teamList;
-
-            beforeEach(() => {
-                teamList = component.find('.team-list-item')
-            })
-
             it('should have a key set to each team id', () => {
 
-                expect(teamList.first().key()).to.equal(component.state().teams[0].id)
+                component = renderComponent({ teams: mockTeams })
+
+                component.setState({ teams: mockTeams })
+
+                const teamListItem = component.find('.team-list-item')
+
+                expect(teamListItem.first().key()).to.equal(component.state().teams[0].id)
 
             })
 
-            it('should contain a `AnswerForm` with an id set to each team id', () => {
+            it('should contain 3 `span` elements with proper class names', () => {
 
-                expect(teamList.first().find('Connect(AnswerForm)').first().props().id).to.equal(component.state().teams[0].id)
+                component = renderComponent({ teams: mockTeams })   
+                
+                component.setState({ teams: mockTeams })                
+                
+                const teamListItem = component.find('.team-list-item')   
 
-            })
-
-            it('should contain a `span` with a proper class name', () => {
-
-                expect(teamList.first().find('.team-score').type()).to.equal('span')
+                expect(teamListItem.first().find('span').length).to.equal(3)
 
             })
 
