@@ -59,6 +59,7 @@ export function submitAnswerToDB(answer, id, timestamp) {
 }
 
 export function updateTeam(score, id) {
+    teams.child(id).update({ answer: 0, timestamp: 0 })
     return {
         type: types.UPDATE_TEAM,
         score,
