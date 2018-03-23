@@ -55,8 +55,6 @@ describe('Given `Timer`', () => {
     })
     
     it('it should exist as a `section` tag', () => {
-
-        console.log("COMPONENT PROPS: ", component.props())
         
         expect(component.type()).to.equal('section')
 
