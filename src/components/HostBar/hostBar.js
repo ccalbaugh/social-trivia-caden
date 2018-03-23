@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
+import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
@@ -85,6 +86,7 @@ export class HostBar extends Component {
 
     componentDidMount() {
         this.props.fetchTeamsFromDB()
+        database.ref('isShowingAnswers').set(false)
     }
 
     render() {
@@ -95,7 +97,7 @@ export class HostBar extends Component {
                 !teamAnswers || 
                 !teamAnswers.length || 
                 !isShowingAnswers 
-        const isShowAnswersButtonDisabled = isShowingAnswers
+        const isShowAnswersButtonDisabled = isShowingAnswers || !teamAnswers.length
         return (
             <section>
                  <AnswerForm id={id}/>
@@ -104,7 +106,7 @@ export class HostBar extends Component {
                          onClick={updateTeams.bind(this)}
                          disabled={isUpdateButtonDisabled}
                 >
-                    Update Teams
+                    Update Scores
                 </button>
                 <button className="show-answers-button"
                         onClick={showAnswers.bind(this)}
