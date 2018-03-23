@@ -93,9 +93,10 @@ export class HostBar extends Component {
         const id = 'admin'
         const { teams, isShowingAnswers } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
-        const isDisabled = !teamAnswers || !teamAnswers.length
+        const isDisabled = !teamAnswers || !teamAnswers.length || !teams['admin'].answer
         const isUpdateButtonDisabled = isDisabled || !isShowingAnswers 
-        const isShowAnswersButtonDisabled = isDisabled || isShowingAnswers 
+        const isShowAnswersButtonDisabled = isDisabled || isShowingAnswers
+         
         return (
             <section>
                  <AnswerForm id={id}/>
