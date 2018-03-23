@@ -33,10 +33,15 @@ function toggleShowAnswers(state, action) {
     return !action.isShowingAnswers
 }
 
+function fetchIsShowingAnswers(state, action) {
+    return action.isShowingAnswers
+}
+
 export function isShowingAnswers(state = false, action) {
 
     const actionsHandler = {
         [types.TOGGLE_SHOW_ANSWERS]: toggleShowAnswers,
+        [types.FETCH_IS_SHOWING_ANSWERS]: fetchIsShowingAnswers,
     };
 
     const reducer = actionsHandler[action.type];
