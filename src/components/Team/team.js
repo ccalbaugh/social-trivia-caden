@@ -14,18 +14,20 @@ export class Team extends Component {
 
     render() {
         
-        const { id } = this.props.match.params
-        const teamExists = this.props.teams && Object.keys(this.props.teams).find(team => team === id);
+        const { id } = this.props.match.params;
+        const { teams } = this.props;
+        const matchingTeam = Object.keys(teams).find(team => team === id)
+        const teamExists = teams && !!matchingTeam; 
 
         return (
             <section className="team">
                 {
-                    (teamExists && teamExists.length) ? (
+                    teamExists & teamExists ? (
                         <AnswerForm id={id} name={id} />
                     ) : (
                         <React.Fragment>
-                            <span className="not-found">Team not Found</span>
-                            <Link to="/">Go to Create Team Page</Link>
+                            <span className="no-team">Team not Found</span>
+                            <Link to="/">Create a Team Here</Link>
                         </React.Fragment>
                     )
                 }

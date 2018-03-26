@@ -64,7 +64,7 @@ describe('Given `Team`' ,() => {
             sinon.assert.calledOnce(fetchTimerSpy)
 
             sinon.assert.calledOnce(fetchTeamsFromDBSpy)
-            
+
         })
     })
 
@@ -74,7 +74,7 @@ describe('Given `Team`' ,() => {
 
             component = renderComponent({ teams: { 'team-2': {}, 'team-3': {} }})
 
-            expect(component.find('.not-found').type()).to.equal('span')
+            expect(component.find('.no-team').type()).to.equal('span')
 
             expect(component.find('Link').exists()).to.be.true()
 
