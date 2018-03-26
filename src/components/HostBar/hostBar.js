@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers } from '../../actions/teams'
+import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers, deleteTeam } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
 import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
+
+const millisecondsInADay = 86400000;
 
 function updateTeams() {
 
@@ -89,6 +91,18 @@ export class HostBar extends Component {
         database.ref('isShowingAnswers').set(false)
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.teams !== this.props.teams) {
+            const now = Date.now();
+            nextProps.teams.forEach(team => {
+                if (team.createdAt + millisecondsInADay <= now) {
+                    this.props.deleteTeam(team.id)
+                }
+            })
+        }
+        
+    }
+
     render() {
         const id = 'admin'
         const { teams, isShowingAnswers } = this.props
@@ -127,4 +141,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers })(HostBar);
+export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers, deleteTeam })(HostBar);
