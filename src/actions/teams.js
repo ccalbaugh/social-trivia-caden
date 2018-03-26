@@ -82,3 +82,11 @@ export function toggleShowAnswers(isShowingAnswers) {
         isShowingAnswers
     }
 }
+
+export function deleteTeam(id) {
+    teams.child(id).remove();
+    return {
+        type: types.DELETE_TEAM,    
+        id
+    };
+}

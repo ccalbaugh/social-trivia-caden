@@ -49,4 +49,12 @@ it('creates an action to show all team answers', () => {
 
     expect(actions.toggleShowAnswers(true)).to.equal(expectedAction)
 
-})
+});
+
+it('creates an action to delete a team', () => {
+
+    const expectedAction = { type: types.DELETE_TEAM, id: mockId }
+
+    expect(actions.deleteTeam(mockId)).to.equal(expectedAction)
+
+});
