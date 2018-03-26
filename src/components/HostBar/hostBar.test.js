@@ -37,6 +37,10 @@ describe('Given `HostBar`' ,() => {
         toggleShowAnswersSpy = sandbox.spy()
         component = renderComponent()
     })
+
+    afterEach(() => {    
+        sandbox.restore()
+    })
     
     it('it should exist as a `section` tag', () => {
         
