@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes';
 
 function createTeam(state, action) {
     return {
-        answer: undefined,
-        timeStamp: undefined,
+        answer: 0,
+        timeStamp: 0,
         score: 0
     }
 }
@@ -23,10 +23,30 @@ function submitAnswer(state, action) {
 function updateTeam(state, action) {
     return {
         ...state,
-        answer: null,
-        timeStamp: null,
+        answer: 0,
+        timeStamp: 0,
         score: (state.score + action.score)
     }
+}
+
+function toggleShowAnswers(state, action) {
+    return !action.isShowingAnswers
+}
+
+function fetchIsShowingAnswers(state, action) {
+    return action.isShowingAnswers
+}
+
+export function isShowingAnswers(state = false, action) {
+
+    const actionsHandler = {
+        [types.TOGGLE_SHOW_ANSWERS]: toggleShowAnswers,
+        [types.FETCH_IS_SHOWING_ANSWERS]: fetchIsShowingAnswers
+    };
+
+    const reducer = actionsHandler[action.type];
+
+    return reducer ? reducer(state, action) : state
 }
 
 export default function(state = {}, action) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchTeamsFromDB } from '../../actions/teams'
+import { fetchTeamsFromDB, fetchIsShowingAnswers } from '../../actions/teams'
 import Timer from '../Timer/timer'
 
 export class Teams extends Component {
@@ -26,10 +26,12 @@ export class Teams extends Component {
 
     componentDidMount() {
         this.props.fetchTeamsFromDB()
+        this.props.fetchIsShowingAnswers()
     }
 
     render() {
         const { teams } = this.state
+        const { isShowingAnswers } = this.props
         return (
             <section>
                 <Timer parentId="teams" />
@@ -42,7 +44,12 @@ export class Teams extends Component {
                                         key={team.id}
                                     >
                                         <span className="team-name">Team Name: {team.id}  ||  </span>
-                                        <span className="team-answer">Team Answer: {team.answer}  ||  </span>                                        
+                                        <span className="team-answer">
+                                        {   
+                                            isShowingAnswers && (`Team Answer: ${team.answer}  ||`)
+                                        }
+                                        </span>
+                                                                               
                                         <span className="team-score">Team Score: {team.score || 0}</span>
                                     </li>
                                 )
@@ -59,8 +66,9 @@ export class Teams extends Component {
 function mapStateToProps(state) {
     return {
         teams: state.teams,
-        timer: state.timer
+        timer: state.timer,
+        isShowingAnswers: state.isShowingAnswers
     }
 }
 
-export default connect(mapStateToProps, { fetchTeamsFromDB })(Teams)
+export default connect(mapStateToProps, { fetchTeamsFromDB, fetchIsShowingAnswers })(Teams)

@@ -10,13 +10,15 @@ describe('Given `HostBar`' ,() => {
         sandbox,
         updateTeamSpy,
         submitTeamSpy,
-        fetchTeamsFromDBSpy
+        fetchTeamsFromDBSpy,
+        toggleShowAnswersSpy
     
     function requiredProps(overrides= {}) {
         return {
             updateTeam: updateTeamSpy,
             submitTeamScoreToDB: submitTeamSpy,
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
+            toggleShowAnswers: toggleShowAnswersSpy,
             ...overrides
         }
     }
@@ -32,6 +34,7 @@ describe('Given `HostBar`' ,() => {
         updateTeamSpy = sandbox.spy()
         submitTeamSpy = sandbox.spy()
         fetchTeamsFromDBSpy = sandbox.spy()
+        toggleShowAnswersSpy = sandbox.spy()
         component = renderComponent()
     })
     
@@ -84,13 +87,15 @@ describe('Given `HostBar`' ,() => {
 
             describe('when the `button` is clicked', () => {
     
-                it('should call `updateTeam`', () => {
+                it('should call `updateTeam` and `toggleShowAnswers`', () => {
 
                     component = renderComponent({ updateTeam: updateTeamSpy, teams: { 'admin': { answer: 1 }, 'team-1': { answer: 1 } } })
                 
                     component.find('.update-teams-button').simulate('click')
     
                     sinon.assert.called(updateTeamSpy)
+                    sinon.assert.called(toggleShowAnswersSpy)
+                    
     
                 })
     
@@ -98,6 +103,24 @@ describe('Given `HostBar`' ,() => {
 
         })
         
+    })
+
+    it('should contain a `button` to show answers', () => {
+
+        expect(component.find('.show-answers-button').type()).to.equal('button')        
+
+    })
+
+    describe('When the button is clicked', () => {
+
+        it('should call `showAnswers`', () => {
+
+            component.find('.show-answers-button').simulate('click')
+            
+            sinon.assert.called(toggleShowAnswersSpy)
+
+        })
+
     })
 
 })
