@@ -3,8 +3,9 @@ import * as types from '../actions/actionTypes';
 function createTeam(state, action) {
     return {
         answer: 0,
-        timestamp: 0,
+        answeredAt: 0,
         score: 0,
+        createdAt: action.createdAt,
         isSubmitted: false
     }
 }
@@ -17,7 +18,7 @@ function submitAnswer(state, action) {
     return action.id ? {
         ...state,
         answer: action.answer,
-        timestamp: action.timestamp,
+        answeredAt: action.answeredAt,
         isSubmitted: true
     } : state
 }
@@ -26,7 +27,7 @@ function updateTeam(state, action) {
     return {
         ...state,
         answer: 0,
-        timestamp: 0,
+        answeredAt: 0,
         score: (state.score + action.score),
         isSubmitted: false
     }

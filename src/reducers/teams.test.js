@@ -12,11 +12,12 @@ const initialState = {
     [mockId]: {
         score: 0,
         answer: 0,
-        timestamp: 0,
+        answeredAt: 0,
+        createdAt: mockTimeStamp,
         isSubmitted: false
     }
 }
-const mockTeams =  { [mockId]:  {  score: mockScore, answer: mockAnswer, timestamp: mockTimeStamp, isSubmitted: mockIsSubmitted  }  }
+const mockTeams =  { [mockId]:  {  score: mockScore, answer: mockAnswer, answeredAt: mockTimeStamp, isSubmitted: mockIsSubmitted  }  }
 
 describe('Given `teamsReducer`', () => {
 
@@ -32,21 +33,21 @@ describe('Given `teamsReducer`', () => {
 
         const expectedState = initialState
 
-        expect(teamsReducer(undefined, { type: types.CREATE_TEAM, id: mockId, isSubmitted: mockIsSubmitted})).to.equal(expectedState);
+        expect(teamsReducer(undefined, { type: types.CREATE_TEAM, id: mockId, createdAt: mockTimeStamp, isSubmitted: mockIsSubmitted})).to.equal(expectedState);
 
     })
 
     it('should handle SUBMIT_ANSWER', () => {
 
-        const expectedState = {  [mockId]:  {  score: initialScore, answer: mockAnswer, timestamp: mockTimeStamp, isSubmitted: true  }  };
+        const expectedState = {  [mockId]:  { answer: mockAnswer, answeredAt: mockTimeStamp, score: initialScore, createdAt: mockTimeStamp, isSubmitted: true }  };
 
-        expect(teamsReducer(initialState, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timestamp: mockTimeStamp, isSubmitted: true  })).to.equal(expectedState);
+        expect(teamsReducer(initialState, { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, answeredAt: mockTimeStamp, isSubmitted: true  })).to.equal(expectedState);
 
     });
 
     it('should handle UPDATE_TEAM', () => {
 
-        const expectedState = {  [mockId]:  { score: mockScore, answer: 0, timestamp: 0, isSubmitted: mockIsSubmitted   }  };
+        const expectedState = {  [mockId]:  { score: mockScore, answer: 0, answeredAt: 0, createdAt: mockTimeStamp, isSubmitted: mockIsSubmitted  }  };
 
         expect(teamsReducer(initialState, { type: types.UPDATE_TEAM, score: mockScore, id: mockId, isSubmitted: mockIsSubmitted})).to.equal(expectedState);
 

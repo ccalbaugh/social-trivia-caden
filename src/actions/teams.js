@@ -4,17 +4,18 @@ import { database } from '../data/firebase'
 const teams = database.ref('teams/')
 const isShowingAnswersInDB = database.ref('isShowingAnswers')
 
-export function createTeam(id) {
+export function createTeam(id, createdAt) {
     return {
         type: types.CREATE_TEAM,
-        id
+        id,
+        createdAt
     };
 }
 
-export function createTeamInDB(id) {
+export function createTeamInDB(id, createdAt) {
     return dispatch => {
-        teams.child(id).set({ answer: 0, timestamp: 0, score: 0, isSubmitted: false })
-        dispatch(createTeam(id)) 
+        teams.child(id).set({ answer: 0, answeredAt: 0, score: 0, createdAt, isSubmitted: false })
+        dispatch(createTeam(id, createdAt)) 
     }
 }
 
@@ -41,25 +42,25 @@ export function fetchIsShowingAnswers() {
     }
 }
 
-export function submitAnswer(answer, id, timestamp, isSubmitted) {
+export function submitAnswer(answer, id, answeredAt, isSubmitted) {
     return {
         type: types.SUBMIT_ANSWER,
         answer,
         id,
-        timestamp,
+        answeredAt,
         isSubmitted
     };
 }
 
-export function submitAnswerToDB(answer, id, timestamp, isSubmitted) {
+export function submitAnswerToDB(answer, id, answeredAt, isSubmitted) {
    return dispatch => {
-      teams.child(id).update({ answer, id, timestamp, isSubmitted })
-      dispatch(submitAnswer(answer, id, timestamp, isSubmitted))
+      teams.child(id).update({ answer, id, answeredAt, isSubmitted })
+      dispatch(submitAnswer(answer, id, answeredAt, isSubmitted))
    }
 }
 
 export function updateTeam(score, id) {
-    teams.child(id).update({ answer: 0, timestamp: 0 })
+    teams.child(id).update({ answer: 0, answeredAt: 0 })
     return {
         type: types.UPDATE_TEAM,
         score,
@@ -80,4 +81,12 @@ export function toggleShowAnswers(isShowingAnswers) {
         type: types.TOGGLE_SHOW_ANSWERS,
         isShowingAnswers
     }
+}
+
+export function deleteTeam(id) {
+    teams.child(id).remove();
+    return {
+        type: types.DELETE_TEAM,    
+        id
+    };
 }
