@@ -51,3 +51,8 @@ Contribution is encouraged! Help make this trivia app the best it can be.
 If you have an idea on how to make this app better or you find a bug please write up an issue. 
 
 This app was build with a TDD approach so please include tests for any code changes you make. Feel free to add any tests that might have been missed or overlooked. 
+
+## Future Enhancements Ideas
+
+* Implement the ability to add extra points for the team that answers the quickest. 
+* Implement the ability to disqualify the team who answers last.  
