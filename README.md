@@ -30,7 +30,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * Fork the project
 * Clone the project
-* Install node 6 or greater ?
+* Install node 6 or greater: [https://nodejs.org/en/](https://nodejs.org/en/)
 * Install project dependencies: `yarn install`
 * To start the app: `yarn start`
 * To run the tests: `yarn test`
