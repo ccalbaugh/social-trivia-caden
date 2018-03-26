@@ -93,14 +93,17 @@ export class HostBar extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.teams !== this.props.teams) {
+            const { teams } = nextProps;
             const now = Date.now();
-            nextProps.teams.forEach(team => {
-                if (team.createdAt + millisecondsInADay <= now) {
-                    this.props.deleteTeam(team.id)
-                }
-            })
+            if (teams) {
+                Object.keys(teams).forEach(teamKey => {
+                    console.log(teamKey)
+                    if (teams[teamKey].createdAt + millisecondsInADay <= now) {
+                        this.props.deleteTeam(teamKey)
+                    }
+                })
+            }
         }
-        
     }
 
     render() {
