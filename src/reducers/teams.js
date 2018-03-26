@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 function createTeam(state, action) {
     return {
         answer: 0,
-        timeStamp: 0,
+        timestamp: 0,
         score: 0,
         isSubmitted: false
     }
