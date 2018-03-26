@@ -41,6 +41,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Type in admin (case sensitive) into the input on the screen. This will open the admin view at [http://localhost:3000/admin](http://localhost:3000/admin)
 * When in the admin view, click on the Open Game View link. This will open a new tab that will display all the teams that are created, their scores, their answers (when Show Answers button is clicked), and the timer at [http://localhost:3000/teams](http://localhost:3000/teams).  
 * To create individual teams, open a new browser tab at [http://localhost:3000](http://localhost:3000) for each team you want to create, then type in the name of the team. Upon creation of the team, the url will be routed to [http://localhost:3000/team/teamName](http://localhost:3000/team/teamName). From each team tab, you can now enter in answers for that team. 
+* In order to test firebase data persistence, since this is currently being hosted on a personal account, you will need to create a firebase project of your own and then update the src/data/firebase.js file with your databaseURL. 
 
 ## Contribution
 
