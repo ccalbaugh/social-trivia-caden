@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import { database } from '../data/firebase'
 
 const teams = database.ref('teams/')
+const isShowingAnswersInDB = database.ref('isShowingAnswers')
 
 export function createTeam(id) {
     return {
@@ -32,6 +33,14 @@ export function fetchTeamsFromDB() {
     }
 }
 
+export function fetchIsShowingAnswers() {
+    return dispatch => {
+        isShowingAnswersInDB.on('value', snapshot => {
+            dispatch({ type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: snapshot.val() })
+        })
+    }
+}
+
 export function submitAnswer(answer, id, timestamp, isSubmitted) {
     return {
         type: types.SUBMIT_ANSWER,
@@ -50,6 +59,7 @@ export function submitAnswerToDB(answer, id, timestamp, isSubmitted) {
 }
 
 export function updateTeam(score, id) {
+    teams.child(id).update({ answer: 0, timestamp: 0 })
     return {
         type: types.UPDATE_TEAM,
         score,
@@ -64,4 +74,10 @@ export function submitTeamScoreToDB(currentScore, id, addToScore) {
     }
 }
 
- 
+export function toggleShowAnswers(isShowingAnswers) {
+    isShowingAnswersInDB.set(!isShowingAnswers)
+    return {
+        type: types.TOGGLE_SHOW_ANSWERS,
+        isShowingAnswers
+    }
+}

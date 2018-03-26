@@ -42,3 +42,11 @@ it('creates an action to fetch the teams', () => {
     expect(actions.fetchTeams(mockTeam)).to.equal(expectedAction);
 
 });
+
+it('creates an action to show all team answers', () => {
+
+    const expectedAction = { type: types.TOGGLE_SHOW_ANSWERS, isShowingAnswers: true }
+
+    expect(actions.toggleShowAnswers(true)).to.equal(expectedAction)
+
+})

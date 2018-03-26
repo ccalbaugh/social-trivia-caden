@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB } from '../../actions/teams'
+import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers } from '../../actions/teams'
 import { resetTimer } from '../../actions/timer'
+import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
 
 function updateTeams() {
 
-    const { teams, updateTeam, submitTeamScoreToDB } = this.props
+    const { teams, updateTeam, submitTeamScoreToDB, toggleShowAnswers, isShowingAnswers } = this.props
 
     if (teams) {
         const teamKeys = Object.keys(teams)
@@ -63,6 +64,8 @@ function updateTeams() {
             }
         }
     }
+
+    toggleShowAnswers(isShowingAnswers)
 }
 
 function findMultipleWinners(sortedArr) {
@@ -75,26 +78,40 @@ function findMultipleWinners(sortedArr) {
     }
 }
 
+function showAnswers() {
+    this.props.toggleShowAnswers(this.props.isShowingAnswers)
+}
+
 export class HostBar extends Component {
 
     componentDidMount() {
         this.props.fetchTeamsFromDB()
+        database.ref('isShowingAnswers').set(false)
     }
 
     render() {
         const id = 'admin'
-        const { teams } = this.props
+        const { teams, isShowingAnswers } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
-        const isDisabled = teamAnswers && !teamAnswers.length
+        const isDisabled = !teamAnswers || !teamAnswers.length || !teams['admin'].answer
+        const isUpdateButtonDisabled = isDisabled || !isShowingAnswers 
+        const isShowAnswersButtonDisabled = isDisabled || isShowingAnswers
+         
         return (
             <section>
                  <AnswerForm id={id}/>
                  <Timer parentId={id} />
                  <button className="update-teams-button"
                          onClick={updateTeams.bind(this)}
-                         disabled={isDisabled}
+                         disabled={isUpdateButtonDisabled}
                 >
-                    Update Teams
+                    Update Scores
+                </button>
+                <button className="show-answers-button"
+                        onClick={showAnswers.bind(this)}
+                        disabled={isShowAnswersButtonDisabled}
+                >
+                    Show Answers
                 </button>
                 <Link to="/teams" target="_blank" >Open Game View</Link>
             </section>
@@ -106,7 +123,8 @@ function mapStateToProps(state) {
     return {
         teams: state.teams,
         timer: state.timer,
+        isShowingAnswers: state.isShowingAnswers
     }
 }
 
-export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB })(HostBar);
+export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers })(HostBar);

@@ -1,6 +1,6 @@
 import { expect } from 'code';
 import * as types from '../actions/actionTypes';
-import teamsReducer from './teams';
+import teamsReducer, { isShowingAnswers } from './teams';
 
 const mockAnswer = 10;
 const mockId = 'team-1';
@@ -11,8 +11,8 @@ const mockIsSubmitted = false;
 const initialState = {
     [mockId]: {
         score: 0,
-        answer: undefined,
-        timestamp: undefined,
+        answer: 0,
+        timestamp: 0,
         isSubmitted: false
     }
 }
@@ -46,7 +46,7 @@ describe('Given `teamsReducer`', () => {
 
     it('should handle UPDATE_TEAM', () => {
 
-        const expectedState = {  [mockId]:  { score: mockScore, answer: null, timestamp: null, isSubmitted: mockIsSubmitted   }  };
+        const expectedState = {  [mockId]:  { score: mockScore, answer: 0, timestamp: 0, isSubmitted: mockIsSubmitted   }  };
 
         expect(teamsReducer(initialState, { type: types.UPDATE_TEAM, score: mockScore, id: mockId, isSubmitted: mockIsSubmitted})).to.equal(expectedState);
 
@@ -67,3 +67,15 @@ describe('Given `teamsReducer`', () => {
 
     });
 });
+
+describe('Given `isShowingAnswers`', () => {
+
+    it('should handle `TOGGLE_SHOW_ANSWERS`', () => {
+
+        const expectedState = true
+
+        expect(isShowingAnswers(undefined, { type: types.TOGGLE_SHOW_ANSWERS, isShowingAnswers: false })).to.equal(expectedState)
+
+    })
+
+})

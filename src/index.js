@@ -8,11 +8,12 @@ import HostBar from './components/HostBar/hostBar';
 import Teams from './components/Teams/teams';
 import Team from './components/Team/team';
 import CreateTeam from './components/CreateTeam/createTeam';
-import teams from './reducers/teams';
+import teams, { isShowingAnswers } from './reducers/teams';
 import timer from './reducers/timer';
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
+    isShowingAnswers,
     teams,
     timer
 })

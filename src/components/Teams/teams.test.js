@@ -10,7 +10,8 @@ describe('Given `Teams`' ,() => {
 
     let component,
         sandbox,
-        fetchTeamsFromDBSpy
+        fetchTeamsFromDBSpy,
+        fetchIsShowingAnswsersSpy
 
     const mockTeams = [
         { id: 'team-1', answer: 1, score: 0 },
@@ -20,6 +21,7 @@ describe('Given `Teams`' ,() => {
     function requiredProps(overrides= {}) {
         return {
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
+            fetchIsShowingAnswers: fetchIsShowingAnswsersSpy,
             ...overrides
         }
     }
@@ -33,6 +35,7 @@ describe('Given `Teams`' ,() => {
     beforeEach(() => {
         sandbox = sinon.createSandbox()
         fetchTeamsFromDBSpy = sandbox.spy()
+        fetchIsShowingAnswsersSpy = sandbox.spy()
         component = renderComponent()
     })
     
