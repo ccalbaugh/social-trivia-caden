@@ -11,7 +11,8 @@ const initialState = {
     [mockId]: {
         score: 0,
         answer: 0,
-        timeStamp: 0
+        timeStamp: 0,
+        createdAt: mockTimeStamp
     }
 }
 const mockTeams =  { [mockId]:  { score: mockScore, answer: 56, timeStamp: 13456465  }  }
@@ -30,7 +31,7 @@ describe('Given `teamsReducer`', () => {
 
         const expectedState = initialState
 
-        expect(teamsReducer(undefined, { type: types.CREATE_TEAM, id: mockId})).to.equal(expectedState);
+        expect(teamsReducer(undefined, { type: types.CREATE_TEAM, id: mockId, createdAt: mockTimeStamp})).to.equal(expectedState);
 
     })
 
