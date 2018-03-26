@@ -2,7 +2,7 @@
 
 This is a trivia app that allows teams to use a computer, one per group, to create their team name and enter their answer per the question read aloud by the trivia host within the time frame given. 
 
-At this time, all trivia questions expect the answer to be a number. The object of the game is get either the correct answer or the answer closest to the correct answer without going over.
+At this time, all trivia questions expect the answer to be a number. The object of the game is to get either the correct answer or the answer closest to the correct answer without going over.
 
 Each team is only allowed to submit one answer, so all answers are final once the submit button is clicked. If the timer is at 0, the team is not allowed to enter an answer. 
 
