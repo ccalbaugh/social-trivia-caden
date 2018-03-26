@@ -4,7 +4,8 @@ function createTeam(state, action) {
     return {
         answer: 0,
         timeStamp: 0,
-        score: 0
+        score: 0,
+        createdAt: action.createdAt
     }
 }
 
