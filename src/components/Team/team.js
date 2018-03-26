@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import AnswerForm from '../Form/answerForm';
+import { fetchTimer } from '../../actions/timer';
+import { fetchTeamsFromDB } from '../../actions/teams';
+import { connect } from 'react-redux';
 
-class Team extends Component {
+export class Team extends Component {
+
+    componentDidMount() {
+        this.props.fetchTimer()
+        this.props.fetchTeamsFromDB()
+    }
 
     render() {
         
@@ -15,4 +23,11 @@ class Team extends Component {
     }
 }
 
-export default Team
+function mapStateToProps(state) {
+    return {
+        teams: state.teams,
+        timer: state.timer
+    }
+}
+
+export default connect(mapStateToProps, { fetchTimer, fetchTeamsFromDB })(Team);
