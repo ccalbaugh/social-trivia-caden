@@ -4,17 +4,18 @@ import { database } from '../data/firebase'
 const teams = database.ref('teams/')
 const isShowingAnswersInDB = database.ref('isShowingAnswers')
 
-export function createTeam(id) {
+export function createTeam(id, createdAt) {
     return {
         type: types.CREATE_TEAM,
-        id
+        id,
+        createdAt
     };
 }
 
-export function createTeamInDB(id) {
+export function createTeamInDB(id, createdAt) {
     return dispatch => {
-        teams.child(id).set({ answer: 0, timestamp: 0, score: 0 })
-        dispatch(createTeam(id)) 
+        teams.child(id).set({ answer: 0, timestamp: 0, score: 0, createdAt })
+        dispatch(createTeam(id, createdAt)) 
     }
 }
 
