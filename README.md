@@ -2,9 +2,7 @@
 
 This is currently an in-house trivia app that will be used to take lunch trivia sessions to a new level of awesomeness! No longer will teams be referred to as tables as each team will be able to pool their creativity for the best team name. The great part is that everyone will get to see the team names. White boards are no longer needed to display the team answer as teams will be able to enter their answers from their team view via their computer (one computer per team for entering the answer). This opens up the trivia questions to allow for internet sleuthing for the correct answer. 
 
-Which team can track down the answer the fastest? 
-
-Mulitple computers, tablets, or phones can be used for internet sleuthing if desired or allowed by the trivia host. 
+Which team can track down the answer the fastest? Mulitple computers, tablets, or phones can be used for internet sleuthing if desired or allowed by the trivia host. 
 
 ## Usage
 
@@ -41,8 +39,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * Once you do a `yarn start`, the app should open in the browser at [http://localhost:3000](http://localhost:3000). 
 * Type in admin (case sensitive) into the input on the screen. This will open the admin view at [http://localhost:3000/admin](http://localhost:3000/admin)
-* When in the admin view, click on the Open Game View link. This will open a new tab that will display all the teams that are created, their scores, their answers (when Show Answers button is clicked), and the timer.  
-* To create individual teams, open a new browser tab at [http://localhost:3000](http://localhost:3000) for each team you want to create, then type in the name of the team. Upon creation of the team, the url will be routed to [http://localhost:3000/team/[team name shows here]](http://localhost:3000/team/[team name shows here]). From each team tab, you can now enter in answers for that team. 
+* When in the admin view, click on the Open Game View link. This will open a new tab that will display all the teams that are created, their scores, their answers (when Show Answers button is clicked), and the timer at [http://localhost:3000/teams](http://localhost:3000/teams).  
+* To create individual teams, open a new browser tab at [http://localhost:3000](http://localhost:3000) for each team you want to create, then type in the name of the team. Upon creation of the team, the url will be routed to [http://localhost:3000/team/teamName](http://localhost:3000/team/teamName). From each team tab, you can now enter in answers for that team. 
 
 ## Contribution
 
