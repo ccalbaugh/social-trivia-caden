@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchTeamsFromDB, fetchIsShowingAnswers } from '../../actions/teams'
 import Timer from '../Timer/timer'
+import './teams.css';
 
 export class Teams extends Component {
 
@@ -39,8 +40,9 @@ export class Teams extends Component {
                     {
                         teams.length ? (
                             teams.map((team) => {
+                                const submitted = team.isSubmitted ? 'submitted' : '';
                                 return (
-                                    <li className="team-list-item" 
+                                    <li className={`team-list-item ${submitted}`} 
                                         key={team.id}
                                     >
                                         <span className="team-name">Team Name: {team.id}  ||  </span>
