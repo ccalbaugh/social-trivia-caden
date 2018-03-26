@@ -12,5 +12,4 @@ To view the game view, the trivia host will click the Open Game view link. This 
 
 When the timer has reached 0, the trivia host will click the Show Answers button to display all the answers entered for the teams so that everyone can see what others submitted. By clicking the Update Scores button, the teams with the correct or closet answer without going over, will update the scores to reflect who gets a point for that round.
 
-This app is hosted on firebase at https://aquent-trivia.firebaseapp.com/
-
+This app is hosted on firebase at https://aquent-trivia.firebaseapp.com/. 
