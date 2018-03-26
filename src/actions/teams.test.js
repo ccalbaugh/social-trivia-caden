@@ -12,9 +12,9 @@ const mockTeam =  { [mockId]:  { answer: mockAnswer, timeStamp: mockTimeStamp, s
 
 it('creates an action to create a team', () => {
 
-    const expectedAction = { type: types.CREATE_TEAM, id: mockId};
+    const expectedAction = { type: types.CREATE_TEAM, id: mockId, createdAt: mockTimeStamp};
 
-    expect(actions.createTeam(mockId)).to.equal(expectedAction);
+    expect(actions.createTeam(mockId, mockTimeStamp)).to.equal(expectedAction);
 
 });
 
