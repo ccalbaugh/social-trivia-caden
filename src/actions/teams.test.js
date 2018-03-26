@@ -9,19 +9,19 @@ const mockAnswer = 10;
 const mockTimeStamp = Date.now();
 const mockScore = 10;
 const mockIsSubmitted = false;
-const mockTeam =  { [mockId]:  { answer: mockAnswer, id: mockId, timestamp: mockTimeStamp, score: mockScore, isSubmitted: mockIsSubmitted  }  }
+const mockTeam =  { [mockId]:  { answer: mockAnswer, id: mockId, answeredAt: mockTimeStamp, score: mockScore, isSubmitted: mockIsSubmitted  }  }
 
 it('creates an action to create a team', () => {
 
-    const expectedAction = { type: types.CREATE_TEAM, id: mockId};
+    const expectedAction = { type: types.CREATE_TEAM, id: mockId, createdAt: mockTimeStamp };
 
-    expect(actions.createTeam(mockId)).to.equal(expectedAction);
+    expect(actions.createTeam(mockId, mockTimeStamp)).to.equal(expectedAction);
 
 });
 
 it('creates an action to submit an answer', () => {
 
-    const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, timestamp: mockTimeStamp, isSubmitted: mockIsSubmitted };
+    const expectedAction = { type: types.SUBMIT_ANSWER, answer: mockAnswer, id: mockId, answeredAt: mockTimeStamp, isSubmitted: mockIsSubmitted };
 
     expect(actions.submitAnswer(mockAnswer, mockId, mockTimeStamp, mockIsSubmitted)).to.equal(expectedAction);
 
@@ -49,4 +49,12 @@ it('creates an action to show all team answers', () => {
 
     expect(actions.toggleShowAnswers(true)).to.equal(expectedAction)
 
-})
+});
+
+it('creates an action to delete a team', () => {
+
+    const expectedAction = { type: types.DELETE_TEAM, id: mockId }
+
+    expect(actions.deleteTeam(mockId)).to.equal(expectedAction)
+
+});

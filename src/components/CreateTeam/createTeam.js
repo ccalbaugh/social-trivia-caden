@@ -18,7 +18,7 @@ function handleSubmit(e) {
     if (teamId) {
         this.setState(
             { currentInput: '', teamId }, 
-            () => { this.props.createTeamInDB(teamId) }
+            () => { this.props.createTeamInDB(teamId, Date.now()) }
         )
     }
 }

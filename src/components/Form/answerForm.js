@@ -8,7 +8,7 @@ export class AnswerForm extends Component {
   render() {
 
     const { submitAnswerToDB, id, name, currentTime, teams } = this.props;
-    const isSubmitted =  teams !== undefined && Object.keys(teams).length > 0 ? teams[id].isSubmitted : false;
+    const isSubmitted = teams && Object.keys(teams).length > 0 ? teams[id].isSubmitted : false;
    
     return (
       <div className="form">
