@@ -6,6 +6,7 @@ $green: #54e8b5;
 @mixin inputStyle {
     border: 1px solid lighten(#454545, 45%);
     border-radius: 4px;
+    color: #666;
     margin-bottom: $spacing;
     margin-right: $spacing;
     padding: $spacing $spacing*2;
@@ -32,6 +33,17 @@ button {
 
 input {
     @include inputStyle;
+    transition: all 0.35s;
+
+    &:focus {
+        box-shadow: 0 0 6px 2px $green inset;
+        outline: none;
+    }
+}
+
+a {
+    color: darken($green, 15%);
+    text-decoration: none;
 }
 
 #root {
@@ -41,3 +53,4 @@ input {
     align-items: center;
     justify-content: center;
 }
+

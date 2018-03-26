@@ -116,20 +116,23 @@ export class HostBar extends Component {
          
         return (
             <section>
-                 <AnswerForm id={id}/>
-                 <Timer parentId={id} />
-                 <button className="update-teams-button"
-                         onClick={updateTeams.bind(this)}
-                         disabled={isUpdateButtonDisabled}
-                >
-                    Update Scores
-                </button>
-                <button className="show-answers-button"
-                        onClick={showAnswers.bind(this)}
-                        disabled={isShowAnswersButtonDisabled}
-                >
-                    Show Answers
-                </button>
+                <AnswerForm id={id}/>
+
+                <Timer parentId={id} />
+                <div className={'admin-buttons'}>
+                    <button className="update-teams-button"
+                            onClick={updateTeams.bind(this)}
+                            disabled={isUpdateButtonDisabled}
+                    >
+                        Update Scores
+                    </button>
+                    <button className="show-answers-button"
+                            onClick={showAnswers.bind(this)}
+                            disabled={isShowAnswersButtonDisabled}
+                    >
+                        Show Answers
+                    </button>
+                </div>
                 <Link to="/teams" target="_blank" >Open Game View</Link>
             </section>
         )

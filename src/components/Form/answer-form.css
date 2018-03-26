@@ -7,6 +7,7 @@ body {
 button {
   border: 1px solid #b8b8b8;
   border-radius: 4px;
+  color: #666;
   margin-bottom: 8px;
   margin-right: 8px;
   padding: 8px 16px;
@@ -19,9 +20,18 @@ button {
 input {
   border: 1px solid #b8b8b8;
   border-radius: 4px;
+  color: #666;
   margin-bottom: 8px;
   margin-right: 8px;
-  padding: 8px 16px; }
+  padding: 8px 16px;
+  transition: all 0.35s; }
+  input:focus {
+    box-shadow: 0 0 6px 2px #54e8b5 inset;
+    outline: none; }
+
+a {
+  color: #1cd394;
+  text-decoration: none; }
 
 #root {
   display: flex;
