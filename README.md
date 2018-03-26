@@ -1,12 +1,12 @@
 # social-trivia
 
-## Overview
+This is currently an in-house trivia app that will be used to take lunch trivia sessions to a new level of awesomeness! No longer will teams be referred to as tables as each team will be able to pool their creativity for the best team name. The great part is that everyone will get to see the team names. White boards are no longer needed to display the team answer as teams will be able to enter their answers from their team view via their computer (one computer per team for entering the answer). This opens up the trivia questions to allow for internet sleuthing for the correct answer. 
 
-This is currently an in-house trivia app that will be used to take lunch trivia sessions to a new level of awesomeness! No longer will teams be referred to as tables as each team will be able to pool their creativity for the best team name. The great part is that everyone will get to see the team names. White boards are no longer needed to display the team answer as teams will be able to enter their answers from their team view via their computer (one computer per team for entering the answer). This opens up the trivia questions to allow for internet sleuthing for the correct answer. Which team can track down the answer the fastest? 
+Which team can track down the answer the fastest? 
 
 Mulitple computers, tablets, or phones can be used for internet sleuthing if desired or allowed by the trivia host. 
 
-## App Usage
+## Usage
 
 This is a trivia app that allows teams to use a computer, one per group, to create their team name and enter their answer per the question read aloud by the trivia host within the time frame given. 
 
@@ -24,7 +24,7 @@ When the timer has reached 0, the trivia host will click the Show Answers button
 
 This app is hosted on firebase at https://aquent-trivia.firebaseapp.com/. 
 
-# Contributing To The App Overview
+# Contribution Overview
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
