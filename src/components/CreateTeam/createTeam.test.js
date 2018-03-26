@@ -28,6 +28,10 @@ describe('Given `CreateTeam`', () => {
         createTeamInDBMock = sandbox.spy()
         component = renderComponent()
     })
+
+    afterEach(() => {    
+        sandbox.restore()
+    })
     
     it('it should exist as a `form` tag', () => {
         

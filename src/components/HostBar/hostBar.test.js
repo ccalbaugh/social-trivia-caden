@@ -34,6 +34,10 @@ describe('Given `HostBar`' ,() => {
         fetchTeamsFromDBSpy = sandbox.spy()
         component = renderComponent()
     })
+
+    afterEach(() => {    
+        sandbox.restore()
+    })
     
     it('it should exist as a `section` tag', () => {
         

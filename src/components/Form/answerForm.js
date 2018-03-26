@@ -6,7 +6,10 @@ import PropTypes from 'prop-types'
 
 export class AnswerForm extends Component {
   render() {
-    const { submitAnswerToDB, id, name, currentTime } = this.props;
+
+    const { submitAnswerToDB, id, name, currentTime, teams } = this.props;
+    const isSubmitted =  Object.keys(teams).length > 0 ? teams[id].isSubmitted : false;
+   
     return (
       <div className="form">
         <span className="team-name">Team Name: {name}</span>
@@ -28,7 +31,7 @@ export class AnswerForm extends Component {
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
             const now = Date.now()
-            submitAnswerToDB(parseInt(answer, 10), id, now)
+            submitAnswerToDB(parseInt(answer, 10), id, now, true)           
             setSubmitting(false)
             resetForm()
           }}
@@ -36,11 +39,10 @@ export class AnswerForm extends Component {
             values,
             errors,
             dirty,
-            isSubmitting,
             handleSubmit,
             handleChange,
             handleBlur
-           }) => (
+           }) => (             
             <form id={id} onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -54,7 +56,7 @@ export class AnswerForm extends Component {
               <button
                 type="submit"
                 className='answer-submit-btn'
-                disabled={isSubmitting || !dirty || errors.answer || (currentTime <= 0 & id !== 'Admin')}
+                disabled={!dirty || errors.answer || (currentTime <= 0 && id !== 'admin') || ( isSubmitted && id !== 'admin')}
               >
                 Submit
               </button>
@@ -75,7 +77,7 @@ AnswerForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-      answer: state.teams.answer,
+      teams: state.teams,
       currentTime: state.timer.currentTime
   };
 }

@@ -12,7 +12,7 @@ export function createTeam(id) {
 
 export function createTeamInDB(id) {
     return dispatch => {
-        teams.child(id).set({ answer: 0, timestamp: 0, score: 0 })
+        teams.child(id).set({ answer: 0, timestamp: 0, score: 0, isSubmitted: false })
         dispatch(createTeam(id)) 
     }
 }
@@ -32,20 +32,20 @@ export function fetchTeamsFromDB() {
     }
 }
 
-export function submitAnswer(answer, id, timeStamp, score) {
+export function submitAnswer(answer, id, timestamp, isSubmitted) {
     return {
         type: types.SUBMIT_ANSWER,
         answer,
         id,
-        timeStamp,
-        score
+        timestamp,
+        isSubmitted
     };
 }
 
-export function submitAnswerToDB(answer, id, timestamp) {
+export function submitAnswerToDB(answer, id, timestamp, isSubmitted) {
    return dispatch => {
-      teams.child(id).update({ answer, id, timestamp })
-      dispatch(submitAnswer(answer, id, timestamp))
+      teams.child(id).update({ answer, id, timestamp, isSubmitted })
+      dispatch(submitAnswer(answer, id, timestamp, isSubmitted))
    }
 }
 
@@ -60,7 +60,7 @@ export function updateTeam(score, id) {
 export function submitTeamScoreToDB(currentScore, id, addToScore) {
     return dispatch => {
         const score = currentScore + addToScore
-        teams.child(id).update({ score: score })
+        teams.child(id).update({ score: score, isSubmitted: false })
     }
 }
 
