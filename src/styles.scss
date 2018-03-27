@@ -8,7 +8,6 @@ $green: #54e8b5;
     border-radius: 4px;
     color: #666;
     margin-bottom: $spacing;
-    margin-right: $spacing;
     padding: $spacing $spacing*2;
 }
 
@@ -17,18 +16,6 @@ body {
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
-}
-
-
-
-button {
-    @include inputStyle;
-
-    background: #454545;
-    border: 1px solid lighten(#454545, 15%);
-    color: lighten(#454545, 60%);
-    font-weight: bold;
-    text-transform: uppercase;
 }
 
 input {
@@ -47,6 +34,7 @@ a {
 }
 
 #root {
+    background: #efefef;
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -54,3 +42,19 @@ a {
     justify-content: center;
 }
 
+button,
+.button {
+    @include inputStyle;
+
+    background: #454545;
+    border: 1px solid lighten(#454545, 15%);
+    color: lighten(#454545, 60%);
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.host-bar {
+
+}

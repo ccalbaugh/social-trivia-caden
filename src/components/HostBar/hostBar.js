@@ -115,11 +115,12 @@ export class HostBar extends Component {
         const isShowAnswersButtonDisabled = isDisabled || isShowingAnswers
          
         return (
-            <section>
+            <section className='host-bar'>
                 <AnswerForm id={id}/>
-
                 <Timer parentId={id} />
-                <div className={'admin-buttons'}>
+
+                <div className={'game-view-admin'}>
+
                     <button className="update-teams-button"
                             onClick={updateTeams.bind(this)}
                             disabled={isUpdateButtonDisabled}
@@ -132,8 +133,10 @@ export class HostBar extends Component {
                     >
                         Show Answers
                     </button>
+
+                    <Link className='button' to="/teams" target="_blank" >Game View</Link>
                 </div>
-                <Link to="/teams" target="_blank" >Open Game View</Link>
+
             </section>
         )
     }

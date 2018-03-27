@@ -1,5 +1,9 @@
 .timer-container {
     position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    max-width: 300px;
 }
 
 .timer-label {
@@ -27,3 +31,15 @@
 }
 
 
+.admin-timer-controls {
+    display: flex;
+
+    .timer{
+        flex: 0 0 50px;
+    }
+
+}
+
+.host-bar .chart-container {
+    display: none;
+}

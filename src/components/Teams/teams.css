@@ -29,6 +29,12 @@
   .team-list-item .team-score-group {
     flex: 0 0 33%; }
 
+.game-view-admin {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 10px 10px 0 10px;
+  margin: 10px 0; }
+
 .label-group label {
   text-transform: uppercase;
   font-weight: bold;
