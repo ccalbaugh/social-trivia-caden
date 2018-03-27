@@ -1,0 +1,60 @@
+@import '../node_modules/normalize-scss/sass/normalize';
+$spacing: 8px;
+$green: #54e8b5;
+
+
+@mixin inputStyle {
+    border: 1px solid lighten(#454545, 45%);
+    border-radius: 4px;
+    color: #666;
+    margin-bottom: $spacing;
+    padding: $spacing $spacing*2;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+input {
+    @include inputStyle;
+    transition: all 0.35s;
+
+    &:focus {
+        box-shadow: 0 0 6px 2px $green inset;
+        outline: none;
+    }
+}
+
+a {
+    color: darken($green, 15%);
+    text-decoration: none;
+}
+
+#root {
+    background: #efefef;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+button,
+.button {
+    @include inputStyle;
+
+    background: #454545;
+    border: 1px solid lighten(#454545, 15%);
+    color: lighten(#454545, 60%);
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.host-bar {
+
+}

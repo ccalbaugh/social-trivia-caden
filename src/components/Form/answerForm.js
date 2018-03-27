@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import { connect } from "react-redux"
 import { submitAnswerToDB } from '../../actions/teams'
 import PropTypes from 'prop-types'
+import './answer-form.css';
 
 export class AnswerForm extends Component {
   render() {
@@ -12,7 +13,7 @@ export class AnswerForm extends Component {
    
     return (
       <div className="form">
-        <span className="team-name">Team Name: {name}</span>
+        <span className="team-name">{name}</span>
         <Formik
           initialValues={{
             answer: "",
@@ -48,7 +49,7 @@ export class AnswerForm extends Component {
                 type="text"
                 name="answer"
                 className='answer-input'
-                placeholder="input answer"
+                placeholder="Your answer"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.answer}

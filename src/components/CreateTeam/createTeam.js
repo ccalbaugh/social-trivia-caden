@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createTeamInDB } from '../../actions/teams';
+import { createTeamInDB, fetchTeamsFromDB } from '../../actions/teams';
 import {
     Redirect,
     withRouter
@@ -16,9 +16,13 @@ function handleSubmit(e) {
     const teamId = this.state.currentInput
 
     if (teamId) {
-        this.setState(
-            { currentInput: '', teamId }, 
-            () => { this.props.createTeamInDB(teamId, Date.now()) }
+        (teamId.toLowerCase() !== 'admin' && this.props.teams[teamId]) ? (
+            this.setState({ currentInput: '', teamId, teamExists: true })
+        ) : (
+            this.setState(
+                { currentInput: '', teamId, redirectToReferrer: true }, 
+                () => { this.props.createTeamInDB(teamId, Date.now()) }
+            )
         )
     }
 }
@@ -28,13 +32,12 @@ export class CreateTeam extends Component {
     state = {
         currentInput: '',
         redirectToReferrer: false,
-        teamId: ''
+        teamId: '',
+        teamExists: false
     }
 
-    componentWillReceiveProps(nextProps) {
-        nextProps.teams &&
-        nextProps.teams[this.state.teamId] &&
-        this.setState({ redirectToReferrer: true })
+    componentDidMount() {
+        this.props.fetchTeamsFromDB()
     }
 
     render() {
@@ -49,6 +52,8 @@ export class CreateTeam extends Component {
         if (redirectToReferrer) {
             return <Redirect to={path} />
         }
+
+        const { teamExists } = this.state
 
         return (
             <form className="create-team"
@@ -65,6 +70,7 @@ export class CreateTeam extends Component {
                 >
                     Create Team
                 </button>
+                { teamExists && <span className="team-taken">Team is taken, please enter another</span> }
             </form>
         );
     }
@@ -76,4 +82,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default withRouter(connect(mapStateToProps, { createTeamInDB })(CreateTeam));
+export default withRouter(connect(mapStateToProps, { createTeamInDB, fetchTeamsFromDB })(CreateTeam));

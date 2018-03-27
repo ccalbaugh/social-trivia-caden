@@ -36,23 +36,30 @@ export class Teams extends Component {
         return (
             <section>
                 <Timer parentId="teams" />
+                { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
                 <ul className="team-list">
                     {
-                        teams.length ? (
+                        (!!teams && !!teams.length) ? (
                             teams.map((team) => {
                                 const submitted = team.isSubmitted ? 'submitted' : '';
                                 return (
                                     <li className={`team-list-item ${submitted}`} 
                                         key={team.id}
                                     >
-                                        <span className="team-name">Team Name: {team.id}  ||  </span>
-                                        <span className="team-answer">
-                                        {   
-                                            isShowingAnswers && (`Team Answer: ${team.answer}  ||`)
-                                        }
-                                        </span>
-                                                                               
-                                        <span className="team-score">Team Score: {team.score || 0}</span>
+                                        <div className={'team-name'}>{team.id}</div>
+
+                                        <div className={'label-group team-answer-group'}>
+                                            <label>Team Answer</label>
+                                            <span className="team-answer">
+                                                {
+                                                    (isShowingAnswers && team.answer) && (`${team.answer}`)
+                                                }
+                                            </span>
+                                        </div>
+                                        <div className={'label-group team-score-group'}>
+                                            <label>Score</label>
+                                            <span className="team-score">{team.score || 0}</span>
+                                        </div>
                                     </li>
                                 )
                             })

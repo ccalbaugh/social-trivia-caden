@@ -96,7 +96,7 @@ export class Timer extends Component {
 
         return (
             <section className="timer-container">
-                <div>
+                <div className={'chart-container'}>
                     <div className={'timer-label'} style={{color: tensionColor(currentTime)}}>{secToTimeCode(currentTime)}</div>
                     <PieChart width={300} height={300}>
                         <Pie

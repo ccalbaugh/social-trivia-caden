@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import AnswerForm from '../Form/answerForm';
 import { fetchTimer } from '../../actions/timer';
 import { fetchTeamsFromDB } from '../../actions/teams';
@@ -13,11 +14,24 @@ export class Team extends Component {
 
     render() {
         
-        const { id } = this.props.match.params
+        const { id } = this.props.match.params;
+        const { teams } = this.props;
+        const matchingTeam = Object.keys(teams).find(team => team === id)
+        const teamExists = teams && !!matchingTeam; 
 
         return (
             <section className="team">
-                <AnswerForm id={id} name={id} />
+                {
+                    teamExists ? (
+                        <AnswerForm id={id} name={id} />
+                    ) : (
+                        <React.Fragment>
+                            <span className="no-team">Team not Found</span>
+                            <hr/>
+                            <Link to="/" className="button">Create a Team Here</Link>
+                        </React.Fragment>
+                    )
+                }
             </section>
         )
     }

@@ -115,22 +115,31 @@ export class HostBar extends Component {
         const isShowAnswersButtonDisabled = isDisabled || isShowingAnswers
          
         return (
-            <section>
-                 <AnswerForm id={id}/>
-                 <Timer parentId={id} />
-                 <button className="update-teams-button"
-                         onClick={updateTeams.bind(this)}
-                         disabled={isUpdateButtonDisabled}
-                >
-                    Update Scores
-                </button>
-                <button className="show-answers-button"
-                        onClick={showAnswers.bind(this)}
-                        disabled={isShowAnswersButtonDisabled}
-                >
-                    Show Answers
-                </button>
-                <Link to="/teams" target="_blank" >Open Game View</Link>
+            <section className='host-bar'>
+                <AnswerForm id={id}/>
+                <Timer parentId={id} />
+
+                <div className={'game-view-admin'}>
+
+                    <button className="update-teams-button"
+                            onClick={updateTeams.bind(this)}
+                            disabled={isUpdateButtonDisabled}
+                    >
+                        Update Scores
+                    </button>
+                    <button className="show-answers-button"
+                            onClick={showAnswers.bind(this)}
+                            disabled={isShowAnswersButtonDisabled}
+                    >
+                        Show Answers
+                    </button>
+
+                    <Link className='button' to="/teams" target="_blank" >Game View</Link>
+                </div>
+
+                { (!!teams['admin'] && !!teams['admin'].answer) && 
+                <span className="correct-answer">{`Correct Answer: ${teams['admin'].answer}`}</span> }
+
             </section>
         )
     }
