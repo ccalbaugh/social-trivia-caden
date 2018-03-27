@@ -8,11 +8,28 @@ describe('Given `CreateTeam`', () => {
 
     let component,
         sandbox,
-        createTeamInDBMock
+        createTeamInDBMock,
+        fetchTeamsFromDBMock
+
+    const mockTeams = {
+        'admin': {
+            answer: 1
+        },
+        'team-2': {
+            answer: 2,
+            score: 0
+        },
+        'team-3': {
+            answer: 1,
+            score: 0
+        }
+    }
     
     function requiredProps(overrides = {}) {
         return {
             createTeamInDB: createTeamInDBMock,
+            fetchTeamsFromDB: fetchTeamsFromDBMock,
+            teams: mockTeams,
             ...overrides
         }
     }
@@ -26,6 +43,7 @@ describe('Given `CreateTeam`', () => {
     beforeEach(() => {
         sandbox = sinon.createSandbox()
         createTeamInDBMock = sandbox.spy()
+        fetchTeamsFromDBMock = sandbox.spy()
         component = renderComponent()
     })
 
@@ -64,15 +82,37 @@ describe('Given `CreateTeam`', () => {
 
     describe('When the form is submitted', () => {
 
-        it('should call createTeamInDB', () => {
+        describe('When the team does not already exist', () => {
 
-            component.setState({ currentInput: 'team-1' })
+            it('should call createTeamInDB', () => {
 
-            component.find('form').simulate('submit', {
-                preventDefault: () => {}
+                component.setState({ currentInput: 'team-1' })
+    
+                component.find('form').simulate('submit', {
+                    preventDefault: () => {}
+                })
+    
+                sinon.assert.calledOnce(createTeamInDBMock)
+    
             })
 
-            sinon.assert.calledOnce(createTeamInDBMock)
+        })
+
+        describe('When the team does already exist', () => {
+
+            it('should contain a `span` with a proper className to let the user know the team exists', () => {
+
+                expect(component.find('.team-taken').exists()).to.be.false()
+
+                component.setState({ currentInput: 'team-2' })
+    
+                component.find('form').simulate('submit', {
+                    preventDefault: () => {}
+                })
+    
+                expect(component.find('.team-taken').exists()).to.be.true()
+    
+            })
 
         })
 
