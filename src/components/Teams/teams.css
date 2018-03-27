@@ -1,3 +1,10 @@
+.teams-view {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
 .team-list {
   padding: 0;
   width: 100vw; }
@@ -6,7 +13,8 @@
   border-top: 1px solid #eaeaea;
   display: flex;
   justify-content: space-between;
-  padding: 8px 16px; }
+  padding: 8px 16px;
+  font-weight: bold; }
   .team-list-item:before {
     content: ' ';
     width: 20px;
@@ -20,7 +28,6 @@
   .team-list-item:nth-of-type(even) {
     background: #f9f9f9; }
   .team-list-item .team-name {
-    text-transform: uppercase;
     font-weight: bold;
     margin-right: 5px;
     flex: 1 0 auto; }
@@ -36,7 +43,6 @@
   margin: 10px 0; }
 
 .label-group label {
-  text-transform: uppercase;
   font-weight: bold;
   flex: 1 0 75%;
   margin-right: 5px; }
