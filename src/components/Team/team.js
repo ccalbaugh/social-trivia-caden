@@ -22,7 +22,7 @@ export class Team extends Component {
         return (
             <section className="team">
                 {
-                    teamExists & teamExists ? (
+                    teamExists ? (
                         <AnswerForm id={id} name={id} />
                     ) : (
                         <React.Fragment>
