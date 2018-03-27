@@ -33,8 +33,17 @@
     "redux-logger": "^3.0.6",
     "sinon": "^4.4.4"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/actions/*.js",
+      "**/components/**.js",
+      "**/data/*js",      
+      "**/reducers/*.js"
+    ]
+  },
   "engineStrict": true,
   "engines": {
     "node": ">= 6"
   }
 }
+

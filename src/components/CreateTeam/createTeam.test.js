@@ -25,6 +25,8 @@ describe('Given `CreateTeam`', () => {
         }
     }
     
+    const mockTeam = { id: 'team-1', answer: 1, score: 0 }   
+
     function requiredProps(overrides = {}) {
         return {
             createTeamInDB: createTeamInDBMock,
@@ -75,9 +77,7 @@ describe('Given `CreateTeam`', () => {
                     value: 'e'
                 }
             })
-
         })
-
     })
 
     describe('When the form is submitted', () => {
@@ -116,6 +116,6 @@ describe('Given `CreateTeam`', () => {
 
         })
 
+       
     })
-
 })

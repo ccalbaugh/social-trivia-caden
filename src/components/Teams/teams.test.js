@@ -11,7 +11,7 @@ describe('Given `Teams`' ,() => {
     let component,
         sandbox,
         fetchTeamsFromDBSpy,
-        fetchIsShowingAnswsersSpy
+        fetchIsShowingAnswersSpy
 
     const mockTeamsProp = {
         'admin': { answer: 1, score: 0 },
@@ -27,7 +27,7 @@ describe('Given `Teams`' ,() => {
     function requiredProps(overrides= {}) {
         return {
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
-            fetchIsShowingAnswers: fetchIsShowingAnswsersSpy,
+            fetchIsShowingAnswers: fetchIsShowingAnswersSpy,
             isShowingAnswers: false,
             teams: mockTeamsProp,
             ...overrides
@@ -43,15 +43,31 @@ describe('Given `Teams`' ,() => {
     beforeEach(() => {
         sandbox = sinon.createSandbox()
         fetchTeamsFromDBSpy = sandbox.spy()
-        fetchIsShowingAnswsersSpy = sandbox.spy()
+        fetchIsShowingAnswersSpy = sandbox.spy()
         component = renderComponent()
         component.setState({ teams: teamsInState })
     })
     
+    afterEach(() => {
+    
+        sandbox.restore()
+    })
+
     it('it should exist as a `section` tag', () => {
         
         expect(component.type()).to.equal('section')
 
+    })
+
+    describe('When mounted', () => {
+
+        it('should dispatch fetchTeamsFromDB() and fetchIsShowingAnswers()', () => {
+
+            sinon.assert.calledOnce(fetchTeamsFromDBSpy)
+
+            sinon.assert.calledOnce(fetchIsShowingAnswersSpy)
+
+        })
     })
 
     it('should contain a `Connect(Timer)` component', () => {

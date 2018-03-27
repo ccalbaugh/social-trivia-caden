@@ -71,11 +71,27 @@ describe('Given `teamsReducer`', () => {
 
 describe('Given `isShowingAnswers`', () => {
 
+    it('should return the initial state when none is given', () => {
+
+        const expectedState = false;
+
+        expect(isShowingAnswers(undefined, { type: 'NO_MATCH'})).to.equal(expectedState);
+
+    });
+
     it('should handle `TOGGLE_SHOW_ANSWERS`', () => {
 
         const expectedState = true
 
         expect(isShowingAnswers(undefined, { type: types.TOGGLE_SHOW_ANSWERS, isShowingAnswers: false })).to.equal(expectedState)
+
+    })
+
+    it('should handle FETCH_IS_SHOWING_ANSWERS', () => {
+
+        const expectedState = true
+
+        expect(isShowingAnswers(undefined, { type: types.FETCH_IS_SHOWING_ANSWERS, isShowingAnswers: true })).to.equal(expectedState)
 
     })
 

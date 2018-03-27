@@ -16,6 +16,8 @@ describe('Given `Team`' ,() => {
         [mockId]: {}
     };
     
+    const mockTeam = { [mockId]: { id: 'team-1', answer: 1, score: 0 } }
+
     function requiredProps(overrides= {}) {
         return {
             fetchTimer: fetchTimerSpy,
