@@ -10,6 +10,8 @@ describe('Given `CreateTeam`', () => {
         sandbox,
         createTeamInDBMock
     
+    const mockTeam = { id: 'team-1', answer: 1, score: 0 }   
+
     function requiredProps(overrides = {}) {
         return {
             createTeamInDB: createTeamInDBMock,
@@ -57,25 +59,39 @@ describe('Given `CreateTeam`', () => {
                     value: 'e'
                 }
             })
-
         })
-
     })
 
     describe('When the form is submitted', () => {
 
-        it('should call createTeamInDB', () => {
+        beforeEach(() => {
 
-            component.setState({ currentInput: 'team-1' })
+            component.setState({ currentInput: 'team-1', redirectToReferrer: false, teamId: 'team-1' })
 
             component.find('form').simulate('submit', {
                 preventDefault: () => {}
             })
 
+        })
+
+        it('should call createTeamInDB', () => {
+            
             sinon.assert.calledOnce(createTeamInDBMock)
 
         })
 
+       
     })
 
+    it('should redirect to the correct path', () => {
+        console.log('BEFORE', component.state())
+        component.setState({ redirectToReferrer: false, teamId: 'team-1' })
+        console.log('AFTER', component.state())
+        expect(component.state().redirectToReferrer).to.equal(false);
+
+        component.setProps({ teams: mockTeam })
+        console.log('AFTER', component.state())
+        expect(component.state().redirectToReferrer).to.equal(true);
+
+    })
 })

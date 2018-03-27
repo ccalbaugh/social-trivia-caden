@@ -15,7 +15,7 @@ describe('Given `Teams`' ,() => {
 
     const mockTeams = [
         { id: 'team-1', answer: 1, score: 0 },
-        { id: 'team-2', answer: 1, score: 0 },        
+        { id: 'team-2', answer: 1, score: 0 }        
     ]
     
     function requiredProps(overrides= {}) {
