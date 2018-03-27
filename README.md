@@ -1,8 +1,8 @@
 # social-trivia
 
-This is currently an in-house trivia app that will be used to take lunch trivia sessions to a new level of awesomeness! No longer will teams be referred to as tables as each team will be able to pool their creativity for the best team name. The great part is that everyone will get to see the team names. White boards are no longer needed to display the team answer as teams will be able to enter their answers from their team view via their computer (one computer per team for entering the answer). This opens up the trivia questions to allow for internet sleuthing for the correct answer. 
+This is an in-house trivia app that will be used to take lunch trivia sessions to a new level of awesomeness! No longer will teams be referred to as tables. Each team will now be able to come together and decide upon the best team name. So bring on the creativity! All the team names and scores will be visible on the game view for all to see. White boards are no longer needed to display the team answer per question read aloud. Teams will now be able to enter their answers from their team view via their computer (one computer per team for entering the answer). Answers are still a numerical value where the team that gets the correct answer or the team closest to the answer without going over gets the point.
 
-Which team can track down the answer the fastest? Mulitple computers, tablets, or phones can be used for internet sleuthing if desired or allowed by the trivia host. 
+By using this app, the trivia lunch sessions can be expanded to internet sleuthing for the correct answer. Which team can track down the answer the fastest? Mulitple computers, tablets, or phones can be used for internet sleuthing if desired or allowed by the trivia host. 
 
 ## Usage
 
@@ -47,11 +47,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Contribution is encouraged! Help make this trivia app the best it can be. 
 
-If you have an idea on how to make this app better or you find a bug please write up an issue. 
+If you have an idea on how to make this app better or you find a bug please write up an issue or sbumit a pull request.
 
 This app was build with a TDD approach so please include tests for any code changes you make. Feel free to add any tests that might have been missed or overlooked. 
 
 ## Future Enhancement Ideas
 
 * Implement the ability to add extra points for the team that answers the quickest. 
-* Implement the ability to disqualify the team who answers last.  
+* Implement the ability to disqualify the team who answers last. 
+* Implement the ability to enter and save questions and their answer. 
