@@ -27,7 +27,8 @@ export class Team extends Component {
                     ) : (
                         <React.Fragment>
                             <span className="no-team">Team not Found</span>
-                            <Link to="/">Create a Team Here</Link>
+                            <hr/>
+                            <Link to="/" className="button">Create a Team Here</Link>
                         </React.Fragment>
                     )
                 }
