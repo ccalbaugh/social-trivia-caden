@@ -60,6 +60,18 @@ describe('Given `Timer`', () => {
 
     })
 
+    
+    describe('When mounted', () => {
+
+        it('should dispatch createTimer() and fetchTimer()', () => {
+
+            sinon.assert.calledOnce(createTimerSpy)
+
+            sinon.assert.calledOnce(fetchTimerSpy)
+
+        })
+    })
+
     describe('When it is the `admin` timer', () => {
 
         it('should contain a `.admin-timer-controls` container', () => {
