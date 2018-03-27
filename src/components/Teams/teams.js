@@ -36,9 +36,10 @@ export class Teams extends Component {
         return (
             <section>
                 <Timer parentId="teams" />
+                { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
                 <ul className="team-list">
                     {
-                        teams.length ? (
+                        (!!teams && !!teams.length) ? (
                             teams.map((team) => {
                                 const submitted = team.isSubmitted ? 'submitted' : '';
                                 return (
@@ -51,7 +52,7 @@ export class Teams extends Component {
                                             <label>Team Answer</label>
                                             <span className="team-answer">
                                                 {
-                                                    isShowingAnswers && (`${team.answer}`)
+                                                    (isShowingAnswers && team.answer) && (`${team.answer}`)
                                                 }
                                             </span>
                                         </div>

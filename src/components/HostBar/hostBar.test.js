@@ -12,6 +12,8 @@ describe('Given `HostBar`' ,() => {
         submitTeamSpy,
         fetchTeamsFromDBSpy,
         toggleShowAnswersSpy
+
+    const teams = { 'admin': { answer: 1 }, 'team-1': { answer: 1 } }
     
     function requiredProps(overrides= {}) {
         return {
@@ -19,6 +21,7 @@ describe('Given `HostBar`' ,() => {
             submitTeamScoreToDB: submitTeamSpy,
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             toggleShowAnswers: toggleShowAnswersSpy,
+            teams,
             ...overrides
         }
     }
@@ -87,13 +90,21 @@ describe('Given `HostBar`' ,() => {
 
         })
 
-        describe('When there are teams', () => {      
+        describe('When there are teams', () => {    
+            
+            it('should contain a `span` with the `correct-answer`', () => {
+
+                component = renderComponent({ updateTeam: updateTeamSpy })
+
+                expect(component.find('.correct-answer').text()).to.equal("Correct Answer: 1")
+
+            })
 
             describe('when the `button` is clicked', () => {
     
                 it('should call `updateTeam` and `toggleShowAnswers`', () => {
 
-                    component = renderComponent({ updateTeam: updateTeamSpy, teams: { 'admin': { answer: 1 }, 'team-1': { answer: 1 } } })
+                    component = renderComponent({ updateTeam: updateTeamSpy })
                 
                     component.find('.update-teams-button').simulate('click')
     
@@ -117,7 +128,7 @@ describe('Given `HostBar`' ,() => {
 
     describe('When the button is clicked', () => {
 
-        it('should call `showAnswers`', () => {
+        it('should call `showAnswers`', () => {         
 
             component.find('.show-answers-button').simulate('click')
             

@@ -13,7 +13,13 @@ describe('Given `Teams`' ,() => {
         fetchTeamsFromDBSpy,
         fetchIsShowingAnswsersSpy
 
-    const mockTeams = [
+    const mockTeamsProp = {
+        'admin': { answer: 1, score: 0 },
+        'team-1': {  answer: 1, score: 0 },
+        'team-2': {  answer: 1, score: 0 }  
+    }   
+    
+    const teamsInState = [
         { id: 'team-1', answer: 1, score: 0 },
         { id: 'team-2', answer: 1, score: 0 }        
     ]
@@ -22,6 +28,8 @@ describe('Given `Teams`' ,() => {
         return {
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             fetchIsShowingAnswers: fetchIsShowingAnswsersSpy,
+            isShowingAnswers: false,
+            teams: mockTeamsProp,
             ...overrides
         }
     }
@@ -37,11 +45,28 @@ describe('Given `Teams`' ,() => {
         fetchTeamsFromDBSpy = sandbox.spy()
         fetchIsShowingAnswsersSpy = sandbox.spy()
         component = renderComponent()
+        component.setState({ teams: teamsInState })
     })
     
     it('it should exist as a `section` tag', () => {
         
         expect(component.type()).to.equal('section')
+
+    })
+
+    it('should contain a `Connect(Timer)` component', () => {
+
+        expect(component.find('Connect(Timer)').exists()).to.be.true()
+
+    })
+
+    describe('Given `isShowingAnswers` is true', () => {
+
+        it('should show an answer for all teams', () => {        
+
+            expect(component.find('.team-answer').length).to.equal(component.state().teams.length)
+
+        })
 
     })
 
@@ -55,9 +80,7 @@ describe('Given `Teams`' ,() => {
 
         it('should render a `li` with a proper class name for every team in state', () => {
 
-            component.setState({ teams: mockTeams })            
-
-            expect(component.find('.team-list-item').length).to.equal(mockTeams.length)
+            expect(component.find('.team-list-item').length).to.equal(component.state().teams.length)
 
         })
 
@@ -65,21 +88,13 @@ describe('Given `Teams`' ,() => {
 
             it('should have a key set to each team id', () => {
 
-                component = renderComponent({ teams: mockTeams })
-
-                component.setState({ teams: mockTeams })
-
                 const teamListItem = component.find('.team-list-item')
 
                 expect(teamListItem.first().key()).to.equal(component.state().teams[0].id)
 
             })
 
-            it('should contain 3 `span` elements with proper class names', () => {
-
-                component = renderComponent({ teams: mockTeams })   
-                
-                component.setState({ teams: mockTeams })                
+            it('should contain s `span` elements with proper class names', () => {            
                 
                 const teamListItem = component.find('.team-list-item')   
 
