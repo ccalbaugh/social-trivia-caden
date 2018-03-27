@@ -39,11 +39,14 @@ function updateTeams() {
             } else {           
         
                 const sortedAndFilteredTeamsByAnswer = teamKeys.filter((team) => {
-                    return team !== 'admin' && teams[team].answer <= expectedAnswer
+                    return team !== 'admin' && parseFloat(teams[team].answer) <= parseFloat(expectedAnswer)
+                })              
+                .sort((a, b) => {
+                    return teams[b].answer - teams[a].answer 
                 })
-                .sort((a, b) => a - b)
                 .map((teamId) => { return { ...this.props.teams[teamId], id: teamId } })
         
+                
                 const teamsWithWinningAnswers = findMultipleWinners(sortedAndFilteredTeamsByAnswer)
         
                 if (teamsWithWinningAnswers && teamsWithWinningAnswers.length) {                        

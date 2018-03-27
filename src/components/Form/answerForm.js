@@ -21,10 +21,10 @@ export class AnswerForm extends Component {
           }}
           validate={(values) => {
             let errors = {};
-            let regEx = /^[0-9]*$/g
+            let regEx = /^\d*[.]?\d*$/
             let isValidAnswer = regEx.test(values.answer)
            
-            if (!isValidAnswer || !parseInt(values.answer, 10)) {
+            if (!isValidAnswer || !parseFloat(values.answer)) {
               errors.answer = "Please enter a Number";
             }
             return errors;
@@ -32,7 +32,7 @@ export class AnswerForm extends Component {
           onSubmit={(values, { setSubmitting, resetForm }) => {
             const { answer, id } = values
             const now = Date.now()
-            submitAnswerToDB(parseInt(answer, 10), id, now, true)           
+            submitAnswerToDB(parseFloat(answer), id, now, true)           
             setSubmitting(false)
             resetForm()
           }}
