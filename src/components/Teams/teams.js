@@ -34,7 +34,7 @@ export class Teams extends Component {
         const { teams } = this.state
         const { isShowingAnswers } = this.props
         return (
-            <section>
+            <section className="teams-view">
                 <Timer parentId="teams" />
                 { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
                 <ul className="team-list">
