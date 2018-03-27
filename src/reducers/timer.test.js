@@ -4,6 +4,11 @@ import timerReducer from './timer';
 
 const mockDefaultTime = 60;
 const mockSetTime = 40;
+const initialState = {
+        isTimerRunning: false,
+        defaultTime: 60,
+        currentTime: 60
+}
 
 describe('Given `timerReducer`', () => {
 
@@ -12,6 +17,14 @@ describe('Given `timerReducer`', () => {
         const expectedState = {};
 
         expect(timerReducer(undefined, { type: 'NO_MATCH'})).to.equal(expectedState);
+
+    });
+
+    it('should handle CREATE_TIMER', () => {
+
+        const expectedState = { isTimerRunning: undefined, defaultTime: 60, currentTime: 60 };
+
+        expect(timerReducer(undefined, { type: types.CREATE_TIMER, expectedState })).to.equal(expectedState);
 
     });
 
@@ -44,6 +57,14 @@ describe('Given `timerReducer`', () => {
         const expectedState = { currentTime: mockDefaultTime - 1 };
 
         expect(timerReducer(undefined, { type: types.DECREMENT_TIMER, timeLeft: mockDefaultTime })).to.equal(expectedState);
+
+    });
+
+    it('should handle FETCH_TIMER', () => {
+
+        const mockTimerDate = { isTimerRunning: false, defaultTime: 40, currentTime: 30}
+
+        expect(timerReducer(initialState, { type: types.FETCH_TIMER, timer:mockTimerDate })).to.equal(mockTimerDate);
 
     });
 
