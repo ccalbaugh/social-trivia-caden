@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0; }
+
+input {
+  border: 1px solid #b8b8b8;
+  border-radius: 4px;
+  color: #666;
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  transition: all 0.35s; }
+  input:focus {
+    box-shadow: 0 0 6px 2px #54e8b5 inset;
+    outline: none; }
+
+a {
+  color: #1cd394;
+  text-decoration: none; }
+
+#root {
+  background: #efefef;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center; }
+
+button,
+.button {
+  border: 1px solid #b8b8b8;
+  border-radius: 4px;
+  color: #666;
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  background: #454545;
+  border: 1px solid #6b6b6b;
+  color: #dedede;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase; }
+
+.team-name {
+  text-transform: uppercase;
+  font-weight: bold; }
+
+/*# sourceMappingURL=answer-form.css.map */

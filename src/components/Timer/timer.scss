@@ -1,15 +1,18 @@
 .timer-container {
     position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    max-width: 300px;
 }
 
 .timer-label {
     width: 300px;
     position: absolute;
     left: 0;
-    top: calc(50% - 30px);
+    top: 130px;
     line-height: 1;
     text-align: center;
-    font-family: sans-serif;
     font-weight: 700;
     font-size: 44px;
     color: #54e8b5;
@@ -28,3 +31,15 @@
 }
 
 
+.admin-timer-controls {
+    display: flex;
+
+    .timer{
+        flex: 0 0 50px;
+    }
+
+}
+
+.host-bar .chart-container {
+    display: none;
+}

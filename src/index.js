@@ -11,6 +11,7 @@ import CreateTeam from './components/CreateTeam/createTeam';
 import teams, { isShowingAnswers } from './reducers/teams';
 import timer from './reducers/timer';
 import thunk from 'redux-thunk'
+import './styles.css';
 
 const rootReducer = combineReducers({
     isShowingAnswers,
