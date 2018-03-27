@@ -82,16 +82,4 @@ describe('Given `CreateTeam`', () => {
 
        
     })
-
-    it('should redirect to the correct path', () => {
-        console.log('BEFORE', component.state())
-        component.setState({ redirectToReferrer: false, teamId: 'team-1' })
-        console.log('AFTER', component.state())
-        expect(component.state().redirectToReferrer).to.equal(false);
-
-        component.setProps({ teams: mockTeam })
-        console.log('AFTER', component.state())
-        expect(component.state().redirectToReferrer).to.equal(true);
-
-    })
 })

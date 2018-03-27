@@ -105,4 +105,16 @@ describe('Given `Teams`' ,() => {
         })
 
     })
+
+    it('should update teams in state', () => {
+
+        console.log('BEFORE', component.state().teams)
+
+        component.setProps({ teams: teamsInState })
+
+        console.log('AFTER', component.state().teams)
+        
+        expect(component.state().teams).to.equal(teamsInState);
+
+    })
 })
