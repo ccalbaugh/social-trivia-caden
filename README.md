@@ -35,7 +35,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * To start the app: `yarn start`
 * To run the tests: `yarn test`
 
-## Testing app Functionality
+## Testing App Functionality
 
 * Once you do a `yarn start`, the app should open in the browser at [http://localhost:3000](http://localhost:3000). 
 * Type in admin (case sensitive) into the input on the screen. This will open the admin view at [http://localhost:3000/admin](http://localhost:3000/admin)
