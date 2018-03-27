@@ -29,9 +29,7 @@ a {
 
 button,
 .button {
-  border: 1px solid #b8b8b8;
   border-radius: 4px;
-  color: #666;
   margin-bottom: 8px;
   padding: 8px 16px;
   background: #454545;
@@ -41,6 +39,11 @@ button,
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase; }
+
+button:disabled,
+.button:disabled {
+  color: #666;
+}
 
 .team-name {
   text-transform: uppercase;
