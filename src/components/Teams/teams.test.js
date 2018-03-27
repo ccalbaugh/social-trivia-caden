@@ -83,7 +83,7 @@ describe('Given `Teams`' ,() => {
                 
                 const teamListItem = component.find('.team-list-item')   
 
-                expect(teamListItem.first().find('span').length).to.equal(3)
+                expect(teamListItem.first().find('span').length).to.equal(2)
 
             })
 
