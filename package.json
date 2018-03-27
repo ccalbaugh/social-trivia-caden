@@ -7,6 +7,7 @@
     "firebase-tools": "^3.17.7",
     "formik": "^0.11.11",
     "isomorphic-fetch": "^2.2.1",
+    "normalize-scss": "^7.0.1",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -31,5 +32,9 @@
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "sinon": "^4.4.4"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 6"
   }
 }
