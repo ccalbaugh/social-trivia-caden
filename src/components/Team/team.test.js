@@ -12,12 +12,16 @@ describe('Given `Team`' ,() => {
         params: {
            id: mockId 
     }}
+    const teams = {
+        [mockId]: {}
+    };
     
     function requiredProps(overrides= {}) {
         return {
             fetchTimer: fetchTimerSpy,
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             match,
+            teams,
             ...overrides
         }
     }
@@ -58,7 +62,23 @@ describe('Given `Team`' ,() => {
         it('should dispatch fetchTimer() and fetchTeamsFromDB()', () => {
 
             sinon.assert.calledOnce(fetchTimerSpy)
+
             sinon.assert.calledOnce(fetchTeamsFromDBSpy)
+
         })
+    })
+
+    describe('When someone tries to type a team that doesn\'t exist into the url bar', () => {
+
+        it('should show a `span` with a specific className and a `Link` back to the createTeam component', () => {
+
+            component = renderComponent({ teams: { 'team-2': {}, 'team-3': {} }})
+
+            expect(component.find('.no-team').type()).to.equal('span')
+
+            expect(component.find('Link').exists()).to.be.true()
+
+        })
+
     })
 })
