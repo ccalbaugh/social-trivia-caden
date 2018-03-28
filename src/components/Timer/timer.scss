@@ -41,5 +41,19 @@
 }
 
 .host-bar .chart-container {
-    display: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    max-width: 300px; 
+   }
+   
+.teams-view .chart-container {
+display: flex;
+flex-flow: column;
+align-items: center;
+max-width: 300px; 
+}
+
+.host-bar .timer-container {
+display: block;
 }

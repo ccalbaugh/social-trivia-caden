@@ -4,8 +4,8 @@
   flex-flow: row nowrap;
   align-items: center;
   max-width: 300px; }
-
-.timer-label {
+ 
+ .timer-label {
   width: 300px;
   position: absolute;
   left: 0;
@@ -19,16 +19,32 @@
     color: #ffc107; }
   .high .timer-label {
     color: #f44336; }
-
-.timer-label.timeup {
+ 
+ .timer-label.timeup {
   color: #a2a2a2; }
-
-.admin-timer-controls {
-  display: flex; }
+ 
+ .admin-timer-controls {
+  display: flex;  
+ }
   .admin-timer-controls .timer {
     flex: 0 0 50px; }
-
-.host-bar .chart-container {
-  display: none; }
+ 
+ .host-bar .chart-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  max-width: 300px; 
+ }
+ 
+ .teams-view .chart-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  max-width: 300px; 
+ }
+ 
+ .host-bar .timer-container {
+  display: block;
+ }
 
 /*# sourceMappingURL=timer.css.map */
