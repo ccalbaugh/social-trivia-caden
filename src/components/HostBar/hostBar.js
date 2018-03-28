@@ -6,6 +6,8 @@ import { resetTimer } from '../../actions/timer'
 import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
 import Timer from '../Timer/timer'
+import Teams from '../Teams/teams'
+import './hostBar.css'
 
 const millisecondsInADay = 86400000;
 
@@ -100,7 +102,6 @@ export class HostBar extends Component {
             const now = Date.now();
             if (teams) {
                 Object.keys(teams).forEach(teamKey => {
-                    console.log(teamKey)
                     if (teams[teamKey].createdAt + millisecondsInADay <= now) {
                         this.props.deleteTeam(teamKey)
                     }
@@ -119,29 +120,33 @@ export class HostBar extends Component {
          
         return (
             <section className='host-bar'>
-                <AnswerForm id={id}/>
-                <Timer parentId={id} />
+                <div className='host-bar-inner'>
+                    <Timer parentId={id} />
+                    <AnswerForm id={id}/>
 
-                <div className={'game-view-admin'}>
+                    <div className={'game-view-admin'}>
 
-                    <button className="update-teams-button"
-                            onClick={updateTeams.bind(this)}
-                            disabled={isUpdateButtonDisabled}
-                    >
-                        Update Scores
-                    </button>
-                    <button className="show-answers-button"
-                            onClick={showAnswers.bind(this)}
-                            disabled={isShowAnswersButtonDisabled}
-                    >
-                        Show Answers
-                    </button>
+                        <button className="update-teams-button"
+                                onClick={updateTeams.bind(this)}
+                                disabled={isUpdateButtonDisabled}
+                        >
+                            Update Scores
+                        </button>
+                        <button className="show-answers-button"
+                                onClick={showAnswers.bind(this)}
+                                disabled={isShowAnswersButtonDisabled}
+                        >
+                            Show Answers
+                        </button>
 
-                    <Link className='button' to="/teams" target="_blank" >Game View</Link>
+                        <Link className='button' to="/teams" target="_blank" >Game View</Link>
+                    </div>
+
+                    { (!!teams['admin'] && !!teams['admin'].answer && !isShowingAnswers) && 
+                    <span className="correct-answer">{`Correct Answer: ${teams['admin'].answer}`}</span> }
                 </div>
 
-                { (!!teams['admin'] && !!teams['admin'].answer) && 
-                <span className="correct-answer">{`Correct Answer: ${teams['admin'].answer}`}</span> }
+                <Teams parentId={id} />
 
             </section>
         )

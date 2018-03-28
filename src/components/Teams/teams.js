@@ -32,10 +32,12 @@ export class Teams extends Component {
 
     render() {
         const { teams } = this.state
-        const { isShowingAnswers } = this.props
+        const { isShowingAnswers, parentId } = this.props
         return (
             <section className="teams-view">
-                <Timer parentId="teams" />
+                { (!parentId || parentId !== 'admin') && 
+                    <Timer parentId="teams" />
+                }
                 { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
                 <ul className="team-list">
                     {
@@ -49,7 +51,7 @@ export class Teams extends Component {
                                         <div className={'team-name'}>{team.id}</div>
 
                                         <div className={'label-group team-answer-group'}>
-                                            <label>Team Answer</label>
+                                            <label>Team Answer: </label>
                                             <span className="team-answer">
                                                 {
                                                     (isShowingAnswers && team.answer) && (`${team.answer}`)
@@ -57,7 +59,7 @@ export class Teams extends Component {
                                             </span>
                                         </div>
                                         <div className={'label-group team-score-group'}>
-                                            <label>Score</label>
+                                            <label>Score: </label>
                                             <span className="team-score">{team.score || 0}</span>
                                         </div>
                                     </li>

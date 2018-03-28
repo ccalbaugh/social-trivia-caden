@@ -53,10 +53,16 @@
 }
 
 .label-group {
+    display: flex;
+    justify-content: space-around;
 
     label {
         font-weight: bold;
         flex: 1 0 75%;
         margin-right: 5px;
     }
+}
+
+.team-answer-correct-answer {
+    font-size: 36px;
 }
