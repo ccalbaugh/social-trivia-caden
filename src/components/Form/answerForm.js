@@ -65,6 +65,12 @@ export class AnswerForm extends Component {
             </form>
           )}
         />
+        { isSubmitted ? (
+          <span className="is-submitted">Submitted!</span>
+        ) : (
+          currentTime === 0 && 
+          <span className="out-of-time">Out of Time!</span>
+        )}
       </div>
     )
   }
