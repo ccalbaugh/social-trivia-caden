@@ -41,7 +41,7 @@ function updateTeams() {
             } else {           
         
                 const sortedAndFilteredTeamsByAnswer = teamKeys.filter((team) => {
-                    return team !== 'admin' && parseFloat(teams[team].answer) <= parseFloat(expectedAnswer)
+                    return team !== 'admin' && teams[team].isSubmitted && parseFloat(teams[team].answer) <= parseFloat(expectedAnswer)
                 })              
                 .sort((a, b) => {
                     return teams[b].answer - teams[a].answer 
