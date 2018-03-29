@@ -3,3 +3,7 @@
     flex-direction: column;
     align-items: center;
 }
+
+.host-bar .question-input {
+    width: 100%;
+}

@@ -11,7 +11,8 @@ describe('Given `HostBar`' ,() => {
         updateTeamSpy,
         submitTeamSpy,
         fetchTeamsFromDBSpy,
-        toggleShowAnswersSpy
+        toggleShowAnswersSpy,
+        setCurrentQuestionSpy
 
     const teams = { 'admin': { answer: 1 }, 'team-1': { answer: 1 } }
     
@@ -21,6 +22,7 @@ describe('Given `HostBar`' ,() => {
             submitTeamScoreToDB: submitTeamSpy,
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             toggleShowAnswers: toggleShowAnswersSpy,
+            updateCurrentQuestion: setCurrentQuestionSpy,
             teams,
             ...overrides
         }
@@ -38,6 +40,7 @@ describe('Given `HostBar`' ,() => {
         submitTeamSpy = sandbox.spy()
         fetchTeamsFromDBSpy = sandbox.spy()
         toggleShowAnswersSpy = sandbox.spy()
+        setCurrentQuestionSpy = sandbox.spy()
         component = renderComponent()
     })
 
@@ -62,6 +65,29 @@ describe('Given `HostBar`' ,() => {
     it('should contain a connected `Timer` component', () => {
 
         expect(component.find('Connect(Timer)').exists()).to.be.true()
+    })
+
+    it('should contain a `input` and a `button` with proper class names', () => {
+
+        expect(component.find('.question-input').type()).to.equal('input')
+        expect(component.find('.question-submit-button').type()).to.equal('button')
+        
+    })
+
+    describe('Given `.question-submit-button`', () => {
+
+        describe('When it is clicked', () => {
+
+            it('should call `updateCurrentQuestion`', () => {
+
+                component.find('.question-submit-button').simulate('click');
+
+                sinon.assert.calledOnce(setCurrentQuestionSpy);
+
+            })
+
+        })
+
     })
 
     it('should contain a `button` to update teams', () => {

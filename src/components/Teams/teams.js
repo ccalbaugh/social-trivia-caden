@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchTeamsFromDB, fetchIsShowingAnswers } from '../../actions/teams'
+import { fetchCurrentQuestionFromDB } from '../../actions/question'
 import Timer from '../Timer/timer'
 import './teams.css';
 
@@ -12,38 +13,35 @@ export class Teams extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.teams !== this.props.teams) {
+
             const teamsKeys = Object.keys(nextProps.teams).filter(teamKey => teamKey.toLowerCase() !== 'admin');
             const initialState = !teamsKeys.filter(teamKey => !!nextProps.teams[teamKey].isSubmitted).length;
+
             if (initialState) {
+
                 const sortedByScore = teamsKeys
-                    .filter(teamKey => teamKey.toLowerCase() !== 'admin')
-                    .sort((a, b) => nextProps.teams[b].score - nextProps.teams[a].score)
-                    .map(id => ({ ...nextProps.teams[id], id }));
+                    .map(id => ({ ...nextProps.teams[id], id, answeredFirst: false }))
+                    .sort((a, b) => b.score - a.score);
+
                 this.setState({ teams: sortedByScore })
+
             } else {
+
                 const firstAnsweredStamp = Math.min(...teamsKeys.filter(teamKey => nextProps.teams[teamKey].answeredAt).map(key => nextProps.teams[key].answeredAt));
-                const sortedByTimestamp = 
-                      teamsKeys
-                            .filter(teamKey => teamKey.toLowerCase() !== 'admin')
-                            .map((teamId, i) => {
-                                return {
-                                    ...nextProps.teams[teamId],
-                                    id: teamId,
-                                    answeredFirst: nextProps.teams[teamId].answeredAt === firstAnsweredStamp
-                                }
-                            })
-                            .sort((a, b) => {
-                                return (a.answeredAt === 0) ?
-                                        1 :
-                                        (b.answeredAt === 0) ?
-                                            -1 : 
-                                                a.answeredAt > b.answeredAt ?
-                                                1 : 
-                                                    a.answeredAt < b.answeredAt ?
-                                                    -1 :
-                                                        0
-                            })
-                this.setState({ teams: sortedByTimestamp })
+                const sortedWithTimestamp = teamsKeys
+                    .filter(teamKey => nextProps.teams[teamKey].answeredAt !== 0)
+                    .map(id => ({
+                        ...nextProps.teams[id],
+                        id,
+                        answeredFirst: nextProps.teams[id].answeredAt === firstAnsweredStamp
+                    }))
+                    .sort((a, b) => a.answeredAt - b.answeredAt);
+
+                const noTimestamps = teamsKeys
+                    .filter(teamKey => nextProps.teams[teamKey].answeredAt === 0)
+                    .map(id => ({ ...nextProps.teams[id], id, answeredFirst: false }));
+                const fullySorted = [ ...sortedWithTimestamp, ...noTimestamps ];
+                this.setState({ teams: fullySorted })
             }
         }
     }
@@ -51,17 +49,30 @@ export class Teams extends Component {
     componentDidMount() {
         this.props.fetchTeamsFromDB()
         this.props.fetchIsShowingAnswers()
+        this.props.fetchCurrentQuestionFromDB()
     }
 
     render() {
         const { teams } = this.state
-        const { isShowingAnswers, parentId } = this.props
+        const { isShowingAnswers, parentId, currentQuestion } = this.props
         return (
             <section className="teams-view">
-                { (!parentId || parentId !== 'admin') && 
+                { 
+                    (!parentId || parentId !== 'admin') && 
                     <Timer parentId="teams" />
                 }
-                { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
+                {
+                    currentQuestion &&
+                    <span className="current-question">
+                        {`Current Question: ${currentQuestion}`}
+                    </span>
+                }
+                { 
+                    (isShowingAnswers && this.props.teams['admin'].answer) && 
+                    <span className="team-answer correct-answer">
+                        {`Correct Answer: ${this.props.teams['admin'].answer}`}
+                    </span> 
+                }
                 <ul className="team-list">
                     {
                         (!!teams && !!teams.length) ? (
@@ -102,8 +113,9 @@ function mapStateToProps(state) {
     return {
         teams: state.teams,
         timer: state.timer,
-        isShowingAnswers: state.isShowingAnswers
+        isShowingAnswers: state.isShowingAnswers,
+        currentQuestion: state.currentQuestion
     }
 }
 
-export default connect(mapStateToProps, { fetchTeamsFromDB, fetchIsShowingAnswers })(Teams)
+export default connect(mapStateToProps, { fetchTeamsFromDB, fetchIsShowingAnswers, fetchCurrentQuestionFromDB })(Teams)

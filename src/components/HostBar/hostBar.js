@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers, deleteTeam } from '../../actions/teams'
+import { updateCurrentQuestion } from '../../actions/question'
 import { resetTimer } from '../../actions/timer'
 import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
@@ -89,7 +90,20 @@ function showAnswers() {
     this.props.toggleShowAnswers(this.props.isShowingAnswers)
 }
 
+function handleChange(e) {
+    const questionText = e.target.value;
+    this.setState({ questionText })
+}
+
+function submitCurrentQuestion() {
+    this.props.updateCurrentQuestion(this.state.questionText)
+}
+
 export class HostBar extends Component {
+
+    state = {
+        questionText: ''
+    }
 
     componentDidMount() {
         this.props.fetchTeamsFromDB()
@@ -108,11 +122,15 @@ export class HostBar extends Component {
                 })
             }
         }
+        if (nextProps.currentQuestion !== this.props.currentQuestion) {
+            this.setState({ questionText: nextProps.currentQuestion })
+        }
     }
 
     render() {
+
         const id = 'admin'
-        const { teams, isShowingAnswers } = this.props
+        const { teams, isShowingAnswers, currentQuestion } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
         const isDisabled = !teamAnswers || !teamAnswers.length || !teams['admin'].answer
         const isUpdateButtonDisabled = isDisabled || !isShowingAnswers 
@@ -121,7 +139,20 @@ export class HostBar extends Component {
         return (
             <section className='host-bar'>
                 <div className='host-bar-inner'>
+
                     <Timer parentId={id} />
+
+                    <input type="textarea" 
+                           className='question-input' 
+                           onChange={handleChange.bind(this)}
+                    />
+                    <button className="question-submit-button" 
+                            onClick={submitCurrentQuestion.bind(this)}
+                            disabled={this.state.questionText === currentQuestion}
+                    >
+                        Submit Question
+                    </button>
+
                     <AnswerForm id={id}/>
 
                     <div className={'game-view-admin'}>
@@ -157,8 +188,18 @@ function mapStateToProps(state) {
     return {
         teams: state.teams,
         timer: state.timer,
-        isShowingAnswers: state.isShowingAnswers
+        isShowingAnswers: state.isShowingAnswers,
+        currentQuestion: state.currentQuestion
     }
 }
 
-export default connect(mapStateToProps, { updateTeam, resetTimer, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers, deleteTeam })(HostBar);
+export default connect(
+    mapStateToProps, { 
+        updateTeam, 
+        resetTimer, 
+        submitTeamScoreToDB, 
+        fetchTeamsFromDB, 
+        toggleShowAnswers, 
+        deleteTeam,
+        updateCurrentQuestion
+    })(HostBar);
