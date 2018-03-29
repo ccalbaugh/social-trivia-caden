@@ -11,7 +11,8 @@ describe('Given `Teams`' ,() => {
     let component,
         sandbox,
         fetchTeamsFromDBSpy,
-        fetchIsShowingAnswersSpy
+        fetchIsShowingAnswersSpy,
+        fetchCurrentQuestionFromDBSpy
 
     const mockTeamsProp = {
         'admin': { answer: 1, score: 0 },
@@ -28,6 +29,7 @@ describe('Given `Teams`' ,() => {
         return {
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             fetchIsShowingAnswers: fetchIsShowingAnswersSpy,
+            fetchCurrentQuestionFromDB: fetchCurrentQuestionFromDBSpy,
             isShowingAnswers: false,
             teams: mockTeamsProp,
             ...overrides
@@ -44,6 +46,7 @@ describe('Given `Teams`' ,() => {
         sandbox = sinon.createSandbox()
         fetchTeamsFromDBSpy = sandbox.spy()
         fetchIsShowingAnswersSpy = sandbox.spy()
+        fetchCurrentQuestionFromDBSpy = sandbox.spy()
         component = renderComponent()
         component.setState({ teams: teamsInState })
     })
@@ -67,6 +70,8 @@ describe('Given `Teams`' ,() => {
 
             sinon.assert.calledOnce(fetchIsShowingAnswersSpy)
 
+            sinon.assert.calledOnce(fetchCurrentQuestionFromDBSpy)
+            
         })
     })
 
