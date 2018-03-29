@@ -51,4 +51,8 @@
 .correct-answer {
   font-size: 36px;
 }
+
+.team-list-item.answered-first {
+  background: #ffc107;
+}
 /*# sourceMappingURL=teams.css.map */

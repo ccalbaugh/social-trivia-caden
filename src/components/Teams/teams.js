@@ -12,16 +12,39 @@ export class Teams extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.teams !== this.props.teams) {
-            this.setState({ 
-                teams: Object.keys(nextProps.teams)
-                    .filter(team => team.toLowerCase() !== 'admin')
-                    .map((team, i) => {
-                    return {
-                        ...nextProps.teams[team],
-                        id: team
-                    }
-                })
-            })
+            const teamsKeys = Object.keys(nextProps.teams).filter(teamKey => teamKey.toLowerCase() !== 'admin');
+            const initialState = !teamsKeys.filter(teamKey => !!nextProps.teams[teamKey].isSubmitted).length;
+            if (initialState) {
+                const sortedByScore = teamsKeys
+                    .filter(teamKey => teamKey.toLowerCase() !== 'admin')
+                    .sort((a, b) => nextProps.teams[b].score - nextProps.teams[a].score)
+                    .map(id => ({ ...nextProps.teams[id], id }));
+                this.setState({ teams: sortedByScore })
+            } else {
+                const firstAnsweredStamp = Math.min(...teamsKeys.filter(teamKey => nextProps.teams[teamKey].answeredAt).map(key => nextProps.teams[key].answeredAt));
+                const sortedByTimestamp = 
+                      teamsKeys
+                            .filter(teamKey => teamKey.toLowerCase() !== 'admin')
+                            .map((teamId, i) => {
+                                return {
+                                    ...nextProps.teams[teamId],
+                                    id: teamId,
+                                    answeredFirst: nextProps.teams[teamId].answeredAt === firstAnsweredStamp
+                                }
+                            })
+                            .sort((a, b) => {
+                                return (a.answeredAt === 0) ?
+                                        1 :
+                                        (b.answeredAt === 0) ?
+                                            -1 : 
+                                                a.answeredAt > b.answeredAt ?
+                                                1 : 
+                                                    a.answeredAt < b.answeredAt ?
+                                                    -1 :
+                                                        0
+                            })
+                this.setState({ teams: sortedByTimestamp })
+            }
         }
     }
 
@@ -44,8 +67,9 @@ export class Teams extends Component {
                         (!!teams && !!teams.length) ? (
                             teams.map((team) => {
                                 const submitted = team.isSubmitted ? 'submitted' : '';
+                                const answeredFirst = team.answeredFirst ? 'answered-first' : '';
                                 return (
-                                    <li className={`team-list-item ${submitted}`} 
+                                    <li className={`team-list-item ${submitted} ${answeredFirst}`} 
                                         key={team.id}
                                     >
                                         <div className={'team-name'}>{team.id}</div>
