@@ -68,7 +68,6 @@ export class Teams extends Component {
                             teams.map((team) => {
                                 const submitted = team.isSubmitted ? 'submitted' : '';
                                 const answeredFirst = team.answeredFirst ? 'answered-first' : '';
-                                console.log("AnsweredFirst: ", answeredFirst);
                                 return (
                                     <li className={`team-list-item ${submitted} ${answeredFirst}`} 
                                         key={team.id}
