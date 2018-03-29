@@ -11,7 +11,6 @@ import {
     decrementTimer,
     fetchTimer 
 } from '../../actions/timer'
-import { min } from 'moment';
 
 const TIMER_TICK = 1000
 
@@ -48,7 +47,7 @@ function handleTimerReset() {
 }
 
 function secToTimeCode(time){
-    let pre, minutes, seconds, totalTime;
+    let minutes, seconds, totalTime;
 
     minutes = Math.floor(time/60);
     seconds = time % 60;
