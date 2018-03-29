@@ -10,10 +10,12 @@ import Team from './components/Team/team';
 import CreateTeam from './components/CreateTeam/createTeam';
 import teams, { isShowingAnswers } from './reducers/teams';
 import timer from './reducers/timer';
-import thunk from 'redux-thunk'
+import currentQuestion from './reducers/question';
+import thunk from 'redux-thunk';
 import './styles.css';
 
 const rootReducer = combineReducers({
+    currentQuestion,
     isShowingAnswers,
     teams,
     timer
