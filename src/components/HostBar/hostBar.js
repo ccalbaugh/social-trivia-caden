@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { updateTeam, submitTeamScoreToDB, fetchTeamsFromDB, toggleShowAnswers, deleteTeam } from '../../actions/teams'
-import { setCurrentQuestion } from '../../actions/question'
+import { updateCurrentQuestion } from '../../actions/question'
 import { resetTimer } from '../../actions/timer'
 import { database } from '../../data/firebase'
 import AnswerForm from '../Form/answerForm'
@@ -96,7 +96,7 @@ function handleChange(e) {
 }
 
 function submitCurrentQuestion() {
-    this.props.setCurrentQuestion(this.state.questionText)
+    this.props.updateCurrentQuestion(this.state.questionText)
 }
 
 export class HostBar extends Component {
@@ -196,5 +196,5 @@ export default connect(
         fetchTeamsFromDB, 
         toggleShowAnswers, 
         deleteTeam,
-        setCurrentQuestion
+        updateCurrentQuestion
     })(HostBar);

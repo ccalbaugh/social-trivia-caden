@@ -22,7 +22,7 @@ describe('Given `HostBar`' ,() => {
             submitTeamScoreToDB: submitTeamSpy,
             fetchTeamsFromDB: fetchTeamsFromDBSpy,
             toggleShowAnswers: toggleShowAnswersSpy,
-            setCurrentQuestion: setCurrentQuestionSpy,
+            updateCurrentQuestion: setCurrentQuestionSpy,
             teams,
             ...overrides
         }
@@ -78,7 +78,7 @@ describe('Given `HostBar`' ,() => {
 
         describe('When it is clicked', () => {
 
-            it('should call `setCurrentQuestion`', () => {
+            it('should call `updateCurrentQuestion`', () => {
 
                 component.find('.question-submit-button').simulate('click');
 
