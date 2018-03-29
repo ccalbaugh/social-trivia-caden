@@ -11,6 +11,7 @@ import {
     decrementTimer,
     fetchTimer 
 } from '../../actions/timer'
+import { min } from 'moment';
 
 const TIMER_TICK = 1000
 
@@ -36,7 +37,6 @@ function handleTimerUpdate(e) {
         parseInt(value, 10) >= 0 ? 
             parseInt(value, 10) : 
             0
-     
     this.props.updateTimer(currentTime)
 }
 
@@ -47,10 +47,18 @@ function handleTimerReset() {
         this.setState({ intervalId: undefined })
 }
 
-function secToTimeCode(sec){
-    let pre;
-    sec < 10 ? pre = '00:0': pre = '00:';
-    return `${pre}${sec}`;
+function secToTimeCode(time){
+    let pre, minutes, seconds, totalTime;
+
+    minutes = Math.floor(time/60);
+    seconds = time % 60;
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    totalTime = minutes + ':' + seconds;
+
+    return `${totalTime}`;
 }
 
 function tensionColor(num) {
@@ -77,7 +85,7 @@ export class Timer extends Component {
         if (nextProps.timer !== this.props.timer) {
             nextProps.currentTime !== this.props.currentTime &&
             this.setState({ currentTime: nextProps.currentTime })
-    
+            
             nextProps.currentTime <=0 && 
             this.state.intervalId && 
             clearInterval(this.state.intervalId)
@@ -126,7 +134,7 @@ export class Timer extends Component {
                     <div className="admin-timer-controls">
                         <input className="timer"
                                value={currentTime}
-                               maxLength={2}
+                               maxLength={3}
                                onChange={handleTimerUpdate.bind(this)} 
                         />
                         <button className="control-timer-button"
