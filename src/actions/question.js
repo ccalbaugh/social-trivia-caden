@@ -3,10 +3,10 @@ import { database } from '../data/firebase'
 
 const currentQuestionInDB = database.ref('currentQuestion/')
 
-export function setCurrentQuestion(currentQuestion) {
+export function updateCurrentQuestion(currentQuestion) {
     currentQuestionInDB.set(currentQuestion)
     return {
-        type: types.SET_CURRENT_QUESTION,
+        type: types.UPDATE_CURRENT_QUESTION,
         currentQuestion 
     };
 }
@@ -14,14 +14,7 @@ export function setCurrentQuestion(currentQuestion) {
 export function fetchCurrentQuestionFromDB() {
     return dispatch => {
         currentQuestionInDB.on('value', snapshot => {
-            dispatch(fetchCurrentQuestion(snapshot))
+            dispatch(updateCurrentQuestion(snapshot))
         })
-    };
-}
-
-export function fetchCurrentQuestion(currentQuestion) {
-    return {
-        type: types.FETCH_CURRENT_QUESTION,
-        currentQuestion
     };
 }

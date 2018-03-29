@@ -5,18 +5,10 @@ import * as types from './actionTypes';
 
 const currentQuestion = "How much?";
 
-it('creates an action to set the current question in the store', () => {
+it('creates an action to update the currentQuestion', () => {
 
-    const expectedAction = { type: types.SET_CURRENT_QUESTION, currentQuestion };
+    const expectedAction = { type: types.UPDATE_CURRENT_QUESTION, currentQuestion };
 
-    expect(actions.setCurrentQuestion(currentQuestion)).to.equal(expectedAction);
-
-});
-
-it('creates an action to fetch the currentQuestion', () => {
-
-    const expectedAction = { type: types.FETCH_CURRENT_QUESTION, currentQuestion };
-
-    expect(actions.fetchCurrentQuestion(currentQuestion)).to.equal(expectedAction);
+    expect(actions.updateCurrentQuestion(currentQuestion)).to.equal(expectedAction);
 
 });
