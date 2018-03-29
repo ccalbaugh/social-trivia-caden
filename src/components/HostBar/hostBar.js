@@ -122,12 +122,15 @@ export class HostBar extends Component {
                 })
             }
         }
+        if (nextProps.currentQuestion !== this.props.currentQuestion) {
+            this.setState({ questionText: nextProps.currentQuestion })
+        }
     }
 
     render() {
 
         const id = 'admin'
-        const { teams, isShowingAnswers } = this.props
+        const { teams, isShowingAnswers, currentQuestion } = this.props
         const teamAnswers = teams && Object.keys(teams).filter( (team) => team !== 'admin' && teams[team].answer )
         const isDisabled = !teamAnswers || !teamAnswers.length || !teams['admin'].answer
         const isUpdateButtonDisabled = isDisabled || !isShowingAnswers 
@@ -145,6 +148,7 @@ export class HostBar extends Component {
                     />
                     <button className="question-submit-button" 
                             onClick={submitCurrentQuestion.bind(this)}
+                            disabled={this.state.questionText === currentQuestion}
                     >
                         Submit Question
                     </button>
@@ -184,7 +188,8 @@ function mapStateToProps(state) {
     return {
         teams: state.teams,
         timer: state.timer,
-        isShowingAnswers: state.isShowingAnswers
+        isShowingAnswers: state.isShowingAnswers,
+        currentQuestion: state.currentQuestion
     }
 }
 
