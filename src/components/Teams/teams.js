@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchTeamsFromDB, fetchIsShowingAnswers } from '../../actions/teams'
+import { fetchCurrentQuestionFromDB } from '../../actions/question'
 import Timer from '../Timer/timer'
 import './teams.css';
 
@@ -48,17 +49,30 @@ export class Teams extends Component {
     componentDidMount() {
         this.props.fetchTeamsFromDB()
         this.props.fetchIsShowingAnswers()
+        this.props.fetchCurrentQuestionFromDB()
     }
 
     render() {
         const { teams } = this.state
-        const { isShowingAnswers, parentId } = this.props
+        const { isShowingAnswers, parentId, currentQuestion } = this.props
         return (
             <section className="teams-view">
-                { (!parentId || parentId !== 'admin') && 
+                { 
+                    (!parentId || parentId !== 'admin') && 
                     <Timer parentId="teams" />
                 }
-                { (isShowingAnswers && this.props.teams['admin'].answer) && <span className="team-answer correct-answer">{`Correct Answer: ${this.props.teams['admin'].answer}`}</span> }
+                {
+                    currentQuestion &&
+                    <span className="current-question">
+                        {`Current Question: ${currentQuestion}`}
+                    </span>
+                }
+                { 
+                    (isShowingAnswers && this.props.teams['admin'].answer) && 
+                    <span className="team-answer correct-answer">
+                        {`Correct Answer: ${this.props.teams['admin'].answer}`}
+                    </span> 
+                }
                 <ul className="team-list">
                     {
                         (!!teams && !!teams.length) ? (
@@ -99,8 +113,9 @@ function mapStateToProps(state) {
     return {
         teams: state.teams,
         timer: state.timer,
-        isShowingAnswers: state.isShowingAnswers
+        isShowingAnswers: state.isShowingAnswers,
+        currentQuestion: state.currentQuestion
     }
 }
 
-export default connect(mapStateToProps, { fetchTeamsFromDB, fetchIsShowingAnswers })(Teams)
+export default connect(mapStateToProps, { fetchTeamsFromDB, fetchIsShowingAnswers, fetchCurrentQuestionFromDB })(Teams)
