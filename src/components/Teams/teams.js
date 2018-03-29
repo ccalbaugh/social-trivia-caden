@@ -13,17 +13,28 @@ export class Teams extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.teams !== this.props.teams) {
             const firstAnsweredStamp = Math.min(...Object.keys(nextProps.teams).filter(teamKey => nextProps.teams[teamKey].answeredAt).map(key => nextProps.teams[key].answeredAt));
-            this.setState({ 
-                teams: Object.keys(nextProps.teams)
-                    .filter(teamKey => teamKey.toLowerCase() !== 'admin')
-                    .map((teamId, i) => {
-                    return {
-                        ...nextProps.teams[teamId],
-                        id: teamId,
-                        answeredFirst: nextProps.teams[teamId].answeredAt === firstAnsweredStamp
-                    }
-                })
-            })
+            const sortedByTimestamp = 
+                  Object.keys(nextProps.teams)
+                        .filter(teamKey => teamKey.toLowerCase() !== 'admin')
+                        .map((teamId, i) => {
+                            return {
+                                ...nextProps.teams[teamId],
+                                id: teamId,
+                                answeredFirst: nextProps.teams[teamId].answeredAt === firstAnsweredStamp
+                            }
+                        })
+                        .sort((a, b) => {
+                            return (a.answeredAt === 0) ?
+                                    1 :
+                                    (b.answeredAt === 0) ?
+                                        -1 : 
+                                            a.answeredAt > b.answeredAt ?
+                                            1 : 
+                                                a.answeredAt < b.answeredAt ?
+                                                -1 :
+                                                    0
+                        })
+            this.setState({ teams: sortedByTimestamp })
         }
     }
 
